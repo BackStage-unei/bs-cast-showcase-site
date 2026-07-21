@@ -1,6 +1,8 @@
 // 一覧⇔個別をページ遷移なしで切り替えるSPA
 // STUDIOのsandbox iframe内では再読み込みが目立つため、DOM切り替えで瞬時に遷移し
 // 一覧のスクロール位置も保持する。?id=NN 付きで開かれたら最初から個別を表示する。
+// 切り替え時は .view-leave（退場160ms）→ .view-enter（要素ごとの時差fade-up）で
+// アニメーションする（定義は css/cast.css。reduced-motion時は即切り替え）。
 (function () {
   "use strict";
   var S = window.Showcase;
@@ -11,6 +13,7 @@
 
   var listScrollY = 0;      // 一覧に戻ったとき復元するスクロール位置
   var canHistory = true;    // sandbox等でhistory操作が失敗したらfalseにして以後使わない
+  var LEAVE_MS = 160;       // .view-leave のアニメ時間と合わせる
 
   function push(id) {
     if (!canHistory) return;
@@ -19,6 +22,31 @@
     } catch (e) {
       canHistory = false;
     }
+  }
+
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  // fromEl を退場させてから apply()（描画・表示切替・スクロール）を実行し、toEl を登場させる
+  function swapViews(fromEl, toEl, apply) {
+    var run = function () {
+      if (fromEl) {
+        fromEl.classList.remove("view-leave");
+        fromEl.hidden = true;
+      }
+      apply();
+      toEl.hidden = false;
+      toEl.classList.remove("view-enter");
+      void toEl.offsetWidth; // 同じビューに再入場してもアニメが再生されるようreflow
+      toEl.classList.add("view-enter");
+    };
+    if (!fromEl || fromEl.hidden || reducedMotion()) {
+      run();
+      return;
+    }
+    fromEl.classList.add("view-leave");
+    window.setTimeout(run, LEAVE_MS);
   }
 
   // ---------- 一覧 ----------
@@ -33,7 +61,7 @@
       }, { rootMargin: "300px 0px" })
     : null;
 
-  function avatar(cast, className) {
+  function avatar(cast, className, useLazy) {
     var wrap = S.el("span", className);
     if (cast.icon) {
       var img = document.createElement("img");
@@ -43,7 +71,7 @@
         img.remove();
         wrap.dataset.fallback = (cast.name || "?").charAt(0);
       });
-      if (lazy && className.indexOf("cast-card") === 0) {
+      if (useLazy && lazy) {
         img.dataset.src = cast.icon;
         lazy.observe(img);
       } else {
@@ -54,6 +82,14 @@
       wrap.dataset.fallback = (cast.name || "?").charAt(0);
     }
     return wrap;
+  }
+
+  function spaLink(el, handler) {
+    el.addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // 新規タブ系はブラウザに任せる
+      e.preventDefault();
+      handler();
+    });
   }
 
   function renderList() {
@@ -79,12 +115,8 @@
         var card = document.createElement("a");
         card.className = "cast-card reveal";
         card.href = "./?id=" + encodeURIComponent(cast.cast_id);
-        card.addEventListener("click", function (e) {
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return; // 新規タブ系はブラウザに任せる
-          e.preventDefault();
-          showDetail(cast.cast_id, true);
-        });
-        card.appendChild(avatar(cast, "cast-card__avatar"));
+        spaLink(card, function () { showDetail(cast.cast_id, true); });
+        card.appendChild(avatar(cast, "cast-card__avatar", true));
         card.appendChild(S.el("span", "cast-card__rank", cast.rank));
         card.appendChild(S.el("h3", "cast-card__name", cast.name));
         if (cast.name_reading) card.appendChild(S.el("p", "cast-card__reading", cast.name_reading));
@@ -110,7 +142,7 @@
     }
   }
 
-  // ---------- 個別 ----------
+  // ---------- 個別（9-nineキャラページ風） ----------
   function storeBadges() {
     var wrap = S.el("div", "cta__badges");
     [
@@ -140,18 +172,20 @@
     back.className = "topbar__back";
     back.href = "./";
     back.textContent = "← 一覧にもどる";
-    back.addEventListener("click", function (e) {
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      e.preventDefault();
-      showList(true);
-    });
+    spaLink(back, function () { showList(true); });
     topbar.appendChild(back);
     detailView.appendChild(topbar);
 
-    // プロフィールカード
-    var main = S.el("main", "profile");
-    var card = S.el("article", "profile__card rank-" + cast.rank);
-    var visual = S.el("div", "profile__visual");
+    // キャラセクション
+    var chara = S.el("section", "chara rank-" + cast.rank);
+
+    // 背景ウォーターマーク（ランク英字）
+    var watermark = S.el("span", "chara__watermark", cast.rank);
+    watermark.setAttribute("aria-hidden", "true");
+    chara.appendChild(watermark);
+
+    // ビジュアル（立ち絵 > アイコン > 頭文字）
+    var visual = S.el("div", "chara__visual");
     if (cast.portrait) {
       var portrait = document.createElement("img");
       portrait.className = "portrait";
@@ -159,23 +193,39 @@
       portrait.alt = cast.name;
       portrait.addEventListener("error", function () {
         portrait.remove();
-        visual.appendChild(avatar(cast, "avatar-lg"));
+        visual.appendChild(avatar(cast, "avatar-lg", false));
       });
       visual.appendChild(portrait);
     } else {
-      visual.appendChild(avatar(cast, "avatar-lg"));
+      visual.appendChild(avatar(cast, "avatar-lg", false));
     }
-    card.appendChild(visual);
+    chara.appendChild(visual);
 
-    var info = S.el("div", "profile__info");
-    info.appendChild(S.el("span", "profile__rank", cast.rank));
-    info.appendChild(S.el("h1", "profile__name", cast.name));
-    if (cast.name_reading) info.appendChild(S.el("p", "profile__reading", cast.name_reading));
-    if (cast.catch) info.appendChild(S.el("p", "profile__catch", cast.catch));
-    if (cast.intro) info.appendChild(S.el("p", "profile__intro", cast.intro));
+    // キャッチの縦書きデコ（キャッチ未設定なら出さない）
+    if (cast.catch) {
+      var vertical = S.el("p", "chara__vertical", cast.catch);
+      vertical.setAttribute("aria-hidden", "true"); // 本文の .chara__catch と重複するため装飾扱い
+      chara.appendChild(vertical);
+    }
+
+    // データ面
+    var data = S.el("div", "chara__data");
+    var name = S.el("p", "chara__name");
+    if (cast.name_reading) name.appendChild(S.el("span", "kana", cast.name_reading));
+    name.appendChild(S.el("span", "kanji", cast.name));
+    data.appendChild(name);
+
+    var rankline = S.el("p", "chara__rankline");
+    rankline.appendChild(S.el("span", "chara__rank", cast.rank));
+    rankline.appendChild(S.el("span", "chara__ranknote", "BACKSTAGE RANKED CAST"));
+    data.appendChild(rankline);
+
+    if (cast.catch) data.appendChild(S.el("p", "chara__catch", cast.catch));
+    if (cast.intro) data.appendChild(S.el("div", "chara__detail", cast.intro));
+
+    var links = S.el("div", "chara__links");
     var xUrl = S.safeUrl(cast.x_url);
     if (xUrl) {
-      var links = S.el("div", "profile__links");
       var xBtn = document.createElement("a");
       xBtn.className = "btn-x";
       xBtn.href = xUrl;
@@ -183,11 +233,10 @@
       xBtn.rel = "noopener";
       xBtn.textContent = "𝕏 フォローする";
       links.appendChild(xBtn);
-      info.appendChild(links);
     }
-    card.appendChild(info);
-    main.appendChild(card);
-    detailView.appendChild(main);
+    if (links.childNodes.length) data.appendChild(links);
+    chara.appendChild(data);
+    detailView.appendChild(chara);
 
     // アプリ導線
     var cta = S.el("section", "cta");
@@ -207,11 +256,7 @@
         a.className = p.cls;
         a.href = "./?id=" + encodeURIComponent(p.cast.cast_id);
         a.textContent = p.label;
-        a.addEventListener("click", function (e) {
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-          e.preventDefault();
-          showDetail(p.cast.cast_id, true);
-        });
+        spaLink(a, function () { showDetail(p.cast.cast_id, true); });
         pager.appendChild(a);
       });
       detailView.appendChild(pager);
@@ -222,23 +267,25 @@
   function showDetail(id, pushHistory) {
     var found = S.findCast(id);
     if (!found) { showList(false); return; }
-    if (!listView.hidden) listScrollY = window.scrollY || 0; // 一覧から来たときだけ記録
-    renderDetail(found.cast, found.index);
-    listView.hidden = true;
-    detailView.hidden = false;
-    document.body.classList.add("cast-page");
-    document.title = found.cast.name + " | BackStage ランク入りキャスト";
-    window.scrollTo(0, 0);
+    var from = !listView.hidden ? listView : (!detailView.hidden ? detailView : null);
+    if (from === listView) listScrollY = window.scrollY || 0; // 一覧から来たときだけ記録
+    swapViews(from, detailView, function () {
+      renderDetail(found.cast, found.index);
+      document.body.classList.add("cast-page");
+      document.title = found.cast.name + " | BackStage ランク入りキャスト";
+      window.scrollTo(0, 0);
+    });
     if (pushHistory) push(id);
   }
 
   function showList(pushHistory) {
-    detailView.hidden = true;
-    detailView.textContent = "";
-    listView.hidden = false;
-    document.body.classList.remove("cast-page");
-    document.title = "ランク入りキャスト | BackStage";
-    window.scrollTo(0, listScrollY);
+    var from = !detailView.hidden ? detailView : null;
+    swapViews(from, listView, function () {
+      detailView.textContent = "";
+      document.body.classList.remove("cast-page");
+      document.title = "ランク入りキャスト | BackStage";
+      window.scrollTo(0, listScrollY);
+    });
     if (pushHistory) push(null);
   }
 
