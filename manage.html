@@ -61,7 +61,23 @@
   .dlg-hint { display: block; margin-top: 3px; font-size: 11px; color: #2c7a2c; min-height: 14px; }
   .dlg-error { display: block; margin-top: 3px; font-size: 11px; color: #c02950; min-height: 14px; }
   .dlg-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
-  .dlg-upload { display: flex; gap: 10px; margin-top: 6px; }
+  .dlg-upload { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+  dialog { max-height: 88vh; overflow: auto; width: min(600px, 94vw); }
+  .dlg-guide { margin: -8px 0 16px; font-size: 12px; color: var(--sub); }
+  .dlg-sec { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 4px; margin: 0 0 14px; }
+  .dlg-sec > legend { font-size: 12.5px; font-weight: 700; color: var(--accent); padding: 0 6px; }
+  .dlg-auto { margin: 0 0 10px; font-size: 11.5px; color: var(--sub); background: #efecf6; border-radius: 6px; padding: 5px 8px; }
+  .dlg-adv { margin-top: 8px; }
+  .dlg-adv > summary { font-size: 11.5px; color: var(--sub); cursor: pointer; }
+  .dlg-adv textarea { margin-top: 6px; }
+  .dlg-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+  .dlg-check input { width: auto; }
+  .dlg-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .dlg-preview.is-empty { font-size: 12px; color: var(--sub); }
+  .dlg-thumb { margin: 0; text-align: center; }
+  .dlg-thumb img { height: 96px; width: auto; max-width: 120px; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: #faf9fc; display: block; }
+  .dlg-thumb--icon img { height: 60px; width: 60px; border-radius: 50%; object-fit: cover; }
+  .dlg-thumb figcaption { font-size: 10px; color: var(--sub); margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -90,15 +106,14 @@
   </header>
   <main>
     <p class="note">
-      基本項目は表内で、タグ・スペック表・紹介動画・プロフィールURL・自由リンク・立ち絵は各行の「詳細」から編集します。
+      キャストの行の「編集」を押すと、実際のキャストページと同じ並びでまとめて編集できます。
       ランク・読み・誕生月・タイプと表示順（判定売上順）は毎月の更新で自動設定されます。
-      <strong>保存すると数分後に本番サイトへ自動反映されます。</strong>
+      <strong>編集→「この内容で反映」→ 右上「変更を保存」で数分後に本番サイトへ反映されます。</strong>
     </p>
     <table>
       <thead>
         <tr>
-          <th></th><th>キャスト</th><th>ランク</th><th>表示名</th><th>キャッチコピー</th>
-          <th>紹介文</th><th>X URL（空なら自動）</th><th>公開</th><th>詳細</th>
+          <th></th><th>キャスト</th><th>公開</th><th>編集</th>
         </tr>
       </thead>
       <tbody id="rows"></tbody>
@@ -106,49 +121,81 @@
   </main>
 </div>
 
-<!-- 詳細編集ダイアログ -->
+<!-- 詳細編集ダイアログ（公開ページと同じ並び：立ち絵→名前→キャッチ→プロフィール→タグ→紹介文→リンク→公開） -->
 <dialog id="detailDialog">
   <form method="dialog" id="detailForm">
-    <h2 id="dlgTitle">詳細編集</h2>
-    <label>タグ（読点・カンマ区切り / 10個まで）
-      <input type="text" id="dlgTags" placeholder="歌、ゲーム、はじめてさん歓迎" />
-    </label>
-    <label>スペック表（1行 = ラベル: 値 / 10行まで。誕生月・タイプは自動で入るのでここには不要）
-      <textarea id="dlgSpecs" rows="4" placeholder="好きなもの: いちご&#10;活動時間: 夜 22:00〜"></textarea>
-      <span class="dlg-error" id="dlgSpecsError"></span>
-    </label>
-    <label>紹介動画 YouTube URL
-      <input type="text" id="dlgYoutube" placeholder="https://www.youtube.com/watch?v=..." />
-      <span class="dlg-hint" id="dlgYoutubeHint"></span>
-    </label>
-    <label>プロフィールURL（「会いに行く」ボタンのリンク先 / https://）
-      <input type="text" id="dlgProfileUrl" placeholder="https://back-stage.onelink.me/..." />
-    </label>
-    <div class="dlg-pair">
-      <label>自由リンクの表示名
-        <input type="text" id="dlgOtherLabel" placeholder="LINK" />
-      </label>
-      <label>自由リンクURL（https://）
-        <input type="text" id="dlgOtherUrl" placeholder="https://..." />
-      </label>
-    </div>
-    <label>立ち絵（1行 = assetsのパス / 上から順に①②…）
-      <textarea id="dlgPortraits" rows="3" placeholder="assets/172_KV01.png&#10;assets/172_KV02.png"></textarea>
-    </label>
+    <h2 id="dlgTitle">編集</h2>
+    <p class="dlg-guide">上から順に、実際のキャストページと同じ並びです。</p>
 
-    <label>画像アップロード（PNGのみ・原寸でOK/軽量化は自動）
+    <fieldset class="dlg-sec">
+      <legend>① 立ち絵・アイコン</legend>
+      <div class="dlg-preview" id="dlgPortraitPreview"></div>
       <span class="dlg-upload">
         <input type="file" id="dlgFilePortrait" accept="image/png" hidden />
         <input type="file" id="dlgFileIcon" accept="image/png" hidden />
-        <button type="button" id="dlgUploadPortrait">立ち絵を追加…</button>
+        <button type="button" id="dlgUploadPortrait">＋ 立ち絵を追加…</button>
         <button type="button" id="dlgUploadIcon">アイコンを差し替え…</button>
       </span>
       <span class="dlg-hint" id="dlgUploadStatus"></span>
-    </label>
+      <details class="dlg-adv">
+        <summary>立ち絵のパスを直接編集する</summary>
+        <textarea id="dlgPortraits" rows="3" placeholder="assets/172_KV01.png&#10;assets/172_KV02.png"></textarea>
+      </details>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
+      <legend>② 名前・キャッチコピー</legend>
+      <p class="dlg-auto" id="dlgAutoName"></p>
+      <label>表示名<input type="text" id="dlgName" /></label>
+      <label>キャッチコピー（ページ上部に大きく表示・短い一言が映えます）
+        <input type="text" id="dlgCatch" placeholder="歌とガンダムが大好き、バンビ系VTuber。" />
+      </label>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
+      <legend>③ プロフィール表</legend>
+      <p class="dlg-auto" id="dlgAutoSpecs"></p>
+      <label>追加の項目（1行 = ラベル: 値 / 10行まで）
+        <textarea id="dlgSpecs" rows="3" placeholder="好きなもの: いちご&#10;活動時間: 夜 22:00〜"></textarea>
+        <span class="dlg-error" id="dlgSpecsError"></span>
+      </label>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
+      <legend>④ タグ・紹介文</legend>
+      <label>タグ（読点・カンマ区切り / 10個まで）
+        <input type="text" id="dlgTags" placeholder="歌、ゲーム、はじめてさん歓迎" />
+      </label>
+      <label>紹介文<textarea id="dlgIntro" rows="4"></textarea></label>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
+      <legend>⑤ リンク・紹介動画</legend>
+      <label>X（Twitter）URL（空なら自動で作られます）
+        <input type="text" id="dlgX" />
+      </label>
+      <div class="dlg-pair">
+        <label>自由リンクの表示名<input type="text" id="dlgOtherLabel" placeholder="LINK" /></label>
+        <label>自由リンクURL（https://）<input type="text" id="dlgOtherUrl" placeholder="https://..." /></label>
+      </div>
+      <label>紹介動画 YouTube URL
+        <input type="text" id="dlgYoutube" placeholder="https://www.youtube.com/watch?v=..." />
+        <span class="dlg-hint" id="dlgYoutubeHint"></span>
+      </label>
+      <label>プロフィールURL（「会いに行く」ボタンのリンク先 / https://）
+        <input type="text" id="dlgProfileUrl" placeholder="https://back-stage.onelink.me/..." />
+      </label>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
+      <legend>⑥ 公開</legend>
+      <label class="dlg-check"><input type="checkbox" id="dlgPublished" /> このキャストをサイトに公開する</label>
+    </fieldset>
+
     <p class="dlg-error" id="dlgError"></p>
     <div class="dlg-actions">
       <button type="button" id="dlgCancel">キャンセル</button>
-      <button type="button" class="primary" id="dlgApply">反映（保存は右上から）</button>
+      <button type="button" class="primary" id="dlgApply">この内容で反映</button>
     </div>
   </form>
 </dialog>
@@ -291,7 +338,6 @@
       var img = document.createElement("img");
       img.className = "avatar";
       if (cast.manual.icon) {
-        // 公開サイト上ではビルド済みwebpが実体（元のpngパスから読み替え）
         img.src = "./" + cast.manual.icon.replace(/\.png$/, ".webp");
         img.addEventListener("error", function () { img.src = "./" + cast.manual.icon; });
       }
@@ -302,30 +348,14 @@
       var tdWho = document.createElement("td");
       var nameDiv = document.createElement("div");
       nameDiv.className = "row-name";
-      nameDiv.textContent = cast.auto.raw_cast_name || cast.manual.name;
+      nameDiv.textContent = cast.manual.name || cast.auto.raw_cast_name;
       var idDiv = document.createElement("div");
       idDiv.className = "row-id";
-      idDiv.textContent = "ID " + cast.cast_id + (cast.auto.name_reading ? " / " + cast.auto.name_reading : "");
+      idDiv.textContent = (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
+        (cast.auto.name_reading ? " ・ " + cast.auto.name_reading : "") + " ・ " + badgeText(cast);
       tdWho.appendChild(nameDiv);
       tdWho.appendChild(idDiv);
       tr.appendChild(tdWho);
-
-      var tdRank = document.createElement("td");
-      tdRank.className = "rank-label";
-      tdRank.textContent = cast.auto.rank || "圏外";
-      tr.appendChild(tdRank);
-
-      function cell(node) { var td = document.createElement("td"); td.appendChild(node); tr.appendChild(td); }
-
-      var nameIn = document.createElement("input"); nameIn.type = "text"; nameIn.value = cast.manual.name;
-      cell(field(cast, "name", nameIn));
-      var catchIn = document.createElement("textarea"); catchIn.value = cast.manual.catch;
-      cell(field(cast, "catch", catchIn));
-      var introIn = document.createElement("textarea"); introIn.value = cast.manual.intro;
-      cell(field(cast, "intro", introIn));
-      var xIn = document.createElement("input"); xIn.type = "text"; xIn.value = cast.manual.x_url;
-      xIn.placeholder = cast.auto.x_account || "";
-      cell(field(cast, "x_url", xIn));
 
       var tdPub = document.createElement("td");
       tdPub.className = "center";
@@ -334,21 +364,18 @@
         cast.manual.published = pub.checked;
         markDirty(cast.cast_id);
       });
+      cast._pubCheckbox = pub;
       tdPub.appendChild(pub);
       tr.appendChild(tdPub);
 
-      var tdDetail = document.createElement("td");
-      var detailBtn = document.createElement("button");
-      detailBtn.type = "button";
-      detailBtn.className = "detail-btn";
-      detailBtn.textContent = "詳細";
-      detailBtn.addEventListener("click", function () { openDetail(cast, badge); });
-      var badge = document.createElement("span");
-      badge.className = "detail-badge";
-      updateBadge(cast, badge);
-      tdDetail.appendChild(detailBtn);
-      tdDetail.appendChild(badge);
-      tr.appendChild(tdDetail);
+      var tdEdit = document.createElement("td");
+      var editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.className = "detail-btn primary";
+      editBtn.textContent = "編集";
+      editBtn.addEventListener("click", function () { openDetail(cast); });
+      tdEdit.appendChild(editBtn);
+      tr.appendChild(tdEdit);
 
       tbody.appendChild(tr);
     });
@@ -365,6 +392,14 @@
   var dlgOtherLabel = document.getElementById("dlgOtherLabel");
   var dlgOtherUrl = document.getElementById("dlgOtherUrl");
   var dlgPortraits = document.getElementById("dlgPortraits");
+  var dlgName = document.getElementById("dlgName");
+  var dlgCatch = document.getElementById("dlgCatch");
+  var dlgIntro = document.getElementById("dlgIntro");
+  var dlgX = document.getElementById("dlgX");
+  var dlgPublished = document.getElementById("dlgPublished");
+  var dlgAutoName = document.getElementById("dlgAutoName");
+  var dlgAutoSpecs = document.getElementById("dlgAutoSpecs");
+  var dlgPortraitPreview = document.getElementById("dlgPortraitPreview");
   var dlgError = document.getElementById("dlgError");
   var editing = null;
 
@@ -400,6 +435,17 @@
   function splitList(text, sep) {
     return text.split(sep).map(function (s) { return s.trim(); }).filter(Boolean);
   }
+  function badgeText(cast) {
+    var m = cast.manual;
+    var parts = [];
+    if ((m.portraits || []).length) parts.push("立ち絵" + m.portraits.length);
+    if ((m.tags || []).length) parts.push("タグ" + m.tags.length);
+    if ((m.specs || []).length) parts.push("表" + m.specs.length);
+    if (m.youtube_url) parts.push("動画");
+    if (m.profile_url) parts.push("プロフ");
+    if (m.other_url) parts.push("リンク");
+    return parts.length ? parts.join("/") : "未入力";
+  }
   function updateBadge(cast, badge) {
     var m = cast.manual;
     var parts = [];
@@ -411,17 +457,62 @@
     if (m.other_url) parts.push("リンク");
     badge.textContent = parts.length ? parts.join(" / ") : "未設定";
   }
-  function openDetail(cast, badge) {
-    editing = { cast: cast, badge: badge };
+  function renderPortraitPreview(cast) {
+    dlgPortraitPreview.textContent = "";
     var m = cast.manual;
-    document.getElementById("dlgTitle").textContent = "詳細編集 — " + (m.name || "ID " + cast.cast_id);
-    dlgTags.value = (m.tags || []).join("、");
+    (m.portraits || []).forEach(function (p, i) {
+      var fig = document.createElement("figure");
+      fig.className = "dlg-thumb";
+      var img = document.createElement("img");
+      img.src = "./" + p.replace(/\.png$/, ".webp");
+      img.addEventListener("error", function () { if (img.src.indexOf(".webp") >= 0) img.src = "./" + p; });
+      var cap = document.createElement("figcaption");
+      cap.textContent = "立ち絵" + (i + 1);
+      fig.appendChild(img); fig.appendChild(cap);
+      dlgPortraitPreview.appendChild(fig);
+    });
+    if (m.icon) {
+      var fig2 = document.createElement("figure");
+      fig2.className = "dlg-thumb dlg-thumb--icon";
+      var img2 = document.createElement("img");
+      img2.src = "./" + m.icon.replace(/\.png$/, ".webp");
+      img2.addEventListener("error", function () { if (img2.src.indexOf(".webp") >= 0) img2.src = "./" + m.icon; });
+      var cap2 = document.createElement("figcaption");
+      cap2.textContent = "アイコン";
+      fig2.appendChild(img2); fig2.appendChild(cap2);
+      dlgPortraitPreview.appendChild(fig2);
+    }
+    if (!dlgPortraitPreview.childNodes.length) {
+      dlgPortraitPreview.textContent = "画像はまだありません";
+      dlgPortraitPreview.className = "dlg-preview is-empty";
+    } else {
+      dlgPortraitPreview.className = "dlg-preview";
+    }
+  }
+
+  function openDetail(cast) {
+    editing = { cast: cast };
+    var a = cast.auto, m = cast.manual;
+    document.getElementById("dlgTitle").textContent = "編集 — " + (m.name || "ID " + cast.cast_id);
+    renderPortraitPreview(cast);
+    dlgAutoName.textContent = "ランク: " + (a.rank || "圏外") + "（自動） ／ 読み: " + (a.name_reading || "—") + "（自動）";
+    dlgName.value = m.name || "";
+    dlgCatch.value = m.catch || "";
+    var autoSpecs = [];
+    if (a.birth_month) autoSpecs.push("誕生月 " + a.birth_month);
+    if (a.call_category) autoSpecs.push("タイプ " + a.call_category);
+    dlgAutoSpecs.textContent = autoSpecs.length ? "自動で入る行: " + autoSpecs.join(" ／ ") : "自動で入る行: なし";
     dlgSpecs.value = (m.specs || []).map(function (r) { return r.label + ": " + r.value; }).join("\n");
-    dlgYoutube.value = m.youtube_url || "";
-    dlgProfileUrl.value = m.profile_url || "";
+    dlgTags.value = (m.tags || []).join("、");
+    dlgIntro.value = m.intro || "";
+    dlgX.value = m.x_url || "";
+    dlgX.placeholder = a.x_account ? "空欄なら " + a.x_account + " から自動" : "";
     dlgOtherLabel.value = m.other_label || "";
     dlgOtherUrl.value = m.other_url || "";
+    dlgYoutube.value = m.youtube_url || "";
+    dlgProfileUrl.value = m.profile_url || "";
     dlgPortraits.value = (m.portraits || []).join("\n");
+    dlgPublished.checked = !!m.published;
     dlgSpecsError.textContent = "";
     dlgError.textContent = "";
     document.getElementById("dlgUploadStatus").textContent = "";
@@ -443,13 +534,19 @@
     var youtube = dlgYoutube.value.trim();
     var profileUrl = dlgProfileUrl.value.trim();
     var otherUrl = dlgOtherUrl.value.trim();
+    var xUrl = dlgX.value.trim();
     if (tags.length > 10) { dlgError.textContent = "タグは10個までです"; return; }
     if (specs.rows.length > 10) { dlgError.textContent = "スペック表は10行までです"; return; }
     if (portraits.length > 10) { dlgError.textContent = "立ち絵は10枚までです"; return; }
     if (youtube && !youtubeId(youtube)) { dlgError.textContent = "YouTube URLから動画IDを認識できません"; return; }
+    if (xUrl && xUrl.indexOf("https://") !== 0) { dlgError.textContent = "X URLは https:// で始めてください（空欄なら自動）"; return; }
     if (profileUrl && profileUrl.indexOf("https://") !== 0) { dlgError.textContent = "プロフィールURLは https:// で始めてください"; return; }
     if (otherUrl && otherUrl.indexOf("https://") !== 0) { dlgError.textContent = "自由リンクURLは https:// で始めてください"; return; }
     var m = editing.cast.manual;
+    m.name = dlgName.value.trim();
+    m.catch = dlgCatch.value;
+    m.intro = dlgIntro.value;
+    m.x_url = xUrl;
     m.tags = tags;
     m.specs = specs.rows;
     m.youtube_url = youtube;
@@ -457,8 +554,10 @@
     m.other_label = dlgOtherLabel.value.trim();
     m.other_url = otherUrl;
     m.portraits = portraits;
+    m.published = dlgPublished.checked;
+    if (editing.cast._pubCheckbox) editing.cast._pubCheckbox.checked = m.published;
     markDirty(editing.cast.cast_id);
-    updateBadge(editing.cast, editing.badge);
+    render();
     dlg.close();
   });
 
@@ -542,7 +641,7 @@
             .then(function () {
               if (!editing.cast.manual.icon) editing.cast.manual.icon = "assets/" + iconName;
               markDirty(editing.cast.cast_id);
-              updateBadge(editing.cast, editing.badge);
+              render();
               uploadStatus.textContent = "✅ アイコンを差し替えました（一覧の画像は数分後に反映）";
             });
         }
