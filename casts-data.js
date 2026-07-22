@@ -135,7 +135,10 @@ window.SHOWCASE = {
       "intro": "スナックママ系VTuberとして、疲れた大人の止まり木になっています。お酒の話はもちろん、信念を曲げない芯の強さも魅力。\n深夜までたっぷり話せるSILVERクラスの実力派です。",
       "x_url": "https://x.com/TamakiYouBS",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/241_KV03.webp",
+        "assets/241_KV04.webp"
+      ],
       "icon": "assets/241_icon.webp",
       "tags": [
         "スナックママ",
