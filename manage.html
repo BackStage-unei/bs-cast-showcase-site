@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>CastShowcase 管理画面（クラウド版）</title>
+<style>
+  :root {
+    --bg: #f5f4f8; --surface: #fff; --line: #ddd8e8; --text: #26212f; --sub: #7c7590;
+    --accent: #8b5cf6; --magenta: #ff2d78;
+    --gold: #f0c530; --silver: #94a3b8; --bronze: #d08a4e;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 14px; padding: 12px 20px; background: var(--surface); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 16px; }
+  header .spacer { flex: 1; }
+  #status { color: var(--sub); font-size: 12px; }
+  button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); padding: 8px 16px; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  button.primary:disabled { opacity: 0.4; cursor: default; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  .note { color: var(--sub); font-size: 12px; margin: 0 0 16px; }
+  /* ログイン画面 */
+  .login {
+    max-width: 520px; margin: 60px auto; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 12px; padding: 28px;
+  }
+  .login h2 { margin: 0 0 6px; font-size: 17px; }
+  .login p { font-size: 12.5px; color: var(--sub); line-height: 1.8; }
+  .login input { width: 100%; font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px; margin: 10px 0 14px; }
+  .login .err { color: #c02950; font-size: 12px; min-height: 16px; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+  th { background: #efecf6; font-size: 12px; color: var(--sub); white-space: nowrap; }
+  tr.rank-GOLD td:first-child { border-left: 4px solid var(--gold); }
+  tr.rank-SILVER td:first-child { border-left: 4px solid var(--silver); }
+  tr.rank-BRONZE td:first-child { border-left: 4px solid var(--bronze); }
+  tr.rank-none td:first-child { border-left: 4px solid #ccc; }
+  tr.rank-none { opacity: 0.55; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #eee; display: block; }
+  input[type="text"], textarea { width: 100%; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--text); }
+  textarea { resize: vertical; min-height: 52px; }
+  .rank-label { font-weight: 700; font-size: 12px; white-space: nowrap; }
+  .dirty { outline: 2px solid var(--magenta); outline-offset: 1px; }
+  .row-name { font-weight: 700; white-space: nowrap; }
+  .row-id { color: var(--sub); font-size: 11px; }
+  td.center { text-align: center; }
+  .detail-btn { white-space: nowrap; }
+  .detail-badge { display: block; margin-top: 4px; font-size: 10px; color: var(--sub); }
+  dialog {
+    border: 1px solid var(--line); border-radius: 12px; padding: 24px;
+    width: min(560px, 92vw); font: inherit; color: var(--text);
+  }
+  dialog::backdrop { background: rgba(30, 20, 50, 0.4); }
+  dialog h2 { margin: 0 0 16px; font-size: 16px; }
+  dialog label { display: block; margin-bottom: 14px; font-size: 12px; color: var(--sub); }
+  dialog input[type="text"], dialog textarea { margin-top: 4px; }
+  .dlg-pair { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+  .dlg-hint { display: block; margin-top: 3px; font-size: 11px; color: #2c7a2c; min-height: 14px; }
+  .dlg-error { display: block; margin-top: 3px; font-size: 11px; color: #c02950; min-height: 14px; }
+  .dlg-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- 接続画面（トークン入力） -->
+<div class="login" id="loginView">
+  <h2>CastShowcase 管理画面</h2>
+  <p>
+    紹介サイトのキャスト情報を編集する画面です。編集内容は保存すると自動で本番サイトに反映されます（約3分）。<br />
+    利用にはGitHubの<strong>アクセストークン</strong>が必要です（運営から受け取ったものを貼り付けてください。この端末に記憶されます）。
+  </p>
+  <input type="password" id="tokenInput" placeholder="github_pat_… または ghp_…" autocomplete="off" />
+  <p class="err" id="loginError"></p>
+  <button class="primary" id="connectBtn">接続する</button>
+</div>
+
+<!-- 編集画面 -->
+<div id="appView" hidden>
+  <header>
+    <h1>CastShowcase 管理画面</h1>
+    <span class="spacer"></span>
+    <span id="status"></span>
+    <button id="reloadBtn">再読込</button>
+    <button id="logoutBtn">トークン変更</button>
+    <button class="primary" id="saveBtn" disabled>変更を保存（＝公開）</button>
+  </header>
+  <main>
+    <p class="note">
+      基本項目は表内で、タグ・スペック表・紹介動画・プロフィールURL・自由リンク・立ち絵は各行の「詳細」から編集します。
+      ランク・読み・誕生月・タイプと表示順（判定売上順）は毎月の更新で自動設定されます。
+      <strong>保存すると数分後に本番サイトへ自動反映されます。</strong>
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>キャスト</th><th>ランク</th><th>表示名</th><th>キャッチコピー</th>
+          <th>紹介文</th><th>X URL（空なら自動）</th><th>公開</th><th>詳細</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+</div>
+
+<!-- 詳細編集ダイアログ -->
+<dialog id="detailDialog">
+  <form method="dialog" id="detailForm">
+    <h2 id="dlgTitle">詳細編集</h2>
+    <label>タグ（読点・カンマ区切り / 10個まで）
+      <input type="text" id="dlgTags" placeholder="歌、ゲーム、はじめてさん歓迎" />
+    </label>
+    <label>スペック表（1行 = ラベル: 値 / 10行まで。誕生月・タイプは自動で入るのでここには不要）
+      <textarea id="dlgSpecs" rows="4" placeholder="好きなもの: いちご&#10;活動時間: 夜 22:00〜"></textarea>
+      <span class="dlg-error" id="dlgSpecsError"></span>
+    </label>
+    <label>紹介動画 YouTube URL
+      <input type="text" id="dlgYoutube" placeholder="https://www.youtube.com/watch?v=..." />
+      <span class="dlg-hint" id="dlgYoutubeHint"></span>
+    </label>
+    <label>プロフィールURL（「会いに行く」ボタンのリンク先 / https://）
+      <input type="text" id="dlgProfileUrl" placeholder="https://back-stage.onelink.me/..." />
+    </label>
+    <div class="dlg-pair">
+      <label>自由リンクの表示名
+        <input type="text" id="dlgOtherLabel" placeholder="LINK" />
+      </label>
+      <label>自由リンクURL（https://）
+        <input type="text" id="dlgOtherUrl" placeholder="https://..." />
+      </label>
+    </div>
+    <label>立ち絵（1行 = assetsのパス / 上から順に①②…）
+      <textarea id="dlgPortraits" rows="3" placeholder="assets/172_KV01.png&#10;assets/172_KV02.png"></textarea>
+    </label>
+    <p class="dlg-error" id="dlgError"></p>
+    <div class="dlg-actions">
+      <button type="button" id="dlgCancel">キャンセル</button>
+      <button type="button" class="primary" id="dlgApply">反映（保存は右上から）</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+(function () {
+  // ---- GitHub 接続設定 ----
+  var OWNER = "BackStage-unei";
+  var REPO = "bs-cast-showcase";
+  var FILE_PATH = "data/casts.json";
+  var BRANCH = "main";
+  var TOKEN_KEY = "bs_cast_admin_token";
+
+  var data = null;      // casts.json の中身
+  var fileSha = null;   // 楽観ロック用（GitHub contents APIのsha）
+  var dirtyIds = new Set();
+  var RANK_ORDER = { GOLD: 0, SILVER: 1, BRONZE: 2 };
+
+  var loginView = document.getElementById("loginView");
+  var appView = document.getElementById("appView");
+  var statusEl = document.getElementById("status");
+  var saveBtn = document.getElementById("saveBtn");
+
+  function token() { return localStorage.getItem(TOKEN_KEY) || ""; }
+
+  function api(path, options) {
+    options = options || {};
+    options.headers = Object.assign({
+      "Authorization": "Bearer " + token(),
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    }, options.headers || {});
+    return fetch("https://api.github.com" + path, options);
+  }
+
+  // UTF-8 ⇔ base64（GitHub contents API用）
+  function b64decodeUtf8(b64) {
+    var bin = atob(b64.replace(/\n/g, ""));
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+  function b64encodeUtf8(str) {
+    var bytes = new TextEncoder().encode(str);
+    var bin = "";
+    for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+
+  function setStatus(text) { statusEl.textContent = text; }
+  function markDirty(id) {
+    dirtyIds.add(id);
+    saveBtn.disabled = false;
+    setStatus("未保存の変更 " + dirtyIds.size + "件");
+  }
+
+  // ---- 読み込み ----
+  function loadCasts() {
+    setStatus("読み込み中…");
+    return api("/repos/" + OWNER + "/" + REPO + "/contents/" + FILE_PATH + "?ref=" + BRANCH)
+      .then(function (res) {
+        if (res.status === 401) throw new Error("トークンが無効です（期限切れ・入力ミスの可能性）");
+        if (res.status === 404) throw new Error("データにアクセスできません（リポジトリへの招待とトークンの権限を確認）");
+        if (!res.ok) throw new Error("読み込みに失敗しました (" + res.status + ")");
+        return res.json();
+      })
+      .then(function (body) {
+        fileSha = body.sha;
+        data = JSON.parse(b64decodeUtf8(body.content));
+        dirtyIds.clear();
+        saveBtn.disabled = true;
+        render();
+        setStatus("読み込み完了（" + data.casts.length + "名 / 同期: " + ((data.meta || {}).synced_at || "?") + "）");
+      });
+  }
+
+  // ---- 保存（mainへコミット → Actionsが自動デプロイ） ----
+  function save() {
+    saveBtn.disabled = true;
+    setStatus("保存中…");
+    var names = [];
+    data.casts.forEach(function (c) { if (dirtyIds.has(c.cast_id)) names.push(c.manual.name || String(c.cast_id)); });
+    var body = {
+      message: "content: 管理画面から更新（" + names.slice(0, 5).join("・") + (names.length > 5 ? " 他" : "") + "）",
+      content: b64encodeUtf8(JSON.stringify(data, null, 2) + "\n"),
+      sha: fileSha,
+      branch: BRANCH,
+    };
+    api("/repos/" + OWNER + "/" + REPO + "/contents/" + FILE_PATH, {
+      method: "PUT",
+      body: JSON.stringify(body),
+    })
+      .then(function (res) {
+        if (res.status === 409 || res.status === 422) {
+          throw new Error("他の人が先に保存したため競合しました。「再読込」してからやり直してください（今の編集内容は失われます）");
+        }
+        if (!res.ok) throw new Error("保存に失敗しました (" + res.status + ")");
+        return res.json();
+      })
+      .then(function (body) {
+        fileSha = body.content.sha;
+        dirtyIds.clear();
+        document.querySelectorAll(".dirty").forEach(function (n) { n.classList.remove("dirty"); });
+        setStatus("保存しました。約3分後に本番サイトへ自動反映されます");
+      })
+      .catch(function (err) {
+        saveBtn.disabled = false;
+        setStatus("エラー: " + err.message);
+      });
+  }
+  saveBtn.addEventListener("click", save);
+
+  // ---- 表の描画（ローカル管理画面と同構成） ----
+  function field(cast, key, input) {
+    input.addEventListener("input", function () {
+      cast.manual[key] = input.value;
+      input.classList.add("dirty");
+      markDirty(cast.cast_id);
+    });
+    return input;
+  }
+
+  function render() {
+    var tbody = document.getElementById("rows");
+    tbody.textContent = "";
+    var casts = data.casts.slice().sort(function (a, b) {
+      var ra = a.auto.rank in RANK_ORDER ? RANK_ORDER[a.auto.rank] : 9;
+      var rb = b.auto.rank in RANK_ORDER ? RANK_ORDER[b.auto.rank] : 9;
+      if (ra !== rb) return ra - rb;
+      if (a.manual.display_order !== b.manual.display_order) return a.manual.display_order - b.manual.display_order;
+      return a.cast_id - b.cast_id;
+    });
+
+    casts.forEach(function (cast) {
+      var tr = document.createElement("tr");
+      tr.className = cast.auto.rank ? "rank-" + cast.auto.rank : "rank-none";
+
+      var tdIcon = document.createElement("td");
+      var img = document.createElement("img");
+      img.className = "avatar";
+      if (cast.manual.icon) {
+        // 公開サイト上ではビルド済みwebpが実体（元のpngパスから読み替え）
+        img.src = "./" + cast.manual.icon.replace(/\.png$/, ".webp");
+        img.addEventListener("error", function () { img.src = "./" + cast.manual.icon; });
+      }
+      img.alt = "";
+      tdIcon.appendChild(img);
+      tr.appendChild(tdIcon);
+
+      var tdWho = document.createElement("td");
+      var nameDiv = document.createElement("div");
+      nameDiv.className = "row-name";
+      nameDiv.textContent = cast.auto.raw_cast_name || cast.manual.name;
+      var idDiv = document.createElement("div");
+      idDiv.className = "row-id";
+      idDiv.textContent = "ID " + cast.cast_id + (cast.auto.name_reading ? " / " + cast.auto.name_reading : "");
+      tdWho.appendChild(nameDiv);
+      tdWho.appendChild(idDiv);
+      tr.appendChild(tdWho);
+
+      var tdRank = document.createElement("td");
+      tdRank.className = "rank-label";
+      tdRank.textContent = cast.auto.rank || "圏外";
+      tr.appendChild(tdRank);
+
+      function cell(node) { var td = document.createElement("td"); td.appendChild(node); tr.appendChild(td); }
+
+      var nameIn = document.createElement("input"); nameIn.type = "text"; nameIn.value = cast.manual.name;
+      cell(field(cast, "name", nameIn));
+      var catchIn = document.createElement("textarea"); catchIn.value = cast.manual.catch;
+      cell(field(cast, "catch", catchIn));
+      var introIn = document.createElement("textarea"); introIn.value = cast.manual.intro;
+      cell(field(cast, "intro", introIn));
+      var xIn = document.createElement("input"); xIn.type = "text"; xIn.value = cast.manual.x_url;
+      xIn.placeholder = cast.auto.x_account || "";
+      cell(field(cast, "x_url", xIn));
+
+      var tdPub = document.createElement("td");
+      tdPub.className = "center";
+      var pub = document.createElement("input"); pub.type = "checkbox"; pub.checked = cast.manual.published;
+      pub.addEventListener("change", function () {
+        cast.manual.published = pub.checked;
+        markDirty(cast.cast_id);
+      });
+      tdPub.appendChild(pub);
+      tr.appendChild(tdPub);
+
+      var tdDetail = document.createElement("td");
+      var detailBtn = document.createElement("button");
+      detailBtn.type = "button";
+      detailBtn.className = "detail-btn";
+      detailBtn.textContent = "詳細";
+      detailBtn.addEventListener("click", function () { openDetail(cast, badge); });
+      var badge = document.createElement("span");
+      badge.className = "detail-badge";
+      updateBadge(cast, badge);
+      tdDetail.appendChild(detailBtn);
+      tdDetail.appendChild(badge);
+      tr.appendChild(tdDetail);
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ---- 詳細ダイアログ（ローカル管理画面と同一ロジック） ----
+  var dlg = document.getElementById("detailDialog");
+  var dlgTags = document.getElementById("dlgTags");
+  var dlgSpecs = document.getElementById("dlgSpecs");
+  var dlgSpecsError = document.getElementById("dlgSpecsError");
+  var dlgYoutube = document.getElementById("dlgYoutube");
+  var dlgYoutubeHint = document.getElementById("dlgYoutubeHint");
+  var dlgProfileUrl = document.getElementById("dlgProfileUrl");
+  var dlgOtherLabel = document.getElementById("dlgOtherLabel");
+  var dlgOtherUrl = document.getElementById("dlgOtherUrl");
+  var dlgPortraits = document.getElementById("dlgPortraits");
+  var dlgError = document.getElementById("dlgError");
+  var editing = null;
+
+  function youtubeId(url) {
+    var s = String(url || "").trim();
+    if (!s) return "";
+    if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s;
+    var m = s.match(/[?&]v=([A-Za-z0-9_-]{11})/) ||
+            s.match(/youtu\.be\/([A-Za-z0-9_-]{11})/) ||
+            s.match(/\/(?:shorts|embed|live)\/([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : "";
+  }
+  function updateYoutubeHint() {
+    var v = dlgYoutube.value.trim();
+    if (!v) { dlgYoutubeHint.textContent = ""; return; }
+    var id = youtubeId(v);
+    dlgYoutubeHint.textContent = id ? "動画ID: " + id : "⚠ URLから動画IDを認識できません";
+  }
+  dlgYoutube.addEventListener("input", updateYoutubeHint);
+
+  function parseSpecs(text) {
+    var rows = [];
+    var lines = text.split("\n");
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      var m = line.match(/^([^:：]+)[:：]\s*(.+)$/);
+      if (!m) return { error: i + 1 };
+      rows.push({ label: m[1].trim(), value: m[2].trim() });
+    }
+    return { rows: rows };
+  }
+  function splitList(text, sep) {
+    return text.split(sep).map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  function updateBadge(cast, badge) {
+    var m = cast.manual;
+    var parts = [];
+    if ((m.portraits || []).length) parts.push("立ち絵" + m.portraits.length);
+    if ((m.tags || []).length) parts.push("タグ" + m.tags.length);
+    if ((m.specs || []).length) parts.push("表" + m.specs.length);
+    if (m.youtube_url) parts.push("動画");
+    if (m.profile_url) parts.push("プロフ");
+    if (m.other_url) parts.push("リンク");
+    badge.textContent = parts.length ? parts.join(" / ") : "未設定";
+  }
+  function openDetail(cast, badge) {
+    editing = { cast: cast, badge: badge };
+    var m = cast.manual;
+    document.getElementById("dlgTitle").textContent = "詳細編集 — " + (m.name || "ID " + cast.cast_id);
+    dlgTags.value = (m.tags || []).join("、");
+    dlgSpecs.value = (m.specs || []).map(function (r) { return r.label + ": " + r.value; }).join("\n");
+    dlgYoutube.value = m.youtube_url || "";
+    dlgProfileUrl.value = m.profile_url || "";
+    dlgOtherLabel.value = m.other_label || "";
+    dlgOtherUrl.value = m.other_url || "";
+    dlgPortraits.value = (m.portraits || []).join("\n");
+    dlgSpecsError.textContent = "";
+    dlgError.textContent = "";
+    updateYoutubeHint();
+    dlg.showModal();
+  }
+  document.getElementById("dlgCancel").addEventListener("click", function () { dlg.close(); });
+  document.getElementById("dlgApply").addEventListener("click", function () {
+    if (!editing) return;
+    dlgSpecsError.textContent = "";
+    dlgError.textContent = "";
+    var specs = parseSpecs(dlgSpecs.value);
+    if (specs.error) {
+      dlgSpecsError.textContent = specs.error + "行目が「ラベル: 値」の形式になっていません";
+      return;
+    }
+    var tags = splitList(dlgTags.value, /[,、]/);
+    var portraits = splitList(dlgPortraits.value, "\n");
+    var youtube = dlgYoutube.value.trim();
+    var profileUrl = dlgProfileUrl.value.trim();
+    var otherUrl = dlgOtherUrl.value.trim();
+    if (tags.length > 10) { dlgError.textContent = "タグは10個までです"; return; }
+    if (specs.rows.length > 10) { dlgError.textContent = "スペック表は10行までです"; return; }
+    if (portraits.length > 10) { dlgError.textContent = "立ち絵は10枚までです"; return; }
+    if (youtube && !youtubeId(youtube)) { dlgError.textContent = "YouTube URLから動画IDを認識できません"; return; }
+    if (profileUrl && profileUrl.indexOf("https://") !== 0) { dlgError.textContent = "プロフィールURLは https:// で始めてください"; return; }
+    if (otherUrl && otherUrl.indexOf("https://") !== 0) { dlgError.textContent = "自由リンクURLは https:// で始めてください"; return; }
+    var m = editing.cast.manual;
+    m.tags = tags;
+    m.specs = specs.rows;
+    m.youtube_url = youtube;
+    m.profile_url = profileUrl;
+    m.other_label = dlgOtherLabel.value.trim();
+    m.other_url = otherUrl;
+    m.portraits = portraits;
+    markDirty(editing.cast.cast_id);
+    updateBadge(editing.cast, editing.badge);
+    dlg.close();
+  });
+
+  // ---- 接続フロー ----
+  function showApp() {
+    loginView.hidden = true;
+    appView.hidden = false;
+  }
+  function showLogin(message) {
+    appView.hidden = true;
+    loginView.hidden = false;
+    document.getElementById("loginError").textContent = message || "";
+  }
+  document.getElementById("connectBtn").addEventListener("click", function () {
+    var t = document.getElementById("tokenInput").value.trim();
+    if (!t) { document.getElementById("loginError").textContent = "トークンを入力してください"; return; }
+    localStorage.setItem(TOKEN_KEY, t);
+    loadCasts().then(showApp).catch(function (err) { showLogin(err.message); });
+  });
+  document.getElementById("reloadBtn").addEventListener("click", function () {
+    if (dirtyIds.size && !confirm("未保存の変更があります。破棄して再読込しますか？")) return;
+    loadCasts().catch(function (err) { setStatus("エラー: " + err.message); });
+  });
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem(TOKEN_KEY);
+    showLogin("");
+  });
+
+  // 起動: トークンが保存済みなら自動接続
+  if (token()) {
+    loadCasts().then(showApp).catch(function (err) { showLogin(err.message); });
+  }
+})();
+</script>
+</body>
+</html>
