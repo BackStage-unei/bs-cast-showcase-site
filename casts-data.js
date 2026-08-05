@@ -626,37 +626,6 @@ window.SHOWCASE = {
       "call_category": "ドリーマー"
     },
     {
-      "cast_id": 439,
-      "name": "はにゃの",
-      "name_reading": "メメンネハニャノ",
-      "rank": "BRONZE",
-      "catch": "ハラペコぬいぐるみ、きょうも何か食べてる。",
-      "intro": "くまのぬいぐるみ系VTuber。TikTokのネタ動画やライブ配信で見せる、ゆるくて食いしんぼうなキャラクターが持ち味です。",
-      "x_url": "https://x.com/hanyano21",
-      "portrait": "",
-      "portraits": [
-        "assets/439_KV01.webp"
-      ],
-      "icon": "assets/439_icon.webp",
-      "tags": [
-        "ぬいぐるみ",
-        "食いしんぼう",
-        "TikTok",
-        "昼活動"
-      ],
-      "specs": [
-        {
-          "label": "活動時間帯",
-          "value": "昼 14:00〜18:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "",
-      "birth_month": "2月",
-      "call_category": "フレンドリー"
-    },
-    {
       "cast_id": 446,
       "name": "7_ko（ナナコ）",
       "name_reading": "ナナコ",
