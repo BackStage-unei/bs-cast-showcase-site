@@ -524,11 +524,11 @@ window.SHOWCASE = {
       "x_url": "https://x.com/MagicalGirl_PPP",
       "portrait": "",
       "portraits": [
-        "assets/319_KV01.webp",
-        "assets/319_KV02.webp",
+        "assets/319_KV05.webp",
         "assets/319_KV03.webp",
         "assets/319_KV04.webp",
-        "assets/319_KV05.webp"
+        "assets/319_KV01.webp",
+        "assets/319_KV02.webp"
       ],
       "icon": "assets/319_icon.webp",
       "tags": [
