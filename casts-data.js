@@ -44,7 +44,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p/2n9d4530",
       "birth_month": "8月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee9b63"
     },
     {
       "cast_id": 296,
@@ -89,7 +90,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "11月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": ""
     },
     {
       "cast_id": 501,
@@ -129,7 +131,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "2月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#eec863"
     },
     {
       "cast_id": 241,
@@ -166,7 +169,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#63e1ee"
     },
     {
       "cast_id": 232,
@@ -206,7 +210,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#6368ee"
     },
     {
       "cast_id": 529,
@@ -242,7 +247,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6383"
     },
     {
       "cast_id": 407,
@@ -283,7 +289,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "1月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6390"
     },
     {
       "cast_id": 392,
@@ -320,7 +327,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6397"
     },
     {
       "cast_id": 388,
@@ -356,7 +364,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "8月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#6397ee"
     },
     {
       "cast_id": 313,
@@ -392,7 +401,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "11月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#63bfee"
     },
     {
       "cast_id": 236,
@@ -437,7 +447,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": ""
+      "call_category": "",
+      "accent_color": "#ee6e63"
     },
     {
       "cast_id": 188,
@@ -468,7 +479,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "12月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#ee9963"
     },
     {
       "cast_id": 205,
@@ -512,7 +524,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "10月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#ee7463"
     },
     {
       "cast_id": 319,
@@ -551,7 +564,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "12月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#6375ee"
     },
     {
       "cast_id": 506,
@@ -581,7 +595,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "4月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#6398ee"
     },
     {
       "cast_id": 239,
@@ -623,7 +638,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "10月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": ""
     },
     {
       "cast_id": 446,
@@ -658,7 +674,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "5月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": ""
     },
     {
       "cast_id": 391,
@@ -699,7 +716,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "2月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee63ba"
     },
     {
       "cast_id": 154,
@@ -743,7 +761,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#9a63ee"
     },
     {
       "cast_id": 400,
@@ -778,7 +797,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6377"
     },
     {
       "cast_id": 414,
@@ -808,7 +828,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "11月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#63bbee"
     },
     {
       "cast_id": 416,
@@ -837,7 +858,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "2月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#eedd63"
     },
     {
       "cast_id": 303,
@@ -869,7 +891,8 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "9月",
-      "call_category": "フレンドリー"
+      "call_category": "フレンドリー",
+      "accent_color": "#eedd63"
     },
     {
       "cast_id": 328,
@@ -913,7 +936,8 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "ドリーマー"
+      "call_category": "ドリーマー",
+      "accent_color": "#eeb163"
     }
   ]
 };
