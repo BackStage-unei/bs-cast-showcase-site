@@ -56,7 +56,8 @@ window.SHOWCASE = {
       "x_url": "https://x.com/uta_wanUo_oU",
       "portrait": "",
       "portraits": [
-        "assets/296_KV02.webp"
+        "assets/296_KV02.webp",
+        "assets/296_KV01.webp"
       ],
       "icon": "assets/296_icon.webp",
       "tags": [
@@ -99,7 +100,9 @@ window.SHOWCASE = {
       "intro": "☔️🚕がトレードマークの男性キャスト。龍が如くやメタルギアなどストーリー重視のゲームと、演劇・舞台を愛する語り屋です。\nツイキャスやYouTubeの実況で鍛えたトークで、目的地までご案内します。",
       "x_url": "https://x.com/amataxi4869",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/501_KV01.webp"
+      ],
       "icon": "assets/501_icon.webp",
       "tags": [
         "男性キャスト",
@@ -139,7 +142,8 @@ window.SHOWCASE = {
       "portrait": "",
       "portraits": [
         "assets/241_KV03.webp",
-        "assets/241_KV04.webp"
+        "assets/241_KV04.webp",
+        "assets/241_KV05.webp"
       ],
       "icon": "assets/241_icon.webp",
       "tags": [
@@ -173,7 +177,9 @@ window.SHOWCASE = {
       "intro": "「納豆のパッケージマスコットになりたい」納豆系VTuber。ほぼ毎日配信で活動5年目という継続力と、ガンダムWや逆シャアを熱く語れるオタク力を併せ持つ、GOLDクラスの実力派です。",
       "x_url": "https://x.com/mitowakana",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/232_KV01.webp"
+      ],
       "icon": "assets/232_icon.webp",
       "tags": [
         "納豆",
@@ -211,7 +217,10 @@ window.SHOWCASE = {
       "intro": "「君に『大丈夫』を届けに来た」がコンセプトの堕天使キャスト。雑談やASMR、配信中のイラスト制作など、夜から朝までそっと寄り添うスタイルが持ち味です。\n眠れない夜のお守りにどうぞ。",
       "x_url": "https://x.com/_koito_IRIAM",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/529_KV01.webp",
+        "assets/529_KV02.webp"
+      ],
       "icon": "assets/529_icon.webp",
       "tags": [
         "堕天使",
@@ -244,7 +253,10 @@ window.SHOWCASE = {
       "intro": "幽体離脱したまま戻れなくなった魂が、新しい身体と相棒のハムスターとともに「本当の夢」を探す旅をしている——そんな世界観のキャスト。\nASMRやゲーム配信もこなす、SILVERクラスの実力派です。",
       "x_url": "https://x.com/riu_ttid",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/407_KV01.webp",
+        "assets/407_KV02.webp"
+      ],
       "icon": "assets/407_icon.webp",
       "tags": [
         "世界観系",
@@ -282,7 +294,10 @@ window.SHOWCASE = {
       "intro": "🧸モチーフの「こぐま」系キャスト。夕方から深夜までの通話を軸に、ゲーム配信やファン交流でゆるくあたたかい場を作っています。\nSILVERクラスの安定感でお迎えします。",
       "x_url": "https://x.com/KUMANO_moru",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/392_KV01.webp",
+        "assets/392_KV02.webp"
+      ],
       "icon": "assets/392_icon.webp",
       "tags": [
         "くま",
@@ -316,7 +331,10 @@ window.SHOWCASE = {
       "intro": "🦋を象徴に活動する歌姫。オリジナル曲「春の最果て」をサブスク配信中のVSingerで、歌への真っ直ぐな想いが持ち味です。\n夜の歌声に癒されたい人へ。",
       "x_url": "https://x.com/yumeno_teu",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/388_KV01.webp",
+        "assets/388_KV02.webp"
+      ],
       "icon": "assets/388_icon.webp",
       "tags": [
         "歌",
@@ -349,7 +367,10 @@ window.SHOWCASE = {
       "intro": "中低音ボイスが看板の黒柴系キャスト。相棒「茶豆」とともに「夢の中で生きるリアリスト」として、名作ゲームの世界観を語らせたら止まりません。\n深夜0時からの大人の時間にどうぞ。",
       "x_url": "https://x.com/kuroshibaeila",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/313_KV01.webp",
+        "assets/313_KV02.webp"
+      ],
       "icon": "assets/313_icon.webp",
       "tags": [
         "中低音ボイス",
@@ -382,7 +403,9 @@ window.SHOWCASE = {
       "intro": "「みんなに元気をとどけるお仕事」をしている仮想ライバー。頭のオムライスと髪に絡まるナポリタンがトレードマークです。\n朝から昼にかけて毎日長時間活動するパワフルさで、会えば元気がもらえます。",
       "x_url": "https://x.com/chouzetu_haochi",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/236_KV01.webp"
+      ],
       "icon": "",
       "tags": [
         "元気印",
@@ -425,7 +448,10 @@ window.SHOWCASE = {
       "intro": "BackStage公式番組「BackStage FM」への出演経験もあるブロンズクラスのキャスト。\n肩の力を抜いた“日常”の会話を大切にするフレンドリータイプで、深夜にゆったり話したい人にぴったりです。",
       "x_url": "https://x.com/hinata_bsc",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/188_KV01.webp",
+        "assets/188_KV02.webp"
+      ],
       "icon": "assets/188_icon.webp",
       "tags": [
         "雑談",
@@ -453,7 +479,9 @@ window.SHOWCASE = {
       "intro": "仏教の三毒「貪」の化身を名乗る、人外お姉さんVSinger。人を甘やかすのが大好きで、甘さに堕落していく人間を眺めて微笑んでいます。\n優しい女王様に甘やかされたい夜に。",
       "x_url": "https://x.com/MidokuLobha",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/205_KV01.webp"
+      ],
       "icon": "assets/205_icon.webp",
       "tags": [
         "人外お姉さん",
@@ -495,7 +523,13 @@ window.SHOWCASE = {
       "intro": "イラストレーターとして活動しながら、魔法少女になることを夢見るキャスト。目標は「魔法少女界のアイアンマン」。\nイラストや創作の話で盛り上がりたい夜にぴったりです。",
       "x_url": "https://x.com/MagicalGirl_PPP",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/319_KV01.webp",
+        "assets/319_KV02.webp",
+        "assets/319_KV03.webp",
+        "assets/319_KV04.webp",
+        "assets/319_KV05.webp"
+      ],
       "icon": "assets/319_icon.webp",
       "tags": [
         "お絵描き",
@@ -528,7 +562,9 @@ window.SHOWCASE = {
       "intro": "🪄💫🐳をまとう、やさしい雰囲気のキャスト。夕方から深夜まで長く待機しており、じっくり話したい夜の相手にぴったりです。",
       "x_url": "https://x.com/mira_etoile_2",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/506_KV01.webp"
+      ],
       "icon": "assets/506_icon.webp",
       "tags": [
         "癒し系",
@@ -598,7 +634,9 @@ window.SHOWCASE = {
       "intro": "くまのぬいぐるみ系VTuber。TikTokのネタ動画やライブ配信で見せる、ゆるくて食いしんぼうなキャラクターが持ち味です。",
       "x_url": "https://x.com/hanyano21",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/439_KV01.webp"
+      ],
       "icon": "assets/439_icon.webp",
       "tags": [
         "ぬいぐるみ",
@@ -627,7 +665,9 @@ window.SHOWCASE = {
       "intro": "自ら作曲も手がける音楽派キャスト。BackStageルーキーチャレンジでの優勝経験を持ち、イベントPVのBGMを手がけたことも。\nものづくりの話で夜更けまで盛り上がれます。",
       "x_url": "https://x.com/7_ko_s",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/446_KV01.webp"
+      ],
       "icon": "assets/446_icon.webp",
       "tags": [
         "音楽",
@@ -660,7 +700,10 @@ window.SHOWCASE = {
       "intro": "雑談を軸に、歌枠リレーやラジオ企画にも顔を出すマルチなキャスト。「なんでもできる超かっこいい大人になる」ため勉強中の、等身大の魅力が持ち味です。",
       "x_url": "https://x.com/komukai_nanoka",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/391_KV01.webp",
+        "assets/391_KV02.webp"
+      ],
       "icon": "assets/391_icon.webp",
       "tags": [
         "雑談",
@@ -698,7 +741,9 @@ window.SHOWCASE = {
       "intro": "「唯一無二の声」がじまんの雑談大好きキャスト。ツイキャスでの長い配信歴に裏打ちされたトーク力で、初めてでも会話が途切れません。\n夢はLive2Dのお披露目。応援したくなる成長物語の真っ只中です。",
       "x_url": "https://x.com/pochakk666",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/154_KV01.webp"
+      ],
       "icon": "assets/154_icon.webp",
       "tags": [
         "雑談",
@@ -740,7 +785,9 @@ window.SHOWCASE = {
       "intro": "「基本 月〜土 23時〜2時頃まで待機中」を掲げる、夜更かしのお供にぴったりのキャスト。YouTubeやTikTokでも活動中です。\n寝る前のひとときに、ゆったり話しませんか。",
       "x_url": "https://x.com/ousakiharune",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/400_KV01.webp"
+      ],
       "icon": "assets/400_icon.webp",
       "tags": [
         "深夜組",
@@ -773,7 +820,9 @@ window.SHOWCASE = {
       "intro": "フレンドリータイプの聞き上手キャスト。深夜23時からの落ち着いた時間帯を中心に待機しています。\n一日の締めくくりの雑談相手にどうぞ。",
       "x_url": "https://x.com/tayutauchan",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/414_KV01.webp"
+      ],
       "icon": "assets/414_icon.webp",
       "tags": [
         "雑談",
@@ -801,7 +850,9 @@ window.SHOWCASE = {
       "intro": "フレンドリータイプのキャスト。19時から21時ごろの、一日がひと段落する時間帯に待機しています。\nごはん後のひとときに気軽にどうぞ。",
       "x_url": "",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/416_KV01.webp"
+      ],
       "icon": "assets/416_icon.webp",
       "tags": [
         "雑談",
@@ -828,7 +879,10 @@ window.SHOWCASE = {
       "intro": "🏡がトレードマークの、距離感あたたかいお姉さんキャスト。キャスト仲間を集めたXスペース「おしゃべりスペース」を主催するなど、場をあたためる力はお墨付きです。",
       "x_url": "https://x.com/BackStage_MznYk",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/303_KV01.webp",
+        "assets/303_KV02.webp"
+      ],
       "icon": "assets/303_icon.webp",
       "tags": [
         "雑談",
@@ -857,7 +911,9 @@ window.SHOWCASE = {
       "intro": "薬師でヴァイオリニストという「森の魔女」。ゲームも演奏もこなし、オリジナル曲も手がけます。\nBackStageでは大会優勝経験もある実力派。昼下がりのやわらかな時間にどうぞ。",
       "x_url": "https://x.com/SayaGrace38",
       "portrait": "",
-      "portraits": [],
+      "portraits": [
+        "assets/328_KV01.webp"
+      ],
       "icon": "assets/328_icon.webp",
       "tags": [
         "ヴァイオリン",
