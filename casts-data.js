@@ -301,7 +301,7 @@ window.SHOWCASE = {
       "portraits": [
         "assets/236_KV01.webp"
       ],
-      "icon": "",
+      "icon": "assets/236_icon.webp",
       "tags": [
         "元気印",
         "毎日配信",
