@@ -106,7 +106,7 @@
   <main>
     <p class="note">
       キャストの行の「編集」を押すと、実際のキャストページと同じ並びでまとめて編集できます。
-      ランク・読み・誕生月・タイプと表示順（判定売上順）は毎月の更新で自動設定されます。
+      ランク・タイプと表示順（判定売上順）は bs-data の承認ランクから自動で設定されます（読み・誕生月はここで入力します）。
       <strong>「保存する」を押すとそのまま本番サイトへ反映されます（約3分）。</strong>
     </p>
     <table>
@@ -146,6 +146,7 @@
       <legend>② 名前・キャッチコピー</legend>
       <p class="dlg-auto" id="dlgAutoName"></p>
       <label>表示名<input type="text" id="dlgName" /></label>
+      <label>読み（名前の下に小さく表示・カタカナやローマ字）<input type="text" id="dlgReading" placeholder="ロクメリア" /></label>
       <label>キャッチコピー（ページ上部に大きく表示・短い一言が映えます）
         <input type="text" id="dlgCatch" placeholder="歌とガンダムが大好き、バンビ系VTuber。" />
       </label>
@@ -154,6 +155,9 @@
     <fieldset class="dlg-sec">
       <legend>③ プロフィール表</legend>
       <p class="dlg-auto" id="dlgAutoSpecs"></p>
+      <label>誕生月（表の固定行。「8月」のように入力・空欄なら行は出ません）
+        <input type="text" id="dlgBirthMonth" placeholder="8月" />
+      </label>
       <label>追加の項目（1行 = ラベル: 値 / 10行まで）
         <textarea id="dlgSpecs" rows="3" placeholder="好きなもの: いちご&#10;活動時間: 夜 22:00〜"></textarea>
         <span class="dlg-error" id="dlgSpecsError"></span>
@@ -170,8 +174,8 @@
 
     <fieldset class="dlg-sec">
       <legend>⑤ リンク・紹介動画</legend>
-      <label>X（Twitter）URL（空なら自動で作られます）
-        <input type="text" id="dlgX" />
+      <label>X（Twitter）URL（https://x.com/… 。空欄ならXボタンは出ません）
+        <input type="text" id="dlgX" placeholder="https://x.com/…" />
       </label>
       <label>自由リンク（1行 = ラベル: URL / 10個まで・上から順にボタンが並びます）
         <textarea id="dlgLinks" rows="3" placeholder="YouTube: https://www.youtube.com/@xxx&#10;lit.link: https://lit.link/xxx"></textarea>
@@ -259,7 +263,7 @@
         fileSha = body.sha;
         data = JSON.parse(b64decodeUtf8(body.content));
         render();
-        setStatus("読み込み完了（" + data.casts.length + "名 / 同期: " + ((data.meta || {}).synced_at || "?") + "）");
+        setStatus("読み込み完了（" + data.casts.length + "名 / ランク月: " + ((data.meta || {}).rank_month || "?") + "）");
       });
   }
 
@@ -321,11 +325,11 @@
       var tdWho = document.createElement("td");
       var nameDiv = document.createElement("div");
       nameDiv.className = "row-name";
-      nameDiv.textContent = cast.manual.name || cast.auto.raw_cast_name;
+      nameDiv.textContent = cast.manual.name || ("ID " + cast.cast_id);
       var idDiv = document.createElement("div");
       idDiv.className = "row-id";
       idDiv.textContent = (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
-        (cast.auto.name_reading ? " ・ " + cast.auto.name_reading : "") + " ・ " + badgeText(cast);
+        (cast.manual.name_reading ? " ・ " + cast.manual.name_reading : "") + " ・ " + badgeText(cast);
       tdWho.appendChild(nameDiv);
       tdWho.appendChild(idDiv);
       tr.appendChild(tdWho);
@@ -374,6 +378,8 @@
   var dlgLinksError = document.getElementById("dlgLinksError");
   var dlgPortraits = document.getElementById("dlgPortraits");
   var dlgName = document.getElementById("dlgName");
+  var dlgReading = document.getElementById("dlgReading");
+  var dlgBirthMonth = document.getElementById("dlgBirthMonth");
   var dlgCatch = document.getElementById("dlgCatch");
   var dlgIntro = document.getElementById("dlgIntro");
   var dlgX = document.getElementById("dlgX");
@@ -489,18 +495,16 @@
     var a = cast.auto, m = cast.manual;
     document.getElementById("dlgTitle").textContent = "編集 — " + (m.name || "ID " + cast.cast_id);
     renderPortraitPreview(cast);
-    dlgAutoName.textContent = "ランク: " + (a.rank || "圏外") + "（自動） ／ 読み: " + (a.name_reading || "—") + "（自動）";
+    dlgAutoName.textContent = "ランク: " + (a.rank || "圏外") + "（bs-data の承認ランクから自動・ここでは変えられません）";
     dlgName.value = m.name || "";
+    dlgReading.value = m.name_reading || "";
     dlgCatch.value = m.catch || "";
-    var autoSpecs = [];
-    if (a.birth_month) autoSpecs.push("誕生月 " + a.birth_month);
-    if (a.call_category) autoSpecs.push("タイプ " + a.call_category);
-    dlgAutoSpecs.textContent = autoSpecs.length ? "自動で入る行: " + autoSpecs.join(" ／ ") : "自動で入る行: なし";
+    dlgBirthMonth.value = m.birth_month || "";
+    dlgAutoSpecs.textContent = a.call_category ? "自動で入る行: タイプ " + a.call_category : "自動で入る行: なし";
     dlgSpecs.value = (m.specs || []).map(function (r) { return r.label + ": " + r.value; }).join("\n");
     dlgTags.value = (m.tags || []).join("、");
     dlgIntro.value = m.intro || "";
     dlgX.value = m.x_url || "";
-    dlgX.placeholder = a.x_account ? "空欄なら " + a.x_account + " から自動" : "";
     dlgLinks.value = (m.links || []).map(function (r) { return r.label + ": " + r.url; }).join("\n");
     dlgLinksError.textContent = "";
     dlgYoutube.value = m.youtube_url || "";
@@ -537,11 +541,13 @@
     if (specs.rows.length > 10) { dlgError.textContent = "スペック表は10行までです"; return; }
     if (portraits.length > 10) { dlgError.textContent = "立ち絵は10枚までです"; return; }
     if (youtube && !youtubeId(youtube)) { dlgError.textContent = "YouTube URLから動画IDを認識できません"; return; }
-    if (xUrl && xUrl.indexOf("https://") !== 0) { dlgError.textContent = "X URLは https:// で始めてください（空欄なら自動）"; return; }
+    if (xUrl && xUrl.indexOf("https://") !== 0) { dlgError.textContent = "X URLは https:// で始めてください"; return; }
     if (profileUrl && profileUrl.indexOf("https://") !== 0) { dlgError.textContent = "プロフィールURLは https:// で始めてください"; return; }
     if (linksParsed.rows.length > 10) { dlgError.textContent = "自由リンクは10個までです"; return; }
     var m = editing.cast.manual;
     m.name = dlgName.value.trim();
+    m.name_reading = dlgReading.value.trim();
+    m.birth_month = dlgBirthMonth.value.trim();
     m.catch = dlgCatch.value;
     m.intro = dlgIntro.value;
     m.x_url = xUrl;

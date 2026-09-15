@@ -1,6 +1,6 @@
 /*
  * 公開キャストデータ（scripts/build_data.py が自動生成・手編集禁止）
- * 元データ: data/casts.json（管理画面 or 「ランク更新して」で更新）
+ * 元データ: data/casts.json（管理画面 or bs-data 承認ランクの自動同期で更新）
  */
 window.SHOWCASE = {
   "rank_month": "2026-08",
