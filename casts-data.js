@@ -336,6 +336,28 @@ window.SHOWCASE = {
       "accent_color": "#ee6e63"
     },
     {
+      "cast_id": 616,
+      "name": "微々",
+      "name_reading": "vivi",
+      "rank": "SILVER",
+      "catch": "夜にじっくり効く、大人びた落ち着きボイス。",
+      "intro": "声を聞くのも聞いてもらうのも得意な微々。大人びた落ち着きの雰囲気で、夜にゆったり語り合いたい人にぴったりです。\n話し上手と聞き上手を兼ね備え、深みのある声でじっくりとした時間を届けてくれます。",
+      "x_url": "https://x.com/bibikoooooooooo",
+      "portrait": "",
+      "portraits": [
+        "assets/616_KV01.webp"
+      ],
+      "icon": "assets/616_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "5月",
+      "call_category": "",
+      "accent_color": "#9663ee"
+    },
+    {
       "cast_id": 388,
       "name": "夢野 てう",
       "name_reading": "Yumeno Teu",
@@ -371,6 +393,28 @@ window.SHOWCASE = {
       "birth_month": "8月",
       "call_category": "フレンドリー",
       "accent_color": "#6397ee"
+    },
+    {
+      "cast_id": 533,
+      "name": "白猫にゃる",
+      "name_reading": "shiraneko nyaru",
+      "rank": "BRONZE",
+      "catch": "自称・ビジュ最強の白猫。「こんにゃる〜」",
+      "intro": "挨拶は「こんにゃる〜」、(自称)ビジュ最強の白猫キャスト。まずはお話から、仲良くなったら映画鑑賞や朗読、寝落ち通話まで付き合ってくれます。ルーキーチャレンジ6位入賞の期待の新人。ゲームや音楽、仕事の話まで、猫らしい気まぐれさで楽しませてくれます。",
+      "x_url": "https://x.com/shiraneko_nyaru",
+      "portrait": "",
+      "portraits": [
+        "assets/533_KV01.webp"
+      ],
+      "icon": "assets/533_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "10月",
+      "call_category": "",
+      "accent_color": ""
     },
     {
       "cast_id": 313,
@@ -632,6 +676,50 @@ window.SHOWCASE = {
       "accent_color": "#ee63ba"
     },
     {
+      "cast_id": 565,
+      "name": "旅乃とき",
+      "name_reading": "Tabino Toki",
+      "rank": "BRONZE",
+      "catch": "縁を繋ぐ声変わり自在の旅人。",
+      "intro": "人と人との縁を繋ぐ個人VTuber。特技は声を変えることで、「コナン君が喋ってる」と言われることも。旅行や博物館巡り、刀鑑賞にCoC（クトゥルフ神話TRPG）と趣味は多彩です。目標はゲーム声優になること。好奇心旺盛で、あなたの好きな物も深掘りしてくれます。",
+      "x_url": "https://x.com/tabino060571",
+      "portrait": "",
+      "portraits": [
+        "assets/565_KV01.webp"
+      ],
+      "icon": "assets/565_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "1月",
+      "call_category": "",
+      "accent_color": "#6378ee"
+    },
+    {
+      "cast_id": 514,
+      "name": "寝猫なな",
+      "name_reading": "Nenneco Nana",
+      "rank": "BRONZE",
+      "catch": "「ねぼっちゃ〜！」友達の距離感ゲーマー猫。",
+      "intro": "挨拶は「ねぼっちゃ〜！」。ゲーム大好きな、友達の距離感系VTuberです。通話しながらのゲームや映画・アニメの同時視聴、まったり雑談まで一緒に楽しめます。相談でも愚痴でもOKの気さくさで、初めてでもすぐ打ち解けられるのが持ち味です。",
+      "x_url": "https://x.com/NenNeCo0430",
+      "portrait": "",
+      "portraits": [
+        "assets/514_KV01.webp"
+      ],
+      "icon": "assets/514_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "3月",
+      "call_category": "",
+      "accent_color": "#63e0ee"
+    },
+    {
       "cast_id": 154,
       "name": "あまち",
       "name_reading": "アマチ",
@@ -711,6 +799,51 @@ window.SHOWCASE = {
       "birth_month": "",
       "call_category": "ドリーマー",
       "accent_color": "#ee6377"
+    },
+    {
+      "cast_id": 588,
+      "name": "夜狩うる",
+      "name_reading": "YokariUru",
+      "rank": "BRONZE",
+      "catch": "モヤモヤを受け止める、圧倒的包容力の姉貴。",
+      "intro": "「腹の中のモヤモヤ、此処で置いていきなよ」と語る、圧倒的包容力の姉貴系キャスト。仕事の愚痴も恋愛相談も家族の悩みも、差しでどっしり受け止めてくれます。本職はリアルのアクセサリー職人で、夢は自分のお店を持つこと。頼れる背中に甘えたい日にどうぞ。",
+      "x_url": "https://x.com/yokariuru",
+      "portrait": "",
+      "portraits": [
+        "assets/588_KV01.webp",
+        "assets/588_KV02.webp"
+      ],
+      "icon": "assets/588_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "10月",
+      "call_category": "",
+      "accent_color": "#639fee"
+    },
+    {
+      "cast_id": 576,
+      "name": "紫月 ほたる",
+      "name_reading": "siduki hotaru",
+      "rank": "BRONZE",
+      "catch": "優しいお姉さんボイスで届ける、極上の癒し。",
+      "intro": "優しいお姉さんボイスが持ち味の癒し系キャスト。「泣いても怒っても大丈夫」と、あなたの些細な日常に寄り添ってくれます。FF14に麻雀、ポーカー、昔の格ゲーまでゲームの引き出しは幅広く、フリーレンや呪術廻戦などアニメの話も。話題づくりはお任せあれ。",
+      "x_url": "https://x.com/hotaru_shiduki",
+      "portrait": "",
+      "portraits": [
+        "assets/576_KV01.webp"
+      ],
+      "icon": "assets/576_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "6月",
+      "call_category": "",
+      "accent_color": "#63b8ee"
     },
     {
       "cast_id": 416,
