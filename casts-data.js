@@ -357,8 +357,8 @@ window.SHOWCASE = {
       "name": "夢野 てう",
       "name_reading": "Yumeno Teu",
       "rank": "BRONZE",
-      "catch": "蝶のように歌う、VSinger。",
-      "intro": "🦋を象徴に活動する歌姫。オリジナル曲「春の最果て」をサブスク配信中のVSingerで、歌への真っ直ぐな想いが持ち味です。\n夜の歌声に癒されたい人へ。",
+      "catch": "存外ゲラな人外。超好奇心旺盛な浮遊霊。",
+      "intro": "「存外ゲラな人外」についてはゲラってことを知ってもらいつつ韻を踏みたかっただけで特に意味はありません。なのでこの文章に含まれる情報量としては「ゲラです」っていう4文字と変わりません。薄味ですね。\nボケの解説って結構スベるらしいですね。私は今スベっていますか？\nこんな感じのテンション感で話します。\nここには最大200字書けるらしいです。残り18文字で私の長所を伝えます。好奇心旺盛で大抵の話題を楽しめます。",
       "x_url": "https://x.com/yumeno_teu",
       "portrait": "",
       "portraits": [
@@ -382,8 +382,17 @@ window.SHOWCASE = {
           "value": "夜 20:00〜0:00 中心"
         }
       ],
-      "youtube_id": "",
-      "links": [],
+      "youtube_id": "_-Ib_lpxIts",
+      "links": [
+        {
+          "label": "存えている。窓辺の、　　夢野てう song 02",
+          "url": "https://www.youtube.com/watch?v=_CVsshzD-ls"
+        },
+        {
+          "label": "春の最果て　夢野てう Original song 01",
+          "url": "https://www.youtube.com/watch?v=3fWirYWVx1s"
+        }
+      ],
       "profile_url": "",
       "birth_month": "8月",
       "call_category": "フレンドリー",
