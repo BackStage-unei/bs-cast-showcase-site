@@ -67,6 +67,16 @@
   .dlg-sec { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 4px; margin: 0 0 14px; }
   .dlg-sec > legend { font-size: 12.5px; font-weight: 700; color: var(--accent); padding: 0 6px; }
   .dlg-auto { margin: 0 0 10px; font-size: 11.5px; color: var(--sub); background: #efecf6; border-radius: 6px; padding: 5px 8px; }
+  /* 本人が shift-manager で書いた文章（参考パネル） */
+  .self-panel { background: #f3f8f3; border: 1px solid #cfe3cf; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; }
+  .self-panel .self-empty { margin: 0; color: var(--sub); }
+  .self-panel .self-label { margin: 8px 0 2px; font-size: 11px; color: #2c7a2c; font-weight: 700; }
+  .self-panel .self-label:first-child { margin-top: 0; }
+  .self-panel .self-text { margin: 0; white-space: pre-wrap; line-height: 1.7; }
+  .self-panel .self-meta { margin: 8px 0 0; font-size: 11px; color: var(--sub); white-space: pre-line; }
+  .self-panel .self-actions { margin-top: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .self-panel .self-actions .dlg-hint { display: inline; margin: 0; }
+  .row-self { color: #2c7a2c; font-weight: 700; }
   .dlg-adv { margin-top: 8px; }
   .dlg-adv > summary { font-size: 11.5px; color: var(--sub); cursor: pointer; }
   .dlg-adv textarea { margin-top: 6px; }
@@ -143,6 +153,26 @@
     </fieldset>
 
     <fieldset class="dlg-sec">
+      <legend>本人が shift-manager で書いた文章（参考・ここでは編集できません）</legend>
+      <div class="self-panel" id="selfPanel">
+        <p class="self-empty" id="selfEmpty">読み込み中…</p>
+        <div id="selfBody" hidden>
+          <p class="self-label">キャッチコピー</p>
+          <p class="self-text" id="selfCatch"></p>
+          <p class="self-label">紹介文</p>
+          <p class="self-text" id="selfIntro"></p>
+          <p class="self-label">本人が選んだ属性</p>
+          <p class="self-text" id="selfAttrs"></p>
+          <p class="self-meta" id="selfMeta"></p>
+          <div class="self-actions">
+            <button type="button" id="selfPaste">下書きとして貼り付け</button>
+            <span class="dlg-hint">キャッチコピーと紹介文の欄にコピーします。運営が第三者視点に書き直してから保存してください</span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="dlg-sec">
       <legend>② 名前・キャッチコピー</legend>
       <p class="dlg-auto" id="dlgAutoName"></p>
       <label>表示名<input type="text" id="dlgName" /></label>
@@ -210,11 +240,26 @@
   var OWNER = "BackStage-unei";
   var REPO = "bs-cast-showcase";
   var FILE_PATH = "data/casts.json";
+  var SELF_PROFILES_PATH = "data/self-profiles.json"; // 本人文（sync-self-profiles.yml が同期・公開ビルド外）
   var BRANCH = "main";
   var TOKEN_KEY = "bs_cast_admin_token";
 
   var data = null;      // casts.json の中身
   var fileSha = null;   // 楽観ロック用（GitHub contents APIのsha）
+  var selfProfiles = null; // self-profiles.json の profiles（cast_id文字列 → 本人文）。未同期なら null
+  var selfLoadError = null; // 本人文の取得に失敗した理由（成功・未同期(404)なら null）。完了メッセージとパネルに残す
+  var selfLoading = false;  // 本人文を取得中（一覧より後に届くため、その間に開いたダイアログでは「読み込み中」と案内する）
+  var selfChangedAt = null; // self-profiles.json の最終コミット日時（差分があった時だけ動く＝「同期成功」ではない）
+  var selfSyncedAt = null;  // sync-self-profiles の最終成功日時（Actions API を読めるトークンのときだけ取れる）
+  var SELF_TIMEOUT_MS = window.__SELF_TIMEOUT_MS || 15000; // 本人文まわりの通信は一覧を道連れにしない（Codex レビュー Medium）
+  var SELF_STALE_MS = 26 * 3600 * 1000; // 平日は毎時同期（JST 9:30〜21:30）なので26時間成功なしは異常
+  // 本人が選んだ属性の表示ラベル（bs-cast-finder の ATTR_SCHEMA と同じ正準値）
+  var ATTR_LABELS = {
+    avatar: { vtuber: "VTuber", human: "実写・人間", creature: "人外" },
+    vibe: { iyashi: "癒し系", genki: "元気系", mystery: "ミステリアス", otona: "大人っぽい" },
+    genre: { zatsudan: "雑談", game: "ゲーム", koe: "声", sake: "お酒" },
+    talk: { lead: "リード上手", listen: "聞き上手", both: "どちらも" },
+  };
   var RANK_ORDER = { GOLD: 0, SILVER: 1, BRONZE: 2 };
 
   var loginView = document.getElementById("loginView");
@@ -250,8 +295,136 @@
   function setStatus(text) { statusEl.textContent = text; }
 
   // ---- 読み込み ----
+  // 本人文まわりの通信にだけタイムアウトを掛ける（既存の casts.json 取得は従来どおり）。
+  // ヘッダ受領で終わらせず、本文（JSON）の取得完了までを1つの期限で打ち切る（Codex 再レビュー指摘）。
+  // 返り値: { status, ok, body }（body は ok のときだけ JSON、それ以外は null）
+  function apiJsonWithTimeout(path) {
+    var ctl = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = null;
+    var deadline = new Promise(function (_, reject) {
+      timer = setTimeout(function () {
+        if (ctl) ctl.abort();
+        reject(new Error("タイムアウト（" + Math.round(SELF_TIMEOUT_MS / 1000) + "秒）"));
+      }, SELF_TIMEOUT_MS);
+    });
+    var work = api(path, ctl ? { signal: ctl.signal } : {}).then(function (res) {
+      if (!res.ok) return { status: res.status, ok: false, body: null };
+      return res.json().then(function (body) { return { status: res.status, ok: true, body: body }; });
+    });
+    return Promise.race([work, deadline]).then(
+      function (v) { clearTimeout(timer); return v; },
+      function (err) {
+        clearTimeout(timer);
+        if (err && err.name === "AbortError") throw new Error("タイムアウト（" + Math.round(SELF_TIMEOUT_MS / 1000) + "秒）");
+        throw err;
+      });
+  }
+
+  // 付随情報（鮮度）。取れなくても本人文の表示は妨げない（403=権限なし・タイムアウト等は null）
+  function fetchSelfFreshness() {
+    var commits = apiJsonWithTimeout("/repos/" + OWNER + "/" + REPO + "/commits?path=" + encodeURIComponent(SELF_PROFILES_PATH) +
+                                     "&sha=" + BRANCH + "&per_page=1")
+      .then(function (r) { return r.body; })
+      .then(function (list) {
+        var c = list && list[0] && list[0].commit;
+        return c && c.committer && c.committer.date ? c.committer.date : null;
+      })
+      .catch(function () { return null; });
+    var runs = apiJsonWithTimeout("/repos/" + OWNER + "/" + REPO + "/actions/workflows/sync-self-profiles.yml/runs?status=success&per_page=1")
+      .then(function (r) { return r.body; })
+      .then(function (body) {
+        var r = body && body.workflow_runs && body.workflow_runs[0];
+        return r && r.updated_at ? r.updated_at : null;
+      })
+      .catch(function () { return null; });
+    return Promise.all([commits, runs]).then(function (v) { selfChangedAt = v[0]; selfSyncedAt = v[1]; });
+  }
+
+  function loadSelfProfiles() {
+    // 本人文ファイルと鮮度情報を並行取得。どちらも失敗しても reject しない（表は必ず出す）
+    return Promise.all([fetchSelfProfilesFile(), fetchSelfFreshness()]).then(function (v) { return v[0]; });
+  }
+
+  function fetchSelfProfilesFile() {
+    // 404 は「まだ一度も同期されていない」= 正常（Secret 登録前）。それ以外の失敗も表だけは出す
+    return apiJsonWithTimeout("/repos/" + OWNER + "/" + REPO + "/contents/" + SELF_PROFILES_PATH + "?ref=" + BRANCH)
+      .then(function (r) {
+        if (r.status === 404) { selfLoadError = null; return null; }
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        var parsed = JSON.parse(b64decodeUtf8(r.body.content));
+        selfLoadError = null;
+        return parsed.profiles || {};
+      })
+      .catch(function (err) {
+        // ここで setStatus しても直後の「読み込み完了」で消えるため、理由を保持して完了メッセージに合成する
+        selfLoadError = err.message || String(err);
+        return null;
+      });
+  }
+
+  function fmtJst(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    return d.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+  function selfIsStale() {
+    return !!selfSyncedAt && (Date.now() - new Date(selfSyncedAt).getTime() > SELF_STALE_MS);
+  }
+  // 鮮度の説明文（status とダイアログで共用）
+  function selfFreshnessText() {
+    var parts = [];
+    if (selfChangedAt) parts.push("ファイル更新 " + fmtJst(selfChangedAt));
+    if (selfSyncedAt) parts.push("同期成功 " + fmtJst(selfSyncedAt));
+    var text = parts.join("・");
+    if (selfIsStale()) text += "　⚠ 同期が26時間以上成功していません（Actions の sync-self-profiles を確認。表示中の本人文は古い可能性があります）";
+    return text;
+  }
+  function selfNoteText() {
+    if (selfLoadError) return " / 本人文: 読み込み失敗（" + selfLoadError + "・「再読込」で再試行）";
+    if (selfProfiles === null) return " / 本人文: 未同期";
+    var f = selfFreshnessText();
+    return " / 本人文: " + Object.keys(selfProfiles).length + "名" + (f ? "（" + f + "）" : "");
+  }
+  function baseStatus() {
+    return "読み込み完了（" + data.casts.length + "名 / ランク月: " + ((data.meta || {}).rank_month || "?");
+  }
+
+  // 読み込み系のステータスだけを書き換える。「保存中…」「保存しました」等が表示中なら触らない
+  // （本人文の到着タイミングは保存操作と重なり得るため。Codex 再レビュー指摘）
+  function setLoadStatus(note) {
+    if (!data) return; // 一覧がまだ無い（初回で本人文が先に届いた／一覧取得が失敗した）ときは触らない
+    var cur = statusEl.textContent;
+    if (cur !== "読み込み中…" && cur.indexOf("読み込み完了（") !== 0) return;
+    setStatus(baseStatus() + note + "）");
+  }
+  // 「本人文あり」の印だけを差し替える（render() で一覧を作り直すと保存中のチェックボックス等を壊すため）
+  function updateSelfMarks() {
+    if (!data) return;
+    data.casts.forEach(function (cast) {
+      if (cast._selfMark) cast._selfMark.hidden = !selfProfile(cast);
+    });
+  }
+
   function loadCasts() {
     setStatus("読み込み中…");
+    // 本人文は一覧と並行に取り、一覧の表示（showApp）を待たせない。到着後に印・status・開いているダイアログだけ更新
+    selfLoading = true;
+    selfLoadError = null; // 再試行中は前回の失敗表示ではなく「読み込み中」を出す
+    var selfP = loadSelfProfiles().then(function (profiles) { selfProfiles = profiles; selfLoading = false; });
+    // 本人文の後追い更新は一覧取得の成否に依存させない（再読込で casts.json だけ失敗しても、
+    // 開いているダイアログを「読み込み中」のまま残さない。Codex 4回目レビュー指摘）
+    selfP.then(function () {
+      updateSelfMarks();
+      if (dlg.open && editing) renderSelfPanel(editing.cast);
+      setLoadStatus(selfNoteText());
+    });
+    return loadCastsFile().then(function () {
+      setLoadStatus(selfLoading ? " / 本人文: 読み込み中…" : selfNoteText());
+      // ここで resolve → 呼び出し元の showApp() が一覧を見せる（本人文は後追い）
+    });
+  }
+
+  function loadCastsFile() {
     return api("/repos/" + OWNER + "/" + REPO + "/contents/" + FILE_PATH + "?ref=" + BRANCH)
       .then(function (res) {
         if (res.status === 401) throw new Error("トークンが無効です（期限切れ・入力ミスの可能性）");
@@ -262,8 +435,7 @@
       .then(function (body) {
         fileSha = body.sha;
         data = JSON.parse(b64decodeUtf8(body.content));
-        render();
-        setStatus("読み込み完了（" + data.casts.length + "名 / ランク月: " + ((data.meta || {}).rank_month || "?") + "）");
+        render(); // status は loadCasts 側で本人文の結果と合わせて出す
       });
   }
 
@@ -330,6 +502,12 @@
       idDiv.className = "row-id";
       idDiv.textContent = (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
         (cast.manual.name_reading ? " ・ " + cast.manual.name_reading : "") + " ・ " + badgeText(cast);
+      var selfMark = document.createElement("span");
+      selfMark.className = "row-self";
+      selfMark.textContent = " ・ 本人文あり";
+      selfMark.hidden = !selfProfile(cast); // 本人文が後から到着したら updateSelfMarks() が表示に切り替える
+      idDiv.appendChild(selfMark);
+      cast._selfMark = selfMark;
       tdWho.appendChild(nameDiv);
       tdWho.appendChild(idDiv);
       tr.appendChild(tdWho);
@@ -388,7 +566,70 @@
   var dlgAutoSpecs = document.getElementById("dlgAutoSpecs");
   var dlgPortraitPreview = document.getElementById("dlgPortraitPreview");
   var dlgError = document.getElementById("dlgError");
+  var selfEmpty = document.getElementById("selfEmpty");
+  var selfBody = document.getElementById("selfBody");
   var editing = null;
+
+  // ---- 本人が shift-manager で書いた文章（参照パネル） ----
+  // 突合キー: showcase の cast_id = shift-manager の external_id（アプリのシステムID）。名前照合はしない
+  function selfProfile(cast) {
+    return selfProfiles ? (selfProfiles[String(cast.cast_id)] || null) : null;
+  }
+  function attrLabel(attr, value) {
+    var table = ATTR_LABELS[attr] || {};
+    return table[String(value)] || String(value);
+  }
+  function describeAttrs(attrs) {
+    attrs = attrs || {};
+    var parts = [];
+    if (attrs.avatar) parts.push(attrLabel("avatar", attrs.avatar));
+    if (attrs.vibe) parts.push(attrLabel("vibe", attrs.vibe));
+    if (Array.isArray(attrs.genre) && attrs.genre.length) {
+      parts.push("楽しみたいこと: " + attrs.genre.map(function (g) { return attrLabel("genre", g); }).join("・"));
+    }
+    if (attrs.talk) parts.push(attrLabel("talk", attrs.talk));
+    if (attrs.beginner_ok === true) parts.push("はじめてさん歓迎");
+    return parts.join(" / ") || "（未回答）";
+  }
+  function renderSelfPanel(cast) {
+    var p = selfProfile(cast);
+    if (!p) {
+      selfBody.hidden = true;
+      selfEmpty.hidden = false;
+      selfEmpty.textContent = selfLoadError
+        ? "本人文の読み込みに失敗しました（" + selfLoadError + "）。「再読込」で再試行してください"
+        : (selfLoading && selfProfiles === null)
+        ? "本人文を読み込み中…（届いたらここに表示されます）"
+        : selfProfiles === null
+        ? "本人文はまだ同期されていません（Actions の sync-self-profiles を確認）"
+        : "このキャストの本人回答はまだありません（shift-manager の「キャスト検索プロフィール」で全項目を入力すると、日中は1〜2時間以内・夜間の入力は翌朝9:30以降に出ます）";
+      return;
+    }
+    selfEmpty.hidden = true;
+    selfBody.hidden = false;
+    document.getElementById("selfCatch").textContent = p.catch || "";
+    document.getElementById("selfIntro").textContent = p.intro || "";
+    document.getElementById("selfAttrs").textContent = describeAttrs(p.attrs);
+    var fresh = selfFreshnessText();
+    document.getElementById("selfMeta").textContent =
+      (p.name ? "shift-manager 上の名前: " + p.name : "") +
+      (p.updated_at ? "　本人の最終更新: " + String(p.updated_at).slice(0, 10) : "") +
+      (fresh ? "\n" + fresh : "");
+  }
+  document.getElementById("selfPaste").addEventListener("click", function () {
+    if (!editing) return;
+    var p = selfProfile(editing.cast);
+    if (!p) return;
+    var nextCatch = String(p.catch || "").replace(/\s*\n\s*/g, " "); // キャッチ欄は1行入力
+    var nextIntro = String(p.intro || "");
+    var overwriting = (dlgCatch.value.trim() && dlgCatch.value !== nextCatch) ||
+                      (dlgIntro.value.trim() && dlgIntro.value !== nextIntro);
+    if (overwriting && !confirm("入力済みのキャッチコピー・紹介文を本人文で上書きします。よいですか？（保存するまで本番には反映されません）")) return;
+    dlgCatch.value = nextCatch;
+    dlgIntro.value = nextIntro;
+    dlgError.textContent = "";
+    dlgIntro.focus();
+  });
 
   function youtubeId(url) {
     var s = String(url || "").trim();
@@ -496,6 +737,7 @@
     document.getElementById("dlgTitle").textContent = "編集 — " + (m.name || "ID " + cast.cast_id);
     renderPortraitPreview(cast);
     dlgAutoName.textContent = "ランク: " + (a.rank || "圏外") + "（bs-data の承認ランクから自動・ここでは変えられません）";
+    renderSelfPanel(cast);
     dlgName.value = m.name || "";
     dlgReading.value = m.name_reading || "";
     dlgCatch.value = m.catch || "";
