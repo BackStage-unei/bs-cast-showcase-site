@@ -472,8 +472,8 @@ window.SHOWCASE = {
       "name": "魔法少女ぴょん",
       "name_reading": "マホウショウジョピョン",
       "rank": "BRONZE",
-      "catch": "お絵描き大好き、魔法少女（になりたい）。",
-      "intro": "イラストレーターとして活動しながら、魔法少女になることを夢見るキャスト。目標は「魔法少女界のアイアンマン」。\nイラストや創作の話で盛り上がりたい夜にぴったりです。",
+      "catch": "あなたの心に残る映画を、教えてもらえませんか？",
+      "intro": "映画とお絵描きが好きな、魔法少女になりたい女の子💭\n得意な話題はもちろん･･･映画について！\n感想会から同時視聴まで、一緒に楽しめたらとっても嬉しいです🌟\n\nぜひ、あなたの好きな映画作品を教えてくださいっ！",
       "x_url": "https://x.com/MagicalGirl_PPP",
       "portrait": "",
       "portraits": [
@@ -500,8 +500,13 @@ window.SHOWCASE = {
           "value": "夜 22:00〜1:00 中心"
         }
       ],
-      "youtube_id": "",
-      "links": [],
+      "youtube_id": "pJ9gAa1khzs",
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/MagicalGirl_P"
+        }
+      ],
       "profile_url": "",
       "birth_month": "12月",
       "call_category": "ドリーマー",
