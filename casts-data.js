@@ -430,8 +430,8 @@ window.SHOWCASE = {
       "name": "黒柴えいら",
       "name_reading": "クロシバエイラ",
       "rank": "BRONZE",
-      "catch": "中低音ボイスの黒柴が、夢の中で待ってる。",
-      "intro": "中低音ボイスが看板の黒柴系キャスト。相棒「茶豆」とともに「夢の中で生きるリアリスト」として、名作ゲームの世界観を語らせたら止まりません。\n深夜0時からの大人の時間にどうぞ。",
+      "catch": "5オクターブの声を操るDIVA系Vアーティストなのに会話も◎",
+      "intro": "人の話を傾聴して記事にする仕事をしているので難しい話もOK！\nVは5オクターブが出せる音楽好きなのでアーティスト活動を中心に活動しています★",
       "x_url": "https://x.com/kuroshibaeila",
       "portrait": "",
       "portraits": [
@@ -455,8 +455,13 @@ window.SHOWCASE = {
           "value": "深夜 0:00〜4:00 中心"
         }
       ],
-      "youtube_id": "",
-      "links": [],
+      "youtube_id": "uTukaPEdV4E",
+      "links": [
+        {
+          "label": "BackStage FM",
+          "url": "https://www.youtube.com/watch?v=ffa0M6C0Dp8&list=PLvQucsBJwhV4CxRYQ174WzVUuWOt2Jq9t&index=24"
+        }
+      ],
       "profile_url": "",
       "birth_month": "11月",
       "call_category": "ドリーマー",
