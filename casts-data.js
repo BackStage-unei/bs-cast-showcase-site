@@ -403,8 +403,8 @@ window.SHOWCASE = {
       "name": "白猫にゃる",
       "name_reading": "shiraneko nyaru",
       "rank": "BRONZE",
-      "catch": "自称・ビジュ最強の白猫。「こんにゃる〜」",
-      "intro": "挨拶は「こんにゃる〜」、(自称)ビジュ最強の白猫キャスト。まずはお話から、仲良くなったら映画鑑賞や朗読、寝落ち通話まで付き合ってくれます。ルーキーチャレンジ6位入賞の期待の新人。ゲームや音楽、仕事の話まで、猫らしい気まぐれさで楽しませてくれます。",
+      "catch": "今日もお疲れ様〜。まったり雑談しよ〜",
+      "intro": "白猫にゃる(しらねこ )です🐈🤍\n\nまったり雑談したり、通話しながらゲームしてます✨️\n🩵好き:ゲーム全般、ツムツム、たまごっち、食べること、ちいかわ(うさぎ、くりまんじゅう推し)、ポムポムプリン、Ado、オーイシマサヨシ、福山雅治、加藤純一、はりーシ、お花\n🩵game:VALORANT.APEX.DbD.スプラトゥーン.マイクラ統合版.ディンカム.などなど。他にも沢山あります",
       "x_url": "https://x.com/shiraneko_nyaru",
       "portrait": "",
       "portraits": [
@@ -414,7 +414,12 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/channel/UCuRJLGtu1inmeNcUlTC5hsg"
+        }
+      ],
       "profile_url": "",
       "birth_month": "10月",
       "call_category": "",
