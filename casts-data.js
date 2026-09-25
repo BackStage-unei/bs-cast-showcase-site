@@ -44,7 +44,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p/2n9d4530",
       "birth_month": "8月",
-      "call_category": "",
+      "call_category": "ドリーマー",
       "accent_color": "#ee9b63"
     },
     {
@@ -82,7 +82,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "フレンドリー",
+      "call_category": "ドリーマー",
       "accent_color": "#63e1ee"
     },
     {
@@ -123,7 +123,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#6368ee"
     },
     {
@@ -248,7 +248,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "1月",
-      "call_category": "フレンドリー",
+      "call_category": "ドリーマー",
       "accent_color": "#ee6390"
     },
     {
@@ -281,7 +281,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "",
+      "call_category": "ドリーマー",
       "accent_color": "#ee6397"
     },
     {
@@ -349,7 +349,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "5月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#9663ee"
     },
     {
@@ -395,7 +395,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "8月",
-      "call_category": "フレンドリー",
+      "call_category": "ドリーマー",
       "accent_color": "#6397ee"
     },
     {
@@ -422,7 +422,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "10月",
-      "call_category": "",
+      "call_category": "ドリーマー",
       "accent_color": ""
     },
     {
@@ -541,7 +541,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "12月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#ee9963"
     },
     {
@@ -713,7 +713,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "1月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#6378ee"
     },
     {
@@ -735,7 +735,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#63e0ee"
     },
     {
@@ -780,7 +780,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "3月",
-      "call_category": "",
+      "call_category": "ドリーマー",
       "accent_color": "#9a63ee"
     },
     {
@@ -839,7 +839,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "10月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#639fee"
     },
     {
@@ -861,7 +861,7 @@ window.SHOWCASE = {
       "links": [],
       "profile_url": "",
       "birth_month": "6月",
-      "call_category": "",
+      "call_category": "フレンドリー",
       "accent_color": "#63b8ee"
     },
     {
@@ -936,7 +936,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "",
       "birth_month": "",
-      "call_category": "",
+      "call_category": "ドリーマー",
       "accent_color": "#eeb163"
     },
     {
