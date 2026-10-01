@@ -399,6 +399,28 @@ window.SHOWCASE = {
       "accent_color": "#6397ee"
     },
     {
+      "cast_id": 403,
+      "name": "千里香(せんり-こう)",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "穏やかな声に包まれて、今夜はゆっくり休みませんか。",
+      "intro": "穏やかにお話をするのが好きな千里香(せんり-こう)と申します💐\n性別は曖昧な身ゆえ、親しみやすく「香くん」と呼んで、あなたの今日を少しだけ預けてはくれませんか？\nあなたのお話を聞くのが好きな、少しお休みしたい方の為の微睡みの案内人です🌙\n日常の他愛ないお話をしたり、美味しい飲み物やご飯のお話をしたり、アニメのお話や、好きなお話の共有、悩みがある、落ち着きたい時、眠れない、寂しい夜に誰かと一緒にいたい時などのお話し相手に是非✨\nあなたと、ご縁がありますように🍀",
+      "x_url": "",
+      "portrait": "",
+      "portraits": [
+        "assets/403_KV01.webp"
+      ],
+      "icon": "assets/403_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "",
+      "call_category": "フレンドリー",
+      "accent_color": ""
+    },
+    {
       "cast_id": 533,
       "name": "白猫にゃる",
       "name_reading": "shiraneko nyaru",
