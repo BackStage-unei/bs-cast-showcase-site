@@ -3,7 +3,7 @@
  * 元データ: data/casts.json（管理画面 or bs-data 承認ランクの自動同期で更新）
  */
 window.SHOWCASE = {
-  "rank_month": "2026-09",
+  "rank_month": "2026-10",
   "casts": [
     {
       "cast_id": 172,
@@ -86,47 +86,6 @@ window.SHOWCASE = {
       "accent_color": "#63e1ee"
     },
     {
-      "cast_id": 232,
-      "name": "水戸わかな",
-      "name_reading": "ミトワカナ",
-      "rank": "SILVER",
-      "catch": "挨拶は元気よく！あなたの日常や楽しかったこと教えてください。",
-      "intro": "１対１で会話することに慣れるためにBackStageのキャストになりました！\n納豆系Vtuberの水戸わかなです。\n普段はYoutubeで配信をしています。\nゲームが好きです。あなたの趣味はなんですか？",
-      "x_url": "https://x.com/mitowakana",
-      "portrait": "",
-      "portraits": [
-        "assets/232_KV01.webp"
-      ],
-      "icon": "assets/232_icon.webp",
-      "tags": [
-        "納豆",
-        "ガンダム",
-        "ほぼ毎日配信",
-        "雑談"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "納豆・ガンダム"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "夜 22:00〜0:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@mitowakana"
-        }
-      ],
-      "profile_url": "",
-      "birth_month": "",
-      "call_category": "フレンドリー",
-      "accent_color": "#6368ee"
-    },
-    {
       "cast_id": 296,
       "name": "宇田わん",
       "name_reading": "ウタワン",
@@ -173,6 +132,47 @@ window.SHOWCASE = {
       "accent_color": ""
     },
     {
+      "cast_id": 232,
+      "name": "水戸わかな",
+      "name_reading": "ミトワカナ",
+      "rank": "SILVER",
+      "catch": "挨拶は元気よく！あなたの日常や楽しかったこと教えてください。",
+      "intro": "１対１で会話することに慣れるためにBackStageのキャストになりました！\n納豆系Vtuberの水戸わかなです。\n普段はYoutubeで配信をしています。\nゲームが好きです。あなたの趣味はなんですか？",
+      "x_url": "https://x.com/mitowakana",
+      "portrait": "",
+      "portraits": [
+        "assets/232_KV01.webp"
+      ],
+      "icon": "assets/232_icon.webp",
+      "tags": [
+        "納豆",
+        "ガンダム",
+        "ほぼ毎日配信",
+        "雑談"
+      ],
+      "specs": [
+        {
+          "label": "好きなもの",
+          "value": "納豆・ガンダム"
+        },
+        {
+          "label": "活動時間帯",
+          "value": "夜 22:00〜0:00 中心"
+        }
+      ],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@mitowakana"
+        }
+      ],
+      "profile_url": "",
+      "birth_month": "",
+      "call_category": "フレンドリー",
+      "accent_color": "#6368ee"
+    },
+    {
       "cast_id": 529,
       "name": "赤絲 こゆび",
       "name_reading": "Akaito Koyubi",
@@ -208,6 +208,61 @@ window.SHOWCASE = {
       "birth_month": "3月",
       "call_category": "ドリーマー",
       "accent_color": "#ee6383"
+    },
+    {
+      "cast_id": 616,
+      "name": "微々",
+      "name_reading": "vivi",
+      "rank": "SILVER",
+      "catch": "心の絡まりを、やさしくほどく人。",
+      "intro": "頑張っている貴方に、ほっとひと息つける時間を送ります。暗闇に灯すろうそくの火のように、優しい時間をお供します。\nお悩み相談や、心が苦しい時の思考整理のお手伝いも出来ますよ。日々の何気ない話も聞かせてもらうのを楽しみにしています。お話が苦手な方、慣れるまで難しいという方は事前にお知らせ頂けたら私だけが指定時間分だけお話することも可能です。無料通話のみも大歓迎です。お気軽にどうぞ！",
+      "x_url": "https://x.com/bibikoooooooooo",
+      "portrait": "",
+      "portraits": [
+        "assets/616_KV01.webp"
+      ],
+      "icon": "assets/616_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "5月",
+      "call_category": "フレンドリー",
+      "accent_color": "#9663ee"
+    },
+    {
+      "cast_id": 392,
+      "name": "こぐま もる",
+      "name_reading": "コグマモル",
+      "rank": "SILVER",
+      "catch": "ふわっとクセになる声で、ゆるっとお話ししよ？",
+      "intro": "魔界からやってきた悪魔\nこぐまもる🧸です！\n\n「何を話そう…」って考えなくても、初めてでも大丈夫！\n\nのんびりおしゃべりしながら\nあなたのことをもっと教えてほしいです✨\n\n「ふわっとクセになる声」で、\n気づけばもっと話したくなるような\n悪魔の魔法をかけますねっ！🖤\n初めましても大歓迎！気軽に会いにきてね〜！",
+      "x_url": "https://x.com/KUMANO_moru",
+      "portrait": "",
+      "portraits": [
+        "assets/392_KV01.webp",
+        "assets/392_KV02.webp"
+      ],
+      "icon": "assets/392_icon.webp",
+      "tags": [
+        "くま",
+        "ゲーム",
+        "ゆるふわ",
+        "夜型"
+      ],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@KUMANOMORUchan"
+        }
+      ],
+      "profile_url": "",
+      "birth_month": "",
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6397"
     },
     {
       "cast_id": 407,
@@ -250,39 +305,6 @@ window.SHOWCASE = {
       "birth_month": "1月",
       "call_category": "ドリーマー",
       "accent_color": "#ee6390"
-    },
-    {
-      "cast_id": 392,
-      "name": "こぐま もる",
-      "name_reading": "コグマモル",
-      "rank": "SILVER",
-      "catch": "ふわっとクセになる声で、ゆるっとお話ししよ？",
-      "intro": "魔界からやってきた悪魔\nこぐまもる🧸です！\n\n「何を話そう…」って考えなくても、初めてでも大丈夫！\n\nのんびりおしゃべりしながら\nあなたのことをもっと教えてほしいです✨\n\n「ふわっとクセになる声」で、\n気づけばもっと話したくなるような\n悪魔の魔法をかけますねっ！🖤\n初めましても大歓迎！気軽に会いにきてね〜！",
-      "x_url": "https://x.com/KUMANO_moru",
-      "portrait": "",
-      "portraits": [
-        "assets/392_KV01.webp",
-        "assets/392_KV02.webp"
-      ],
-      "icon": "assets/392_icon.webp",
-      "tags": [
-        "くま",
-        "ゲーム",
-        "ゆるふわ",
-        "夜型"
-      ],
-      "specs": [],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@KUMANOMORUchan"
-        }
-      ],
-      "profile_url": "",
-      "birth_month": "",
-      "call_category": "ドリーマー",
-      "accent_color": "#ee6397"
     },
     {
       "cast_id": 236,
@@ -329,28 +351,6 @@ window.SHOWCASE = {
       "birth_month": "",
       "call_category": "",
       "accent_color": "#ee6e63"
-    },
-    {
-      "cast_id": 616,
-      "name": "微々",
-      "name_reading": "vivi",
-      "rank": "SILVER",
-      "catch": "心の絡まりを、やさしくほどく人。",
-      "intro": "頑張っている貴方に、ほっとひと息つける時間を送ります。暗闇に灯すろうそくの火のように、優しい時間をお供します。\nお悩み相談や、心が苦しい時の思考整理のお手伝いも出来ますよ。日々の何気ない話も聞かせてもらうのを楽しみにしています。お話が苦手な方、慣れるまで難しいという方は事前にお知らせ頂けたら私だけが指定時間分だけお話することも可能です。無料通話のみも大歓迎です。お気軽にどうぞ！",
-      "x_url": "https://x.com/bibikoooooooooo",
-      "portrait": "",
-      "portraits": [
-        "assets/616_KV01.webp"
-      ],
-      "icon": "assets/616_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "",
-      "birth_month": "5月",
-      "call_category": "フレンドリー",
-      "accent_color": "#9663ee"
     },
     {
       "cast_id": 388,
@@ -545,45 +545,49 @@ window.SHOWCASE = {
       "accent_color": "#ee9963"
     },
     {
-      "cast_id": 501,
-      "name": "あまタクシー",
-      "name_reading": "AMATAXI",
+      "cast_id": 154,
+      "name": "あまち",
+      "name_reading": "アマチ",
       "rank": "BRONZE",
-      "catch": "雨の日も、心の送迎いたします。",
-      "intro": "☔️🚕がトレードマークの男性キャスト。龍が如くやメタルギアなどストーリー重視のゲームと、演劇・舞台を愛する語り屋です。\nツイキャスやYouTubeの実況で鍛えたトークで、目的地までご案内します。",
-      "x_url": "https://x.com/amataxi4869",
+      "catch": "唯一無二の声で語りかける、雑談大好きドリーマー。",
+      "intro": "「唯一無二の声」がじまんの雑談大好きキャスト。ツイキャスでの長い配信歴に裏打ちされたトーク力で、初めてでも会話が途切れません。\n夢はLive2Dのお披露目。応援したくなる成長物語の真っ只中です。",
+      "x_url": "https://x.com/pochakk666",
       "portrait": "",
       "portraits": [
-        "assets/501_KV01.webp"
+        "assets/154_KV01.webp"
       ],
-      "icon": "assets/501_icon.webp",
+      "icon": "assets/154_icon.webp",
       "tags": [
-        "男性キャスト",
-        "ゲーム実況",
-        "演劇好き",
-        "夜型"
+        "雑談",
+        "声フェチ歓迎",
+        "ツイキャス出身",
+        "昼活動"
       ],
       "specs": [
         {
           "label": "好きなもの",
-          "value": "ストーリー重視のゲーム・舞台観劇"
+          "value": "おしゃべり"
+        },
+        {
+          "label": "夢",
+          "value": "Live2Dお披露目"
         },
         {
           "label": "活動時間帯",
-          "value": "夜 18:00〜22:00 中心"
+          "value": "昼 11:00〜19:00 中心"
         }
       ],
       "youtube_id": "",
       "links": [
         {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@amataxi"
+          "label": "ツイキャス",
+          "url": "https://twitcasting.tv/pochakk666"
         }
       ],
       "profile_url": "",
-      "birth_month": "2月",
-      "call_category": "フレンドリー",
-      "accent_color": "#eec863"
+      "birth_month": "3月",
+      "call_category": "ドリーマー",
+      "accent_color": "#9a63ee"
     },
     {
       "cast_id": 414,
@@ -615,6 +619,28 @@ window.SHOWCASE = {
       "birth_month": "11月",
       "call_category": "フレンドリー",
       "accent_color": "#63bbee"
+    },
+    {
+      "cast_id": 565,
+      "name": "旅乃とき",
+      "name_reading": "Tabino Toki",
+      "rank": "BRONZE",
+      "catch": "縁を繋ぐ声変わり自在の旅人。",
+      "intro": "人と人との縁を繋ぐ個人VTuber。特技は声を変えることで、「コナン君が喋ってる」と言われることも。旅行や博物館巡り、刀鑑賞にCoC（クトゥルフ神話TRPG）と趣味は多彩です。目標はゲーム声優になること。好奇心旺盛で、あなたの好きな物も深掘りしてくれます。",
+      "x_url": "https://x.com/tabino060571",
+      "portrait": "",
+      "portraits": [
+        "assets/565_KV01.webp"
+      ],
+      "icon": "assets/565_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "",
+      "birth_month": "1月",
+      "call_category": "フレンドリー",
+      "accent_color": "#6378ee"
     },
     {
       "cast_id": 446,
@@ -695,93 +721,45 @@ window.SHOWCASE = {
       "accent_color": "#ee63ba"
     },
     {
-      "cast_id": 565,
-      "name": "旅乃とき",
-      "name_reading": "Tabino Toki",
+      "cast_id": 501,
+      "name": "あまタクシー",
+      "name_reading": "AMATAXI",
       "rank": "BRONZE",
-      "catch": "縁を繋ぐ声変わり自在の旅人。",
-      "intro": "人と人との縁を繋ぐ個人VTuber。特技は声を変えることで、「コナン君が喋ってる」と言われることも。旅行や博物館巡り、刀鑑賞にCoC（クトゥルフ神話TRPG）と趣味は多彩です。目標はゲーム声優になること。好奇心旺盛で、あなたの好きな物も深掘りしてくれます。",
-      "x_url": "https://x.com/tabino060571",
+      "catch": "雨の日も、心の送迎いたします。",
+      "intro": "☔️🚕がトレードマークの男性キャスト。龍が如くやメタルギアなどストーリー重視のゲームと、演劇・舞台を愛する語り屋です。\nツイキャスやYouTubeの実況で鍛えたトークで、目的地までご案内します。",
+      "x_url": "https://x.com/amataxi4869",
       "portrait": "",
       "portraits": [
-        "assets/565_KV01.webp"
+        "assets/501_KV01.webp"
       ],
-      "icon": "assets/565_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "",
-      "birth_month": "1月",
-      "call_category": "フレンドリー",
-      "accent_color": "#6378ee"
-    },
-    {
-      "cast_id": 514,
-      "name": "寝猫なな",
-      "name_reading": "Nenneco Nana",
-      "rank": "BRONZE",
-      "catch": "「ねぼっちゃ〜！」友達の距離感ゲーマー猫。",
-      "intro": "挨拶は「ねぼっちゃ〜！」。ゲーム大好きな、友達の距離感系VTuberです。通話しながらのゲームや映画・アニメの同時視聴、まったり雑談まで一緒に楽しめます。相談でも愚痴でもOKの気さくさで、初めてでもすぐ打ち解けられるのが持ち味です。",
-      "x_url": "https://x.com/NenNeCo0430",
-      "portrait": "",
-      "portraits": [
-        "assets/514_KV01.webp"
-      ],
-      "icon": "assets/514_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "",
-      "birth_month": "3月",
-      "call_category": "フレンドリー",
-      "accent_color": "#63e0ee"
-    },
-    {
-      "cast_id": 154,
-      "name": "あまち",
-      "name_reading": "アマチ",
-      "rank": "BRONZE",
-      "catch": "唯一無二の声で語りかける、雑談大好きドリーマー。",
-      "intro": "「唯一無二の声」がじまんの雑談大好きキャスト。ツイキャスでの長い配信歴に裏打ちされたトーク力で、初めてでも会話が途切れません。\n夢はLive2Dのお披露目。応援したくなる成長物語の真っ只中です。",
-      "x_url": "https://x.com/pochakk666",
-      "portrait": "",
-      "portraits": [
-        "assets/154_KV01.webp"
-      ],
-      "icon": "assets/154_icon.webp",
+      "icon": "assets/501_icon.webp",
       "tags": [
-        "雑談",
-        "声フェチ歓迎",
-        "ツイキャス出身",
-        "昼活動"
+        "男性キャスト",
+        "ゲーム実況",
+        "演劇好き",
+        "夜型"
       ],
       "specs": [
         {
           "label": "好きなもの",
-          "value": "おしゃべり"
-        },
-        {
-          "label": "夢",
-          "value": "Live2Dお披露目"
+          "value": "ストーリー重視のゲーム・舞台観劇"
         },
         {
           "label": "活動時間帯",
-          "value": "昼 11:00〜19:00 中心"
+          "value": "夜 18:00〜22:00 中心"
         }
       ],
       "youtube_id": "",
       "links": [
         {
-          "label": "ツイキャス",
-          "url": "https://twitcasting.tv/pochakk666"
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@amataxi"
         }
       ],
       "profile_url": "",
-      "birth_month": "3月",
-      "call_category": "ドリーマー",
-      "accent_color": "#9a63ee"
+      "birth_month": "2月",
+      "call_category": "フレンドリー",
+      "accent_color": "#eec863"
     },
     {
       "cast_id": 400,
@@ -820,49 +798,57 @@ window.SHOWCASE = {
       "accent_color": "#ee6377"
     },
     {
-      "cast_id": 588,
-      "name": "夜狩うる",
-      "name_reading": "YokariUru",
+      "cast_id": 506,
+      "name": "ミラ・エトワール",
+      "name_reading": "Mira Etoile",
       "rank": "BRONZE",
-      "catch": "モヤモヤを受け止める、圧倒的包容力の姉貴。",
-      "intro": "「腹の中のモヤモヤ、此処で置いていきなよ」と語る、圧倒的包容力の姉貴系キャスト。仕事の愚痴も恋愛相談も家族の悩みも、差しでどっしり受け止めてくれます。本職はリアルのアクセサリー職人で、夢は自分のお店を持つこと。頼れる背中に甘えたい日にどうぞ。",
-      "x_url": "https://x.com/yokariuru",
+      "catch": "星のように、そっと寄り添うドリーマー。",
+      "intro": "🪄💫🐳をまとう、やさしい雰囲気のキャスト。夕方から深夜まで長く待機しており、じっくり話したい夜の相手にぴったりです。",
+      "x_url": "https://x.com/mira_etoile_2",
       "portrait": "",
       "portraits": [
-        "assets/588_KV01.webp",
-        "assets/588_KV02.webp"
+        "assets/506_KV01.webp"
       ],
-      "icon": "assets/588_icon.webp",
-      "tags": [],
-      "specs": [],
+      "icon": "assets/506_icon.webp",
+      "tags": [
+        "癒し系",
+        "夜型",
+        "じっくり通話"
+      ],
+      "specs": [
+        {
+          "label": "活動時間帯",
+          "value": "夜 18:00〜2:00 中心"
+        }
+      ],
       "youtube_id": "",
       "links": [],
       "profile_url": "",
-      "birth_month": "10月",
-      "call_category": "フレンドリー",
-      "accent_color": "#639fee"
+      "birth_month": "4月",
+      "call_category": "ドリーマー",
+      "accent_color": "#6398ee"
     },
     {
-      "cast_id": 576,
-      "name": "紫月 ほたる",
-      "name_reading": "siduki hotaru",
+      "cast_id": 514,
+      "name": "寝猫なな",
+      "name_reading": "Nenneco Nana",
       "rank": "BRONZE",
-      "catch": "優しいお姉さんボイスで届ける、極上の癒し。",
-      "intro": "優しいお姉さんボイスが持ち味の癒し系キャスト。「泣いても怒っても大丈夫」と、あなたの些細な日常に寄り添ってくれます。FF14に麻雀、ポーカー、昔の格ゲーまでゲームの引き出しは幅広く、フリーレンや呪術廻戦などアニメの話も。話題づくりはお任せあれ。",
-      "x_url": "https://x.com/hotaru_shiduki",
+      "catch": "「ねぼっちゃ〜！」友達の距離感ゲーマー猫。",
+      "intro": "挨拶は「ねぼっちゃ〜！」。ゲーム大好きな、友達の距離感系VTuberです。通話しながらのゲームや映画・アニメの同時視聴、まったり雑談まで一緒に楽しめます。相談でも愚痴でもOKの気さくさで、初めてでもすぐ打ち解けられるのが持ち味です。",
+      "x_url": "https://x.com/NenNeCo0430",
       "portrait": "",
       "portraits": [
-        "assets/576_KV01.webp"
+        "assets/514_KV01.webp"
       ],
-      "icon": "assets/576_icon.webp",
+      "icon": "assets/514_icon.webp",
       "tags": [],
       "specs": [],
       "youtube_id": "",
       "links": [],
       "profile_url": "",
-      "birth_month": "6月",
+      "birth_month": "3月",
       "call_category": "フレンドリー",
-      "accent_color": "#63b8ee"
+      "accent_color": "#63e0ee"
     },
     {
       "cast_id": 416,
@@ -893,82 +879,6 @@ window.SHOWCASE = {
       "birth_month": "2月",
       "call_category": "フレンドリー",
       "accent_color": "#eedd63"
-    },
-    {
-      "cast_id": 328,
-      "name": "サヤ・グレース",
-      "name_reading": "サヤ・グレース",
-      "rank": "BRONZE",
-      "catch": "森の魔女の、音の魔法をあなたに。",
-      "intro": "薬師でヴァイオリニストという「森の魔女」。ゲームも演奏もこなし、オリジナル曲も手がけます。\nBackStageでは大会優勝経験もある実力派。昼下がりのやわらかな時間にどうぞ。",
-      "x_url": "https://x.com/SayaGrace38",
-      "portrait": "",
-      "portraits": [
-        "assets/328_KV01.webp"
-      ],
-      "icon": "assets/328_icon.webp",
-      "tags": [
-        "ヴァイオリン",
-        "演奏",
-        "ゲーム",
-        "森の魔女"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "ゲーム・ヴァイオリン"
-        },
-        {
-          "label": "コンセプト",
-          "value": "森の奥に住む薬師"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "昼 14:00〜16:00 中心"
-        }
-      ],
-      "youtube_id": "OrDMuMUgl-k",
-      "links": [
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/sayagrace38"
-        }
-      ],
-      "profile_url": "",
-      "birth_month": "",
-      "call_category": "ドリーマー",
-      "accent_color": "#eeb163"
-    },
-    {
-      "cast_id": 506,
-      "name": "ミラ・エトワール",
-      "name_reading": "Mira Etoile",
-      "rank": "BRONZE",
-      "catch": "星のように、そっと寄り添うドリーマー。",
-      "intro": "🪄💫🐳をまとう、やさしい雰囲気のキャスト。夕方から深夜まで長く待機しており、じっくり話したい夜の相手にぴったりです。",
-      "x_url": "https://x.com/mira_etoile_2",
-      "portrait": "",
-      "portraits": [
-        "assets/506_KV01.webp"
-      ],
-      "icon": "assets/506_icon.webp",
-      "tags": [
-        "癒し系",
-        "夜型",
-        "じっくり通話"
-      ],
-      "specs": [
-        {
-          "label": "活動時間帯",
-          "value": "夜 18:00〜2:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "",
-      "birth_month": "4月",
-      "call_category": "ドリーマー",
-      "accent_color": "#6398ee"
     }
   ]
 };
