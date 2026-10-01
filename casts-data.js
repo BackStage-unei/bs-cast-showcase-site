@@ -545,7 +545,8 @@ window.SHOWCASE = {
       "portrait": "",
       "portraits": [
         "assets/188_KV01.webp",
-        "assets/188_KV02.webp"
+        "assets/188_KV02.webp",
+        "assets/188_KV03.webp"
       ],
       "icon": "assets/188_icon.webp",
       "tags": [
@@ -576,7 +577,8 @@ window.SHOWCASE = {
       "x_url": "https://x.com/pochakk666",
       "portrait": "",
       "portraits": [
-        "assets/154_KV01.webp"
+        "assets/154_KV01.webp",
+        "assets/154_KV02.webp"
       ],
       "icon": "assets/154_icon.webp",
       "tags": [
