@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>ランク発表画像（運営用）</title>
+<style>
+  :root {
+    --bg: #f5f4f8; --surface: #fff; --line: #ddd8e8; --text: #26212f; --sub: #7c7590;
+    --accent: #8b5cf6; --magenta: #ff2d78; --warn: #c02950;
+    --gold: #f0c530; --silver: #94a3b8; --bronze: #d08a4e;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 16px; }
+  header .spacer { flex: 1; }
+  #status { color: var(--sub); font-size: 12px; }
+  #month { font-weight: 700; }
+  button, select { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+  button:disabled { opacity: 0.4; cursor: default; }
+  .banner { margin: 10px 16px 0; padding: 10px 14px; border-radius: 8px; font-size: 12.5px; line-height: 1.7; }
+  .banner.warn { background: #fde8ee; color: var(--warn); border: 1px solid #f5bccb; }
+  .banner.info { background: #efeafd; color: #5b3fb8; border: 1px solid #d9cdfb; }
+  .layout { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px; align-items: start; }
+  #castList { max-height: calc(100vh - 120px); overflow: auto; padding-right: 4px; }
+  .rank-head { margin: 12px 0 6px; font-size: 13px; padding-left: 8px; border-left: 4px solid #ccc; }
+  .rank-head.rank-GOLD { border-color: var(--gold); }
+  .rank-head.rank-SILVER { border-color: var(--silver); }
+  .rank-head.rank-BRONZE { border-color: var(--bronze); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; cursor: pointer; }
+  .card.selected { outline: 2px solid var(--magenta); outline-offset: 1px; }
+  .card-title { font-weight: 700; margin-bottom: 6px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .badge { font-size: 10.5px; font-weight: 700; padding: 1px 6px; border-radius: 99px; background: #efeafd; color: #5b3fb8; }
+  .badge.warn { background: #fde8ee; color: var(--warn); }
+  .card label { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 6px; font-size: 12px; color: var(--sub); margin-bottom: 6px; }
+  .card input[type="text"], .card select { width: 100%; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; font: inherit; color: var(--text); }
+  .card button { font-size: 12px; padding: 4px 10px; }
+  .stage { position: sticky; top: 70px; }
+  #preview { width: 100%; max-width: 760px; height: auto; display: block; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,.15); touch-action: none; cursor: grab; background: #b3283a; }
+  .editor { display: flex; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; margin-bottom: 10px; max-width: 760px; }
+  #editor { width: 200px; height: 200px; border-radius: 50%; background: #ddd; touch-action: none; cursor: grab; flex: none; }
+  .editor-name { font-weight: 700; font-size: 15px; }
+  .help { color: var(--sub); font-size: 12px; margin: 8px 0 0; line-height: 1.7; }
+  .login { max-width: 520px; margin: 60px auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 28px; }
+  .login h2 { margin: 0 0 6px; font-size: 17px; }
+  .login p { font-size: 12.5px; color: var(--sub); line-height: 1.8; }
+  .login input { width: 100%; font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px; margin: 10px 0 14px; }
+  .login .err { color: var(--warn); font-size: 12px; min-height: 16px; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .stage { position: static; } #castList { max-height: none; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>ランク発表画像</h1>
+  <span id="month"></span>
+  <span id="status"></span>
+  <span class="spacer"></span>
+  <a href="manage.html">← 管理画面へ</a>
+  <button type="button" id="reloadBtn">再読込</button>
+  <button type="button" id="saveBtn" disabled>調整を保存</button>
+  <button type="button" class="primary" id="exportBtn">PNG書き出し</button>
+</header>
+
+<div class="banner warn" id="fontWarn" hidden>
+  秀英初号明朝（DNP 秀英初号明朝 Std Hv）がこのパソコンで見つかりません。Creative Cloud の「フォント」で有効化してから再読込してください。
+  このまま書き出すと別の字体になります。
+</div>
+<div class="banner info" id="modeNote" hidden>
+  ローカル確認モードです（GitHub には保存しません。「調整を保存」で announce.json をダウンロードします）。
+</div>
+
+<section id="loginView" class="login" hidden>
+  <h2>GitHub トークンでログイン</h2>
+  <p>管理画面（manage.html）と同じトークンを使います。管理画面でログイン済みなら、そのまま開けます。</p>
+  <input type="password" id="tokenInput" autocomplete="off" placeholder="github_pat_..." />
+  <div class="err" id="loginErr"></div>
+  <button type="button" class="primary" id="loginBtn">ログイン</button>
+</section>
+
+<div id="appView" hidden>
+  <div class="layout">
+    <div id="castList"></div>
+    <div class="stage">
+      <div class="editor">
+        <canvas id="editor" width="480" height="480" aria-label="選んだキャストのアイコン（拡大）"></canvas>
+        <div>
+          <div id="editorName" class="editor-name">左の一覧かプレビューでキャストを選んでください</div>
+          <p class="help">丸の中をドラッグで位置、ホイールで大きさ。<br />細かい調整はこちらが楽です。</p>
+        </div>
+      </div>
+      <canvas id="preview" width="1920" height="2688" aria-label="ランク発表画像のプレビュー"></canvas>
+      <p class="help">
+        アイコンをドラッグすると写る位置、ホイール（または左の「拡大」）で大きさを変えられます。
+        名簿とランクはショーケースの自動同期（毎時）から読みます。調整は「調整を保存」で全員に共有され、翌月も引き継がれます。
+      </p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/announce-app.mjs"></script>
+</body>
+</html>
