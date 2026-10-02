@@ -882,11 +882,11 @@ window.SHOWCASE = {
     {
       "cast_id": 456,
       "name": "目黒れる",
-      "name_reading": "",
+      "name_reading": "Meguro Reru",
       "rank": "BRONZE",
-      "catch": "",
-      "intro": "",
-      "x_url": "",
+      "catch": "あなたの隣のやべーやつ",
+      "intro": "はじめまして！目黒れるです！車バイクが好きです！よろしくね！",
+      "x_url": "https://x.com/MEGURO_729",
       "portrait": "",
       "portraits": [
         "assets/456_KV01.webp"
@@ -895,7 +895,12 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "note",
+          "url": "https://note.com/reru_meguro729/n/n11fc101bcca2?sub_rt=share_pw"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/456&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "12月",
       "call_category": "フレンドリー",
