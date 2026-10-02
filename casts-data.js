@@ -922,7 +922,7 @@ window.SHOWCASE = {
       "icon": "assets/500_icon.webp",
       "tags": [],
       "specs": [],
-      "youtube_id": "",
+      "youtube_id": "3Aq71YccgiY",
       "links": [
         {
           "label": "YouTube",
