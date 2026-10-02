@@ -1005,8 +1005,8 @@ window.SHOWCASE = {
       "name": "寝猫なな",
       "name_reading": "Nenneco Nana",
       "rank": "BRONZE",
-      "catch": "「ねぼっちゃ〜！」友達の距離感ゲーマー猫。",
-      "intro": "挨拶は「ねぼっちゃ〜！」。ゲーム大好きな、友達の距離感系VTuberです。通話しながらのゲームや映画・アニメの同時視聴、まったり雑談まで一緒に楽しめます。相談でも愚痴でもOKの気さくさで、初めてでもすぐ打ち解けられるのが持ち味です。",
+      "catch": "友達の距離感系VTuber。あなたの今日にちょっとだ私を。",
+      "intro": "ねぼっちゃ〜！！\n初めまして🌸\n寝猫なな(ねんねこ なな)です！\nお喋り、食べる事、ゲーム大好きな\n元介護福祉士のVTuberです🌸\n友達の距離感で友達の家に来た感覚でお話してくれたら嬉しいです✨️\nあなたの今日にちょっとだけ私を。\nいつでも待ってます🌸",
       "x_url": "https://x.com/NenNeCo0430",
       "portrait": "",
       "portraits": [
@@ -1056,6 +1056,28 @@ window.SHOWCASE = {
       "birth_month": "2月",
       "call_category": "フレンドリー",
       "accent_color": "#eedd63"
+    },
+    {
+      "cast_id": 630,
+      "name": "Youri",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "",
+      "intro": "",
+      "x_url": "",
+      "portrait": "",
+      "portraits": [
+        "assets/630_KV01.webp"
+      ],
+      "icon": "assets/630_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/630&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "",
+      "call_category": "フレンドリー",
+      "accent_color": "#ee9963"
     }
   ]
 };
