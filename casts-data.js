@@ -686,6 +686,37 @@ window.SHOWCASE = {
       "accent_color": "#6389ee"
     },
     {
+      "cast_id": 541,
+      "name": "MUZU",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "",
+      "intro": "",
+      "x_url": "https://x.com/muzuchannel",
+      "portrait": "",
+      "portraits": [
+        "assets/541_KV01.webp"
+      ],
+      "icon": "assets/541_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/channel/UCBY1b_TPZx3rA0F1KJnXkNQ"
+        },
+        {
+          "label": "公式HP",
+          "url": "https://muzu.v-star.jp"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/541&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "2月",
+      "call_category": "ドリーマー",
+      "accent_color": "#6394ee"
+    },
+    {
       "cast_id": 414,
       "name": "境内リカ",
       "name_reading": "Keidai Rika",
