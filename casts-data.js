@@ -957,7 +957,7 @@ window.SHOWCASE = {
           "value": "月〜土 23:00〜2:00頃"
         }
       ],
-      "youtube_id": "",
+      "youtube_id": "727-Ov59mAA",
       "links": [
         {
           "label": "lit.link",
