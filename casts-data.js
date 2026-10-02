@@ -818,7 +818,7 @@ window.SHOWCASE = {
           "value": "夜 23:00〜1:00 中心"
         }
       ],
-      "youtube_id": "",
+      "youtube_id": "sDalNOxpV9k",
       "links": [
         {
           "label": "YouTube",
