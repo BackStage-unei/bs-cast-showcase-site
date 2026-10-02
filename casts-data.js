@@ -80,7 +80,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/241&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
       "accent_color": "#63e1ee"
@@ -126,7 +126,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/channel/UCp45rWiRwgYZJUR4bQO-Xgw"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/296&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "11月",
       "call_category": "ドリーマー",
       "accent_color": ""
@@ -167,7 +167,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/@mitowakana"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/232&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "フレンドリー",
       "accent_color": "#6368ee"
@@ -204,7 +204,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/529&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
       "accent_color": "#ee6383"
@@ -226,7 +226,7 @@ window.SHOWCASE = {
       "specs": [],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/616&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "5月",
       "call_category": "フレンドリー",
       "accent_color": "#9663ee"
@@ -259,7 +259,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/@KUMANOMORUchan"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/392&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "ドリーマー",
       "accent_color": "#ee6397"
@@ -301,7 +301,7 @@ window.SHOWCASE = {
           "url": "https://lit.link/riu_ttid"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/407&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "1月",
       "call_category": "ドリーマー",
       "accent_color": "#ee6390"
@@ -347,7 +347,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/@chozetsu_haochi"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/236&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "",
       "accent_color": "#ee6e63"
@@ -393,7 +393,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/watch?v=3fWirYWVx1s"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/388&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "8月",
       "call_category": "ドリーマー",
       "accent_color": "#6397ee"
@@ -417,7 +417,7 @@ window.SHOWCASE = {
       "specs": [],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/403&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "フレンドリー",
       "accent_color": ""
@@ -444,7 +444,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/channel/UCuRJLGtu1inmeNcUlTC5hsg"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/533&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "10月",
       "call_category": "ドリーマー",
       "accent_color": ""
@@ -486,7 +486,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/watch?v=ffa0M6C0Dp8&list=PLvQucsBJwhV4CxRYQ174WzVUuWOt2Jq9t&index=24"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/313&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "11月",
       "call_category": "ドリーマー",
       "accent_color": "#63bfee"
@@ -531,7 +531,7 @@ window.SHOWCASE = {
           "url": "https://lit.link/MagicalGirl_P"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/319&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "12月",
       "call_category": "ドリーマー",
       "accent_color": "#6375ee"
@@ -564,7 +564,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "m-00kOuKKzw",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/188&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "12月",
       "call_category": "フレンドリー",
       "accent_color": "#ee9963"
@@ -610,7 +610,7 @@ window.SHOWCASE = {
           "url": "https://twitcasting.tv/pochakk666"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/154&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
       "accent_color": "#9a63ee"
@@ -641,7 +641,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/414&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "11月",
       "call_category": "フレンドリー",
       "accent_color": "#63bbee"
@@ -663,7 +663,7 @@ window.SHOWCASE = {
       "specs": [],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/565&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "1月",
       "call_category": "フレンドリー",
       "accent_color": "#6378ee"
@@ -699,7 +699,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/446&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "5月",
       "call_category": "ドリーマー",
       "accent_color": ""
@@ -741,7 +741,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/@komukai_nanoka"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/391&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "2月",
       "call_category": "ドリーマー",
       "accent_color": "#ee63ba"
@@ -782,7 +782,7 @@ window.SHOWCASE = {
           "url": "https://www.youtube.com/@amataxi"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/501&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "2月",
       "call_category": "フレンドリー",
       "accent_color": "#eec863"
@@ -818,7 +818,7 @@ window.SHOWCASE = {
           "url": "https://lit.link/ousakiharune"
         }
       ],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/400&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "ドリーマー",
       "accent_color": "#ee6377"
@@ -849,7 +849,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/506&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "4月",
       "call_category": "ドリーマー",
       "accent_color": "#6398ee"
@@ -871,7 +871,7 @@ window.SHOWCASE = {
       "specs": [],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/514&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "フレンドリー",
       "accent_color": "#63e0ee"
@@ -901,7 +901,7 @@ window.SHOWCASE = {
       ],
       "youtube_id": "",
       "links": [],
-      "profile_url": "",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/416&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "2月",
       "call_category": "フレンドリー",
       "accent_color": "#eedd63"
