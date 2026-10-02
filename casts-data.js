@@ -664,6 +664,28 @@ window.SHOWCASE = {
       "accent_color": "#9a63ee"
     },
     {
+      "cast_id": 590,
+      "name": "ろん",
+      "name_reading": "Ugatsu Tel",
+      "rank": "BRONZE",
+      "catch": "",
+      "intro": "",
+      "x_url": "",
+      "portrait": "",
+      "portraits": [
+        "assets/590_KV02.webp"
+      ],
+      "icon": "assets/590_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/590&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "1月",
+      "call_category": "ドリーマー",
+      "accent_color": "#6389ee"
+    },
+    {
       "cast_id": 414,
       "name": "境内リカ",
       "name_reading": "Keidai Rika",
