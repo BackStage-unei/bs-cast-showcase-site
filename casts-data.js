@@ -40,6 +40,10 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/@69meeeeeee"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/6meRia"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p/2n9d4530",
@@ -79,7 +83,12 @@ window.SHOWCASE = {
         }
       ],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/TamakiYouBS"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/241&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
@@ -124,6 +133,10 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/channel/UCp45rWiRwgYZJUR4bQO-Xgw"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/utawan"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/296&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
@@ -203,7 +216,16 @@ window.SHOWCASE = {
         }
       ],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "IRIAM",
+          "url": "https://web.iriam.app/s/user/HvyUv8Ve1t"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/akaitokoyubi"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/529&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
@@ -225,7 +247,16 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@bibikoooooooooo"
+        },
+        {
+          "label": "プロフィール",
+          "url": "https://piku.page/@vivi"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/616&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "5月",
       "call_category": "フレンドリー",
@@ -257,6 +288,14 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/@KUMANOMORUchan"
+        },
+        {
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@kumadamono"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/morukogumamoru"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/392&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
@@ -345,6 +384,10 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/@chozetsu_haochi"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/haochii"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/236&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
@@ -416,7 +459,12 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/senri_kou_0316"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/403&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "フレンドリー",
@@ -622,7 +670,7 @@ window.SHOWCASE = {
       "rank": "BRONZE",
       "catch": "夜23時、ゆらゆらおしゃべりに浸る時間。",
       "intro": "フレンドリータイプの聞き上手キャスト。深夜23時からの落ち着いた時間帯を中心に待機しています。\n一日の締めくくりの雑談相手にどうぞ。",
-      "x_url": "https://x.com/tayutauchan",
+      "x_url": "https://x.com/keidairika",
       "portrait": "",
       "portraits": [
         "assets/414_KV01.webp"
@@ -662,7 +710,16 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@tabino_toki"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/tabinotoki06057"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/565&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "1月",
       "call_category": "フレンドリー",
@@ -698,7 +755,12 @@ window.SHOWCASE = {
         }
       ],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@7_ko_s"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/446&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "5月",
       "call_category": "ドリーマー",
@@ -739,6 +801,10 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/@komukai_nanoka"
+        },
+        {
+          "label": "公式HP",
+          "url": "https://komukai-nanoka.studio.site"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/391&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
@@ -780,6 +846,10 @@ window.SHOWCASE = {
         {
           "label": "YouTube",
           "url": "https://www.youtube.com/@amataxi"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/amataxi"
         }
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/501&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
@@ -870,7 +940,12 @@ window.SHOWCASE = {
       "tags": [],
       "specs": [],
       "youtube_id": "",
-      "links": [],
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/NenNeConana"
+        }
+      ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/514&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "フレンドリー",
