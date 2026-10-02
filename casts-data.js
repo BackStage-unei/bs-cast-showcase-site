@@ -880,6 +880,28 @@ window.SHOWCASE = {
       "accent_color": "#eec863"
     },
     {
+      "cast_id": 456,
+      "name": "目黒れる",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "",
+      "intro": "",
+      "x_url": "",
+      "portrait": "",
+      "portraits": [
+        "assets/456_KV01.webp"
+      ],
+      "icon": "assets/456_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/456&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "12月",
+      "call_category": "フレンドリー",
+      "accent_color": ""
+    },
+    {
       "cast_id": 400,
       "name": "桜咲はるね",
       "name_reading": "オウサキハルネ",
