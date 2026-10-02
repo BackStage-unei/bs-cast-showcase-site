@@ -408,7 +408,9 @@ window.SHOWCASE = {
       "x_url": "",
       "portrait": "",
       "portraits": [
-        "assets/403_KV01.webp"
+        "assets/403_KV01.webp",
+        "assets/403_KV02.webp",
+        "assets/403_KV03.webp"
       ],
       "icon": "assets/403_icon.webp",
       "tags": [],
@@ -416,7 +418,7 @@ window.SHOWCASE = {
       "youtube_id": "",
       "links": [],
       "profile_url": "",
-      "birth_month": "",
+      "birth_month": "3月",
       "call_category": "フレンドリー",
       "accent_color": ""
     },
