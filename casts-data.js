@@ -700,7 +700,7 @@ window.SHOWCASE = {
       "icon": "assets/541_icon.webp",
       "tags": [],
       "specs": [],
-      "youtube_id": "",
+      "youtube_id": "_hvCVj_K6RY",
       "links": [
         {
           "label": "YouTube",
