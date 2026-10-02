@@ -902,6 +902,38 @@ window.SHOWCASE = {
       "accent_color": ""
     },
     {
+      "cast_id": 500,
+      "name": "春原なずな",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "元気×かわいい！ゲームが好きな魔法使い見習い🐰",
+      "intro": "ゲームが好きなVTuber🌟\n魔法使い見習いの春原なずなです🐰\n\n普段はYouTubeでRPG中心のゲーム配信をしています🎮\n柔軟なオタクのため、おすすめされたゲームに触れることが多いです！",
+      "x_url": "https://x.com/SunoharaNazuna",
+      "portrait": "",
+      "portraits": [
+        "assets/500_KV01.webp",
+        "assets/500_KV02.webp"
+      ],
+      "icon": "assets/500_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@NazunaSunohara"
+        },
+        {
+          "label": "公式HP",
+          "url": "https://nazuna-sunohara.v-star.jp"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/500&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "2月",
+      "call_category": "",
+      "accent_color": "#6393ee"
+    },
+    {
       "cast_id": 400,
       "name": "桜咲はるね",
       "name_reading": "オウサキハルネ",
