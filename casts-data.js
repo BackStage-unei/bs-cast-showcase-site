@@ -721,8 +721,8 @@ window.SHOWCASE = {
       "name": "旅乃とき",
       "name_reading": "Tabino Toki",
       "rank": "BRONZE",
-      "catch": "縁を繋ぐ声変わり自在の旅人。",
-      "intro": "人と人との縁を繋ぐ個人VTuber。特技は声を変えることで、「コナン君が喋ってる」と言われることも。旅行や博物館巡り、刀鑑賞にCoC（クトゥルフ神話TRPG）と趣味は多彩です。目標はゲーム声優になること。好奇心旺盛で、あなたの好きな物も深掘りしてくれます。",
+      "catch": "疲れたの？まあ一息ついていってよ",
+      "intro": "初めまして、人と人との縁を繋ぐ旅人系VTuberの旅乃ときです！\n\n趣味は刀剣鑑賞と博物館巡り、TRPG(CoCメイン)です。\nアニメを観たり、ゲームしたりも好きなので、貴方のオススメを教えてくださいね！\nまた、色々相談にも乗れたりするので困った事があったり顔見知りには言えない……！と言った悩みも、ここで出しても大丈夫です。\n話を聞く事も、一緒に考える事も出来ます、安心してくださいね。",
       "x_url": "https://x.com/tabino060571",
       "portrait": "",
       "portraits": [
@@ -731,7 +731,7 @@ window.SHOWCASE = {
       "icon": "assets/565_icon.webp",
       "tags": [],
       "specs": [],
-      "youtube_id": "",
+      "youtube_id": "VbYJH9a7HqA",
       "links": [
         {
           "label": "YouTube",
