@@ -26,7 +26,7 @@
 <body>
 <section class="dm" aria-label="キャストからのメッセージ紹介">
  <div class="notice">
-  <button class="avatar" type="button" aria-label="顔画像の自動切り替えを停止"><img alt="" src="../assets/172_slide.webp"></button>
+  <button class="avatar" type="button" aria-label="顔画像の自動切り替えを停止"><img alt="" src="../assets/172_dm.webp"></button>
   <div class="copy"><p class="message">キャストから直接メッセージが届くことも・・・？👀</p>
   <svg class="envelope" viewBox="0 0 68 54" fill="none" aria-hidden="true"><rect x="2" y="3" width="64" height="48" rx="3" stroke="currentColor" stroke-width="3"/><path d="m4 6 30 21L64 6" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
   </div>
@@ -45,7 +45,7 @@ function display(i){
  const token=++generation;const image=new Image();
  image.onload=()=>{if(token!==generation)return;const s=lib.cropStyle(crops[String(cast.cast_id)]);avatar.style.width=s.width;avatar.style.left=s.left;avatar.style.top=s.top;avatar.src=image.src;card.classList.remove('arrive');requestAnimationFrame(()=>{if(token===generation)card.classList.add('arrive')})};
  image.onerror=()=>{};
- image.src='../assets/'+encodeURIComponent(cast.cast_id)+'_slide.webp';
+ image.src='../assets/'+encodeURIComponent(cast.cast_id)+'_dm.webp';
 }
 function sync(){
  clearInterval(timer);timer=null;
