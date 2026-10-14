@@ -142,16 +142,20 @@
     P + '.message{margin:0;font-size:19px;font-weight:400;line-height:1.8;letter-spacing:.035em;text-wrap:pretty}',
     P + '.envelope{position:absolute;right:22px;top:50%;transform:translateY(-50%);width:28px;height:28px;color:#fff;overflow:visible}',
     P + '.copy:after{content:\'\';position:absolute;right:18px;top:calc(50% - 18px);width:7px;height:7px;background:#ff328d;border-radius:50%}',
-    P + '.notice.arrive img{animation:bs-dm-face-in .4s ease-out}',
-    '@keyframes bs-dm-face-in{from{opacity:.25}to{opacity:1}}',
+    // 切り替えはランク入りスライダー（rank-slider.js）と同じく、新しい顔を上に重ねて1秒でフェードイン
+    P + '.avatar img{opacity:1;transition:opacity 1s ease}',
+    P + '.avatar img.is-entering{opacity:0}',
     '@media(max-width:600px){' + P + '.dm{padding:12px 4px}' + P + '.notice{grid-template-columns:66px minmax(0,1fr);gap:14px;align-items:center}' +
       P + '.avatar{padding:2px}' + P + '.copy{min-height:100px;border-radius:20px 20px 20px 5px;padding:16px 32px 16px 16px}' +
       P + '.message{font-size:14px;line-height:1.85;letter-spacing:0}' + P + '.envelope{width:19px;height:19px;right:8px;top:auto;bottom:10px;transform:none}' +
       P + '.copy:after{right:6px;top:auto;bottom:27px;width:5px;height:5px}}',
-    '@media(prefers-reduced-motion:reduce){' + P + '.notice.arrive img{animation:none}}',
+    '@media(prefers-reduced-motion:reduce){' + P + '.avatar img{transition:none}}',
   ].join('\n');
 
-  var lib = { RANKS: RANKS, DEFAULT_CROP: DEFAULT_CROP, LIMITS: LIMITS, normalizeCrops: normalizeCrops, cropStyle: cropStyle,
+  // 切り替え間隔とフェードの長さ（ランク入りスライダーの INTERVAL・transition と同じ）
+  var INTERVAL = 3000, FADE_MS = 1000;
+
+  var lib = { INTERVAL: INTERVAL, FADE_MS: FADE_MS, RANKS: RANKS, DEFAULT_CROP: DEFAULT_CROP, LIMITS: LIMITS, normalizeCrops: normalizeCrops, cropStyle: cropStyle,
     selectCasts: selectCasts, shuffle: shuffle, CSS: CSS,
     entryProblem: entryProblem, clampCrop: clampCrop, isDefault: isDefault, dragCrop: dragCrop, zoomCrop: zoomCrop, sameLook: sameLook,
     AVATAR_HTML: AVATAR_HTML, markup: markup };
@@ -193,19 +197,48 @@
   var reduced = window.matchMedia ? matchMedia('(prefers-reduced-motion:reduce)') : { matches: false, addEventListener: function () {} };
   var casts = [], crops = {}, index = 0, timer = null, visible = false, userPaused = false, generation = 0;
 
+  function srcOf(cast) { return SITE + 'assets/' + encodeURIComponent(cast.cast_id) + '_dm.webp'; }
+  // 次の人の画像を先に読んでおく（3秒ごとの切り替えでも、フェードの途中で画像が空にならないように）
+  function preload(i) { var c = casts[i]; if (c) { var im = new Image(); im.src = srcOf(c); } }
+
+  // 新しい顔の img を今の顔の上に重ね、透明から1秒でフェードインさせる。終わったら下の古い顔を外す。
+  // 最初の1人目と、動きを減らす設定の人はフェードなしで差し替える
   function display(i) {
     var cast = casts[i]; if (!cast) return;
     var token = ++generation, image = new Image();
     image.onload = function () {
       if (token !== generation) return;
       var s = cropStyle(crops[String(cast.cast_id)]);
-      avatar.style.width = s.width; avatar.style.left = s.left; avatar.style.top = s.top;
-      avatar.src = image.src;
-      card.classList.remove('arrive');
-      requestAnimationFrame(function () { if (token === generation) card.classList.add('arrive'); });
+      var first = !avatar.getAttribute('src');
+      if (first || reduced.matches) {
+        avatar.style.width = s.width; avatar.style.left = s.left; avatar.style.top = s.top;
+        avatar.src = image.src;
+        var olds = button.querySelectorAll('img');
+        for (var k = 0; k < olds.length; k++) if (olds[k] !== avatar) button.removeChild(olds[k]);
+      } else {
+        var next = document.createElement('img');
+        next.alt = '';
+        next.className = 'is-entering';
+        next.style.width = s.width; next.style.left = s.left; next.style.top = s.top;
+        next.src = image.src;
+        button.appendChild(next);
+        var prev = avatar;
+        avatar = next;
+        // 透明の状態を一度ブラウザに確定させてから（offsetWidth を読む）透明を外すと、そこからフェードする。
+        // 描画のタイミング（requestAnimationFrame）に頼ると、タブの状態によっては呼ばれず透明のまま残るので使わない
+        void next.offsetWidth;
+        next.classList.remove('is-entering');
+        setTimeout(function () {
+          // フェードが終わったら、下に残った古い顔を外す（連打で何枚も重なっても最新の1枚だけ残す）
+          var all = button.querySelectorAll('img');
+          for (var k = 0; k < all.length; k++) if (all[k] !== avatar && all[k] !== next) button.removeChild(all[k]);
+          if (prev !== avatar && prev.parentNode) prev.parentNode.removeChild(prev);
+        }, FADE_MS + 100);
+      }
+      if (casts.length > 1) preload((i + 1) % casts.length);
     };
     image.onerror = function () {};
-    image.src = SITE + 'assets/' + encodeURIComponent(cast.cast_id) + '_dm.webp';
+    image.src = srcOf(cast);
   }
   function sync() {
     clearInterval(timer); timer = null;
@@ -213,7 +246,7 @@
     button.setAttribute('aria-label', stopped ? 'キャストを切り替える' : 'キャストの自動切り替えを停止');
     button.disabled = casts.length < 2;
     if (!document.hidden && visible && !stopped && casts.length > 1) {
-      timer = setInterval(function () { index = (index + 1) % casts.length; display(index); }, 8000);
+      timer = setInterval(function () { index = (index + 1) % casts.length; display(index); }, INTERVAL);
     }
   }
   button.onclick = function () {
