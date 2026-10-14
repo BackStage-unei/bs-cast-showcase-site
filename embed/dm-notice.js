@@ -144,7 +144,8 @@
     P + '.copy:after{content:\'\';position:absolute;right:18px;top:calc(50% - 18px);width:7px;height:7px;background:#ff328d;border-radius:50%}',
     // 切り替えはランク入りスライダー（rank-slider.js）と同じく、新しい顔を上に重ねて1秒でフェードイン
     P + '.avatar img{opacity:1;transition:opacity 1s ease}',
-    P + '.avatar img.is-entering{opacity:0}',
+    // 立ち絵は背景が透明なので、古い顔を残したまま新しい顔を重ねると透けて残像になる → 古い顔は同時に薄くする（クロスフェード）
+    P + '.avatar img.is-entering,' + P + '.avatar img.is-leaving{opacity:0}',
     '@media(max-width:600px){' + P + '.dm{padding:12px 4px}' + P + '.notice{grid-template-columns:66px minmax(0,1fr);gap:14px;align-items:center}' +
       P + '.avatar{padding:2px}' + P + '.copy{min-height:100px;border-radius:20px 20px 20px 5px;padding:16px 32px 16px 16px}' +
       P + '.message{font-size:14px;line-height:1.85;letter-spacing:0}' + P + '.envelope{width:19px;height:19px;right:8px;top:auto;bottom:10px;transform:none}' +
@@ -228,6 +229,9 @@
         // 描画のタイミング（requestAnimationFrame）に頼ると、タブの状態によっては呼ばれず透明のまま残るので使わない
         void next.offsetWidth;
         next.classList.remove('is-entering');
+        // 下に残っている顔（直前の顔・連打で重なった顔）は同時に薄くしていく
+        var under = button.querySelectorAll('img');
+        for (var u = 0; u < under.length; u++) if (under[u] !== next) under[u].classList.add('is-leaving');
         setTimeout(function () {
           // フェードが終わったら、下に残った古い顔を外す（連打で何枚も重なっても最新の1枚だけ残す）
           var all = button.querySelectorAll('img');
