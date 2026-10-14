@@ -64,7 +64,8 @@ window.SHOWCASE = {
         "assets/241_KV06.webp",
         "assets/241_KV04.webp",
         "assets/241_KV05.webp",
-        "assets/241_KV03.webp"
+        "assets/241_KV03.webp",
+        "assets/241_KV07.webp"
       ],
       "icon": "assets/241_icon.webp",
       "tags": [
