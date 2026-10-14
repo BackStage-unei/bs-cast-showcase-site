@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>キャストからのメッセージ（STUDIO 埋め込み）</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700&display=swap">
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:transparent;color:#fff;font-family:'LINE Seed JP',sans-serif}
+.dm{width:100%;max-width:780px;margin:auto;padding:16px 12px}
+.notice{display:grid;grid-template-columns:108px minmax(0,1fr);align-items:center;gap:24px}
+.avatar{display:block;position:relative;overflow:hidden;width:100%;aspect-ratio:1;border:1px solid #ffffffa0;border-radius:50%;background:#ffffff08;padding:4px;cursor:pointer}
+.avatar img{display:block;position:absolute;width:100%;height:auto;max-width:none;left:0;top:0;border-radius:0}
+.avatar:focus-visible{outline:2px solid #ff78b7;outline-offset:5px}
+.copy{position:relative;min-height:98px;display:flex;align-items:center;padding:22px 65px 22px 26px;border:1px solid #ffffff80;border-radius:24px 24px 24px 6px;background:#171b2d26}
+.message{margin:0;font-size:19px;font-weight:400;line-height:1.8;letter-spacing:.035em;text-wrap:pretty}
+.envelope{position:absolute;right:22px;top:50%;transform:translateY(-50%);width:28px;height:28px;color:#fff;overflow:visible}
+.copy:after{content:'';position:absolute;right:18px;top:calc(50% - 18px);width:7px;height:7px;background:#ff328d;border-radius:50%}
+.notice.arrive img{animation:face-in .4s ease-out}
+@keyframes face-in{from{opacity:.25}to{opacity:1}}
+@media(max-width:600px){.dm{padding:12px 4px}.notice{grid-template-columns:66px minmax(0,1fr);gap:14px;align-items:center}.avatar{padding:2px}.copy{min-height:100px;border-radius:20px 20px 20px 5px;padding:16px 32px 16px 16px}.message{font-size:14px;line-height:1.85;letter-spacing:0}.envelope{width:19px;height:19px;right:8px;top:auto;bottom:10px;transform:none}.copy:after{right:6px;top:auto;bottom:27px;width:5px;height:5px}}
+@media(prefers-reduced-motion:reduce){.notice.arrive img{animation:none}}
+</style>
+</head>
+<body>
+<section class="dm" aria-label="キャストからのメッセージ紹介">
+ <div class="notice">
+  <button class="avatar" type="button" aria-label="顔画像の自動切り替えを停止"><img alt="" src="../assets/172_slide.webp"></button>
+  <div class="copy"><p class="message">キャストから直接メッセージが届くことも・・・？👀</p>
+  <svg class="envelope" viewBox="0 0 68 54" fill="none" aria-hidden="true"><rect x="2" y="3" width="64" height="48" rx="3" stroke="currentColor" stroke-width="3"/><path d="m4 6 30 21L64 6" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
+  </div>
+ </div>
+</section>
+<!-- STUDIO の埋め込み（studio_dm_snippet.html）から iframe で読む。顔の位置は face-crops.json -->
+<script src="dm-notice-lib.js"></script>
+<script>
+(()=>{
+const lib=window.DmNotice;
+const root=document.querySelector('.dm'),card=root.querySelector('.notice'),avatar=root.querySelector('img'),button=root.querySelector('button');
+const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+let casts=[],crops={},index=0,timer=null,visible=false,userPaused=false,generation=0;
+function display(i){
+ const cast=casts[i];if(!cast)return;
+ const token=++generation;const image=new Image();
+ image.onload=()=>{if(token!==generation)return;const s=lib.cropStyle(crops[String(cast.cast_id)]);avatar.style.width=s.width;avatar.style.left=s.left;avatar.style.top=s.top;avatar.src=image.src;card.classList.remove('arrive');requestAnimationFrame(()=>{if(token===generation)card.classList.add('arrive')})};
+ image.onerror=()=>{};
+ image.src='../assets/'+encodeURIComponent(cast.cast_id)+'_slide.webp';
+}
+function sync(){
+ clearInterval(timer);timer=null;
+ const stopped=userPaused||reduced.matches;
+ button.setAttribute('aria-label',stopped?'キャストを切り替える':'キャストの自動切り替えを停止');
+ button.disabled=casts.length<2;
+ if(!document.hidden&&visible&&!stopped&&casts.length>1)timer=setInterval(()=>{index=(index+1)%casts.length;display(index)},8000);
+}
+button.onclick=()=>{if(reduced.matches){index=(index+1)%casts.length;display(index)}else userPaused=!userPaused;sync()};
+document.addEventListener('visibilitychange',sync);
+reduced.addEventListener('change',sync);
+if('IntersectionObserver' in window)new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync()},{threshold:.1}).observe(root);else visible=true;
+// 顔の位置が読めなくても、既定の切り抜きで表示は続ける
+const cropsReady=fetch('face-crops.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{crops=lib.normalizeCrops(j)}).catch(()=>{});
+const script=document.createElement('script');script.src='../casts-data.js';script.onload=()=>{
+ cropsReady.then(()=>{casts=lib.selectCasts(window.SHOWCASE&&window.SHOWCASE.casts);if(casts.length)display(0);sync();});
+};script.onerror=()=>{button.disabled=true};document.head.appendChild(script);sync();
+})();
+</script>
+</body>
+</html>
