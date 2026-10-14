@@ -61,9 +61,9 @@ window.SHOWCASE = {
       "x_url": "https://x.com/TamakiYouBS",
       "portrait": "",
       "portraits": [
-        "assets/241_KV03.webp",
         "assets/241_KV04.webp",
-        "assets/241_KV05.webp"
+        "assets/241_KV05.webp",
+        "assets/241_KV03.webp"
       ],
       "icon": "assets/241_icon.webp",
       "tags": [
@@ -92,7 +92,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/241&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
-      "accent_color": "#63e1ee"
+      "accent_color": "#ee7863"
     },
     {
       "cast_id": 296,
