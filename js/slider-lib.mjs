@@ -153,26 +153,31 @@ export function entryProblem(v) {
   return null;
 }
 
-// slider.json を読む。ファイル全体が壊れていたら例外（保存で上書きしないため）。壊れた行だけなら捨てて warnings に入れる
-// （ビルドも壊れた行は自動の切り抜きにする。画面で保存するとその行は消える）
-export function parseSlider(text) {
+// 調整ファイル（slider.json・dm-faces.json 共通の形 {"version":1,"casts":{id:{...}}}）を読む。kind は KINDS の1つ。
+// ファイル全体が壊れていたら例外（保存で上書きしないため）。壊れた行だけなら捨てて warnings に入れる
+// （ビルドも壊れた行は自動・既定にする。画面で保存するとその行は消える）
+export function parseAdjust(text, kind) {
   let d;
+  const name = kind.file;
   // ファイルごと壊れているときは、画面から上書きして全員の調整を消さないよう読み込みを止める（直し方を添える）
-  const fix = '。GitHub で data/slider.json を直すか、作業ブランチで修正してください（このままでもスライダーは全員自動の切り抜きで表示されます）';
-  // 先頭の BOM は外す（ビルドの build_slider.py も utf-8-sig で外す）
+  const fix = `。GitHub で data/${name} を直すか、作業ブランチで修正してください（このままでも${kind.brokenNote}）`;
+  // 先頭の BOM は外す（ビルドの portraits_lib も同じ）
   if (typeof text === 'string' && text.charCodeAt(0) === 0xfeff) text = text.slice(1);
-  if (jsonDepth(text) > MAX_DEPTH) throw new Error(`slider.json の入れ子が深すぎます（${MAX_DEPTH}段まで）` + fix);
-  try { d = JSON.parse(text); } catch (e) { throw new Error('slider.json が JSON として読めません（' + e.message + '）' + fix); }
-  if (!d || d.version !== 1 || !d.casts || typeof d.casts !== 'object' || Array.isArray(d.casts)) throw new Error('slider.json の形式が不正です（version: 1 と casts が必要）' + fix);
+  if (jsonDepth(text) > MAX_DEPTH) throw new Error(`${name} の入れ子が深すぎます（${MAX_DEPTH}段まで）` + fix);
+  try { d = JSON.parse(text); } catch (e) { throw new Error(`${name} が JSON として読めません（` + e.message + '）' + fix); }
+  if (!d || d.version !== 1 || !d.casts || typeof d.casts !== 'object' || Array.isArray(d.casts)) throw new Error(`${name} の形式が不正です（version: 1 と casts が必要）` + fix);
   const casts = {}, warnings = [];
   for (const [id, v] of Object.entries(d.casts)) {
     if (!ID_RE.test(id)) { warnings.push(`キー「${id}」はキャストIDではありません`); continue; }
-    const p = entryProblem(v);
+    const p = kind.problem(v);
     if (p) { warnings.push(`ID ${id}: ${p}`); continue; }
-    casts[id] = pickRecord(v);
+    casts[id] = pick(v, kind.keys);
   }
   return { data: { version: 1, casts }, warnings };
 }
+
+// slider.json（スライダーの切り抜き）を読む
+export function parseSlider(text) { return parseAdjust(text, KINDS.slider); }
 
 // JSON の文字列の最大の入れ子の深さ（文字列の中の括弧は数えない）。portraits_lib.json_depth と同じ
 export function jsonDepth(text) {
@@ -190,19 +195,25 @@ export function jsonDepth(text) {
   return max;
 }
 
-// 保存する1行（決めたキーだけ。w・h は有るときだけ）
-function pickRecord(v) {
-  return { source: v.source, x: v.x, y: v.y, zoom: v.zoom, w: v.w, h: v.h };
+// 保存する1行（決めたキーだけ・決めた順）
+function pick(v, keys) {
+  const r = {};
+  for (const k of keys) r[k] = v[k];
+  return r;
 }
 
-export function serializeSlider(data) {
+// 調整ファイルを書く形にする（ID 順・決めたキーだけ・数値は小数6桁。w・h は整数のまま）
+export function serializeAdjust(data, kind) {
   const casts = {};
   for (const id of Object.keys(data.casts).sort((a, b) => Number(a) - Number(b))) {
-    const v = pickRecord(data.casts[id]);
-    casts[id] = { ...v, x: roundFit(v.x), y: roundFit(v.y), zoom: roundFit(v.zoom) };
+    const v = pick(data.casts[id], kind.keys);
+    for (const k of kind.numKeys) v[k] = roundFit(v[k]);
+    casts[id] = v;
   }
   return JSON.stringify({ version: 1, casts }, null, 2) + '\n';
 }
+
+export function serializeSlider(data) { return serializeAdjust(data, KINDS.slider); }
 
 // 保存の競合時の取り込み: 最新の slider.json に、自分が変えた人の分だけを反映する。
 // mine[id] が null = 「自動に戻す」（その人の行を消す）
@@ -245,10 +256,16 @@ export function sameRecordBox(a, b) {
   return a.source === b.source && a.w === b.w && a.h === b.h && sameBox(manualBox(a.w, a.h, a), manualBox(b.w, b.h, b));
 }
 
+// 2つの行が同じか（数値は小数6桁で比べる）。スライダー・DM の顔どちらの行でも使える（両方にあるキーをすべて比べる）
 export function sameRecord(a, b) {
   if (!a || !b) return !a && !b;
-  return a.source === b.source && roundFit(a.x) === roundFit(b.x) && roundFit(a.y) === roundFit(b.y) && roundFit(a.zoom) === roundFit(b.zoom)
-    && a.w === b.w && a.h === b.h;
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of keys) {
+    const x = a[k], y = b[k];
+    if (typeof x === 'number' && typeof y === 'number') { if (roundFit(x) !== roundFit(y)) return false; }
+    else if (x !== y) return false;
+  }
+  return true;
 }
 
 // スライダーに出る人（casts-data.js の立ち絵ありの人・rank-slider.js と同じ条件）に、ビルドが作った寸法を付ける
@@ -282,9 +299,64 @@ export function rowsToDelete(base, loaded, mainSources, candidateIds, skipIds) {
     && base[id].source !== mainSources.get(id) && sameRecord(base[id], loaded[id] || null));
 }
 
-// 保存のコミットメッセージ
-export function commitMessage(ids) {
+// 保存のコミットメッセージ。what は「スライダーの切り抜き」「DM 通知の顔の位置」
+export function commitMessage(ids, what = 'スライダーの切り抜き') {
   const list = [...ids].sort((a, b) => Number(a) - Number(b));
   const head = list.slice(0, 5).join(', ');
-  return `content: スライダーの切り抜きを保存（ID ${head}${list.length > 5 ? ` ほか${list.length - 5}人` : ''}）`;
+  return `content: ${what}を保存（ID ${head}${list.length > 5 ? ` ほか${list.length - 5}人` : ''}）`;
 }
+
+// ---------- DM 通知の顔の位置（data/dm-faces.json） ----------
+// 値の範囲・検査・ドラッグ・拡大などの計算は embed/dm-notice.js（window.BsDmNotice）が唯一の定義。ここはそれを使う。
+// （dm-notice.js は STUDIO に配る本体なので ES モジュールにできない。画面では slider.html が先に読み、node のテストは require して globalThis に置く）
+const dmLib = () => {
+  const l = globalThis.BsDmNotice;
+  if (!l) throw new Error('DM 通知の本体（embed/dm-notice.js）を読み込めませんでした');
+  return l;
+};
+
+// その人の DM 通知の画像（{id}_dm.webp＝自動の切り抜き）で、丸の中心が画像の中に残る y の上限（画像の高さ ÷ 幅）。
+// portraits_lib.dm_y_max と同じ（答え合わせ表 slider-crop-vectors.json の dm_ymax）
+export function dmYMax(meta) {
+  const b = autoBox(meta.w, meta.h, meta.cx);
+  return (b[3] - b[1]) / (b[2] - b[0]);
+}
+
+export function dmResolveState(saved, meta) {
+  const L = dmLib();
+  if (!saved) return { mode: 'auto', fit: { ...L.DEFAULT_CROP } };
+  if (isStale(saved, meta)) return { mode: 'stale', fit: { ...L.DEFAULT_CROP } };
+  // y は画像の中に詰める（ビルドの公開値と同じ。手書きで上限を超えた値でも画面と公開が食い違わない）
+  return { mode: 'manual', fit: L.clampCrop(saved, dmYMax(meta)) };
+}
+
+export function dmDesiredRecord(entry, meta, saved) {
+  if (entry.mode === 'manual') return { source: meta.source, ...dmLib().clampCrop(entry.fit, dmYMax(meta)), w: meta.w, h: meta.h };
+  if (entry.mode === 'stale') return saved || null;
+  return null;
+}
+
+// 未保存の判定用: DM の顔は見た目（丸の中の切り抜き）で比べる（スライダーの sameRecordBox と同じ考え）。
+// meta を渡すと、どちらも y を画像の中に詰めてから比べる（手書きで上限を超えた保存値を、開いただけで未保存にしない）
+export function sameDmLook(a, b, meta) {
+  if (!a || !b) return !a && !b;
+  if (a.source !== b.source || a.w !== b.w || a.h !== b.h) return false;
+  if (meta) { const ym = dmYMax(meta), L = dmLib(); a = L.clampCrop(a, ym); b = L.clampCrop(b, ym); }
+  return dmLib().sameLook(a, b);
+}
+
+// 2種類の調整ファイルの決まりごと（画面とテストが使う）
+export const KINDS = {
+  slider: {
+    key: 'slider', file: 'slider.json', path: 'data/slider.json', label: 'スライダー', what: 'スライダーの切り抜き',
+    brokenNote: 'スライダーは全員自動の切り抜きで表示されます',
+    keys: ['source', 'x', 'y', 'zoom', 'w', 'h'], numKeys: ['x', 'y', 'zoom'],
+    problem: v => entryProblem(v),
+  },
+  dm: {
+    key: 'dm', file: 'dm-faces.json', path: 'data/dm-faces.json', label: 'DM の顔', what: 'DM 通知の顔の位置',
+    brokenNote: 'DM 通知は全員既定（画像の上の部分）の切り抜きで表示されます',
+    keys: ['source', 'x', 'y', 'size', 'w', 'h'], numKeys: ['x', 'y', 'size'],
+    problem: v => dmLib().entryProblem(v),
+  },
+};

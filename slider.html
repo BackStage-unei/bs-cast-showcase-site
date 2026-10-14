@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>スライダーの切り抜き調整（運営用）</title>
+<title>スライダー・DM の顔の調整（運営用）</title>
 <style>
   :root {
     --bg: #f5f4f8; --surface: #fff; --line: #ddd8e8; --text: #26212f; --sub: #7c7590;
@@ -26,7 +26,7 @@
   .banner.info { background: #efeafd; color: #5b3fb8; border: 1px solid #d9cdfb; }
   .layout { display: grid; grid-template-columns: 300px 1fr; grid-template-areas: "list stage"; gap: 16px; padding: 16px; align-items: start; }
   #castList { grid-area: list; max-height: calc(100vh - 110px); overflow: auto; padding-right: 4px; }
-  .stage { grid-area: stage; position: sticky; top: 64px; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+  .stage { grid-area: stage; min-width: 0; position: sticky; top: 64px; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
   .rank-head { margin: 12px 0 6px; font-size: 13px; padding-left: 8px; border-left: 4px solid #ccc; }
   .rank-head.rank-GOLD { border-color: var(--gold); }
   .rank-head.rank-SILVER { border-color: var(--silver); }
@@ -75,6 +75,18 @@
   .login input { width: 100%; font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px; margin: 10px 0 14px; }
   .login .err { color: var(--warn); font-size: 12px; min-height: 16px; }
 
+  .tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; padding: 2px; background: var(--bg); }
+  .tab { border: 0; border-radius: 99px; padding: 5px 14px; background: transparent; font-weight: 700; color: var(--sub); }
+  .tab[aria-pressed="true"] { background: var(--magenta); color: #fff; }
+  /* DM の顔のプレビュー（本物と同じ CSS＝embed/dm-notice.js の CSS を #bs-dm-notice に当てる。背景は STUDIO の暗い背景の代わり） */
+  .dmstage { flex: none; width: min(420px, 100%); background: #1b1430; border-radius: 16px; padding: 16px; line-height: normal; }
+  .dmstage .dm-big { width: 238px; height: 238px; margin: 0 auto 12px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; border-radius: 50%; scroll-margin-top: 130px; }
+  .dmstage .dm-big.dragging { cursor: grabbing; }
+  .dmstage .dm-big:focus { outline: none; }
+  .dmstage .dm-big:focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; }
+  .dmstage .dm-big .zoomwrap { width: 108px; transform: scale(2.2037); transform-origin: top left; }
+  .dmstage .dm-big .avatar { pointer-events: none; }
+  .dmstage .dm-note { color: #cfc6e8; font-size: 11.5px; margin: 6px 0 0; line-height: 1.6; }
   @media (max-width: 760px) {
     .layout { grid-template-columns: 1fr; grid-template-areas: "stage" "list"; padding: 12px; }
     .stage { position: static; justify-content: center; }
@@ -86,7 +98,11 @@
 </head>
 <body>
 <header>
-  <h1>スライダーの切り抜き</h1>
+  <h1>スライダー・DM の顔</h1>
+  <div class="tabs" role="group" aria-label="調整するもの">
+    <button type="button" class="tab" id="tabSlider" aria-pressed="true">スライダー</button>
+    <button type="button" class="tab" id="tabDm" aria-pressed="false">DM の顔</button>
+  </div>
   <span id="status"></span>
   <span class="spacer"></span>
   <a href="manage.html">← 管理画面へ</a>
@@ -96,7 +112,7 @@
 </header>
 
 <div class="banner info" id="modeNote" hidden>
-  ローカル確認モードです（GitHub には保存しません。「保存」で slider.json をダウンロードします）。
+  ローカル確認モードです（GitHub には保存しません。「保存」で slider.json・dm-faces.json をダウンロードします）。
 </div>
 <div class="banner warn" id="fileWarn" hidden></div>
 
@@ -113,6 +129,10 @@
   <div class="layout">
     <div id="castList" aria-label="スライダーに出るキャスト"></div>
     <div class="stage">
+      <div class="dmstage" id="dmStage" hidden>
+        <div id="bs-dm-notice-preview"></div>
+        <p class="dm-note">上の大きな丸で調整（本物の 2.2 倍）。下は公式サイトと同じ大きさ・同じ見た目の表示です。</p>
+      </div>
       <div class="phone" id="phone" aria-label="スライダーのプレビュー（ドラッグで位置、ホイールで拡大）">
         <div class="slide" id="slide"><div class="screen" id="screen"><canvas id="crop" width="10" height="10"></canvas></div></div>
         <img class="frame" src="assets/studio_frame.webp" alt="" />
@@ -124,22 +144,31 @@
         <p class="legend" id="zoomMin"></p>
         <p class="state warn" id="qualityWarn" hidden></p>
         <div class="row">
-          <button type="button" id="autoBtn" disabled>自動に戻す</button>
+          <button type="button" id="autoBtn" disabled><span id="autoBtnLabel">自動に戻す</span></button>
           <button type="button" id="revertBtn" disabled>保存済みに戻す</button>
         </div>
         <canvas id="overview" width="220" height="440" aria-label="立ち絵全体と切り出す範囲"></canvas>
-        <p class="legend">ピンクの枠 = iPhone の画面に見える範囲／点線 = 自動のときに見える範囲</p>
-        <p class="help">
+        <p class="legend" id="overviewLegend">ピンクの枠 = iPhone の画面に見える範囲／点線 = 自動のときに見える範囲</p>
+        <p class="help" id="helpSlider">
           iPhone の画面の中をドラッグすると位置、ホイール（スマホは2本指）か「拡大」で大きさを変えられます。
           キーボードなら iPhone をクリック（Tab）してから矢印キーで位置（Shift で大きく）、+ / − で大きさ。<br />
           「保存」すると全員に共有され、数分〜10分ほどで公式サイトのスライダーに反映されます（画像のキャッシュのため。DM 通知の顔は変わりません）。<br />
           立ち絵1枚目を差し替えると、その人の調整は使われず自動に戻ります（調整し直してください）。
+        </p>
+        <p class="help" id="helpDm" hidden>
+          大きな丸の中をドラッグすると顔の位置、ホイール（スマホは2本指）か「拡大」で大きさを変えられます。
+          キーボードなら丸をクリック（Tab）してから矢印キーで位置（Shift で大きく）、+ / − で大きさ。<br />
+          「保存」すると全員に共有され、数分〜10分ほどで公式サイトの DM 通知（吹き出しの丸い顔）に反映されます（スライダーは変わりません）。<br />
+          登録の無い人は画像の上の部分（幅いっぱいの丸）を使います（一覧に「未登録（上の部分）」と出ます）。
+          立ち絵1枚目を差し替えると、その人の顔の位置は使われず既定（上の部分）に戻ります（調整し直してください）。
         </p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- DM 通知の本体。ここには #bs-dm-notice が無いので動かず、計算と CSS（window.BsDmNotice）だけを使う -->
+<script src="embed/dm-notice.js"></script>
 <script type="module" src="js/slider-app.mjs"></script>
 </body>
 </html>
