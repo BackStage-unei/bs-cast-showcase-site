@@ -729,6 +729,64 @@ window.SHOWCASE = {
       "accent_color": "#63bcee"
     },
     {
+      "cast_id": 554,
+      "name": "笑空虹心",
+      "name_reading": "Esora Nico",
+      "rank": "BRONZE",
+      "catch": "楽しいことは一緒に笑って、辛いことは笑い声で吹き飛ばします🌈💞",
+      "intro": "笑空虹心（えそら にこ）です🌈💞\n普段はColorSingという配信アプリで歌っています🎹\nアニソンやJ-POPが大好きで、特にマクロス・ガンダム・SAOなどをよく歌っています🎤\nBackStageでは、配信とはまた違う距離感で、ひとりひとりとゆっくりお話しできる時間を大切にしています。\n「会えてよかった」「話せてよかった」と思ってもらえる存在になれるよう、日々楽しみながら活動しています🌈💞\nよく笑っているので楽しいことは一緒に笑って、辛いことは笑い声で吹き飛ばしてあげますっ🥳✨",
+      "x_url": "https://x.com/Nico_nana_iro",
+      "portrait": "",
+      "portraits": [
+        "assets/554_KV01.webp"
+      ],
+      "icon": "assets/554_icon.webp",
+      "tags": [
+        "歌",
+        "アニソン",
+        "雑談"
+      ],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "ColorSing",
+          "url": "https://web.colorsing.com/share/user?user_id=411fa6d1-ba51-4f7c-a4f2-d635ab43ba5b"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/554&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "3月",
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6378"
+    },
+    {
+      "cast_id": 591,
+      "name": "雪織みみ",
+      "name_reading": "Yukiori Mimi",
+      "rank": "BRONZE",
+      "catch": "あなた様が安心できる、ふんわり優しいお時間を作りたいです🤍",
+      "intro": "初めまして、雪織みみと申します🤍💐\n\nこちらをご覧になって頂き、誠にありがとうございます💝✨\n\n最初はちょっぴり緊張してしまうかもしれませんが、あなた様とゆっくり仲良く出来たら嬉しいです🌷🤍\n\n実は華道をしておりますので、かたいと言われがちなのですが、仲良くなっていくにつれて、柔らかくなれると思っております💐💕\n\n趣味や日常の事などを教えあいっこして、楽しく穏やかなお時間を一緒に楽しみましょう🎀💕\n\nあなた様が、ゆったり心地よいお時間を過ごせますように🤍",
+      "x_url": "https://x.com/yukiori_mimi",
+      "portrait": "",
+      "portraits": [
+        "assets/591_KV01.webp"
+      ],
+      "icon": "assets/591_icon.webp",
+      "tags": [
+        "癒し",
+        "聞き上手",
+        "初心者歓迎",
+        "華道"
+      ],
+      "specs": [],
+      "youtube_id": "",
+      "links": [],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/591&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "4月",
+      "call_category": "フレンドリー",
+      "accent_color": ""
+    },
+    {
       "cast_id": 391,
       "name": "小向なのか",
       "name_reading": "コムカイナノカ",
