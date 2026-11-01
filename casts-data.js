@@ -3,7 +3,7 @@
  * 元データ: data/casts.json（管理画面 or bs-data 承認ランクの自動同期で更新）
  */
 window.SHOWCASE = {
-  "rank_month": "2026-10",
+  "rank_month": "2026-11",
   "casts": [
     {
       "cast_id": 172,
@@ -50,51 +50,6 @@ window.SHOWCASE = {
       "birth_month": "8月",
       "call_category": "ドリーマー",
       "accent_color": "#ee9b63"
-    },
-    {
-      "cast_id": 241,
-      "name": "玉木瑶",
-      "name_reading": "タマキヨウ",
-      "rank": "SILVER",
-      "catch": "癒しの低音ボイスでまったりお話ししませんか？",
-      "intro": "スナックママ系キャストの玉木瑶(たまきよう)です。\n好きなことは晩酌や物思いに耽ること。\n人生に関する話題からインターネット老人会ネタ、ロボットアニメ、ゲームまで守備範囲の広さが自慢です✨\nまた、記憶力の良さにも定評あり😉\n一緒にまったりお酒を飲むのも大歓迎ですし、お酒がなくても、疲れた心にじんわりとした癒しをお届けします😌",
-      "x_url": "https://x.com/TamakiYouBS",
-      "portrait": "",
-      "portraits": [
-        "assets/241_KV06.webp",
-        "assets/241_KV04.webp",
-        "assets/241_KV05.webp",
-        "assets/241_KV03.webp",
-        "assets/241_KV07.webp"
-      ],
-      "icon": "assets/241_icon.webp",
-      "tags": [
-        "スナックママ",
-        "お酒",
-        "深夜組",
-        "大人の雑談"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "お酒（レモンサワー）"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "夜 21:00〜2:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/TamakiYouBS"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/241&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "3月",
-      "call_category": "ドリーマー",
-      "accent_color": "#ee636f"
     },
     {
       "cast_id": 296,
@@ -147,45 +102,49 @@ window.SHOWCASE = {
       "accent_color": ""
     },
     {
-      "cast_id": 232,
-      "name": "水戸わかな",
-      "name_reading": "ミトワカナ",
+      "cast_id": 241,
+      "name": "玉木瑶",
+      "name_reading": "タマキヨウ",
       "rank": "SILVER",
-      "catch": "挨拶は元気よく！あなたの日常や楽しかったこと教えてください。",
-      "intro": "１対１で会話することに慣れるためにBackStageのキャストになりました！\n納豆系Vtuberの水戸わかなです。\n普段はYoutubeで配信をしています。\nゲームが好きです。あなたの趣味はなんですか？",
-      "x_url": "https://x.com/mitowakana",
+      "catch": "癒しの低音ボイスでまったりお話ししませんか？",
+      "intro": "スナックママ系キャストの玉木瑶(たまきよう)です。\n好きなことは晩酌や物思いに耽ること。\n人生に関する話題からインターネット老人会ネタ、ロボットアニメ、ゲームまで守備範囲の広さが自慢です✨\nまた、記憶力の良さにも定評あり😉\n一緒にまったりお酒を飲むのも大歓迎ですし、お酒がなくても、疲れた心にじんわりとした癒しをお届けします😌",
+      "x_url": "https://x.com/TamakiYouBS",
       "portrait": "",
       "portraits": [
-        "assets/232_KV01.webp"
+        "assets/241_KV06.webp",
+        "assets/241_KV04.webp",
+        "assets/241_KV05.webp",
+        "assets/241_KV03.webp",
+        "assets/241_KV07.webp"
       ],
-      "icon": "assets/232_icon.webp",
+      "icon": "assets/241_icon.webp",
       "tags": [
-        "納豆",
-        "ガンダム",
-        "ほぼ毎日配信",
-        "雑談"
+        "スナックママ",
+        "お酒",
+        "深夜組",
+        "大人の雑談"
       ],
       "specs": [
         {
           "label": "好きなもの",
-          "value": "納豆・ガンダム"
+          "value": "お酒（レモンサワー）"
         },
         {
           "label": "活動時間帯",
-          "value": "夜 22:00〜0:00 中心"
+          "value": "夜 21:00〜2:00 中心"
         }
       ],
       "youtube_id": "",
       "links": [
         {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@mitowakana"
+          "label": "lit.link",
+          "url": "https://lit.link/TamakiYouBS"
         }
       ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/232&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "",
-      "call_category": "フレンドリー",
-      "accent_color": "#6367ee"
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/241&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "3月",
+      "call_category": "ドリーマー",
+      "accent_color": "#ee636f"
     },
     {
       "cast_id": 529,
@@ -265,89 +224,6 @@ window.SHOWCASE = {
       "accent_color": "#9663ee"
     },
     {
-      "cast_id": 392,
-      "name": "こぐま もる",
-      "name_reading": "コグマモル",
-      "rank": "SILVER",
-      "catch": "ふわっとクセになる声で、ゆるっとお話ししよ？",
-      "intro": "魔界からやってきた悪魔\nこぐまもる🧸です！\n\n「何を話そう…」って考えなくても、初めてでも大丈夫！\n\nのんびりおしゃべりしながら\nあなたのことをもっと教えてほしいです✨\n\n「ふわっとクセになる声」で、\n気づけばもっと話したくなるような\n悪魔の魔法をかけますねっ！🖤\n初めましても大歓迎！気軽に会いにきてね〜！",
-      "x_url": "https://x.com/KUMANO_moru",
-      "portrait": "",
-      "portraits": [
-        "assets/392_KV01.webp",
-        "assets/392_KV02.webp"
-      ],
-      "icon": "assets/392_icon.webp",
-      "tags": [
-        "くま",
-        "ゲーム",
-        "ゆるふわ",
-        "夜型"
-      ],
-      "specs": [],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@KUMANOMORUchan"
-        },
-        {
-          "label": "TikTok",
-          "url": "https://www.tiktok.com/@kumadamono"
-        },
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/morukogumamoru"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/392&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "",
-      "call_category": "ドリーマー",
-      "accent_color": "#ee6397"
-    },
-    {
-      "cast_id": 407,
-      "name": "蔦ヰ田リウ",
-      "name_reading": "ツタイダリウ",
-      "rank": "SILVER",
-      "catch": "幽体離脱から帰れなくなった魂、夢を探して旅の途中。",
-      "intro": "幽体離脱したまま戻れなくなった魂が、新しい身体と相棒のハムスターとともに「本当の夢」を探す旅をしている——そんな世界観のキャスト。\nASMRやゲーム配信もこなす、SILVERクラスの実力派です。",
-      "x_url": "https://x.com/riu_ttid",
-      "portrait": "",
-      "portraits": [
-        "assets/407_KV01.webp",
-        "assets/407_KV02.webp"
-      ],
-      "icon": "assets/407_icon.webp",
-      "tags": [
-        "世界観系",
-        "ASMR",
-        "ゲーム",
-        "深夜組"
-      ],
-      "specs": [
-        {
-          "label": "相棒",
-          "value": "ハムスター"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "夜 22:00〜3:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/riu_ttid"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/407&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "1月",
-      "call_category": "ドリーマー",
-      "accent_color": "#ee6390"
-    },
-    {
       "cast_id": 236,
       "name": "超絶はおちー",
       "name_reading": "チョウゼツハオチー",
@@ -398,6 +274,77 @@ window.SHOWCASE = {
       "accent_color": "#ee6f63"
     },
     {
+      "cast_id": 403,
+      "name": "千里香(せんり-こう)",
+      "name_reading": "",
+      "rank": "BRONZE",
+      "catch": "穏やかな声に包まれて、今夜はゆっくり休みませんか。",
+      "intro": "穏やかにお話をするのが好きな千里香(せんり-こう)と申します💐\n性別は曖昧な身ゆえ、親しみやすく「香くん」と呼んで、あなたの今日を少しだけ預けてはくれませんか？\nあなたのお話を聞くのが好きな、少しお休みしたい方の為の微睡みの案内人です🌙\n日常の他愛ないお話をしたり、美味しい飲み物やご飯のお話をしたり、アニメのお話や、好きなお話の共有、悩みがある、落ち着きたい時、眠れない、寂しい夜に誰かと一緒にいたい時などのお話し相手に是非✨\nあなたと、ご縁がありますように🍀",
+      "x_url": "https://x.com/senri_kou_0316",
+      "portrait": "",
+      "portraits": [
+        "assets/403_KV01.webp",
+        "assets/403_KV02.webp",
+        "assets/403_KV03.webp"
+      ],
+      "icon": "assets/403_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/senri_kou_0316"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/403&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "3月",
+      "call_category": "フレンドリー",
+      "accent_color": ""
+    },
+    {
+      "cast_id": 313,
+      "name": "黒柴えいら",
+      "name_reading": "クロシバエイラ",
+      "rank": "BRONZE",
+      "catch": "5オクターブの声を操るDIVA系Vアーティストなのに会話も◎",
+      "intro": "人の話を傾聴して記事にする仕事をしているので難しい話もOK！\nVは5オクターブが出せる音楽好きなのでアーティスト活動を中心に活動しています★",
+      "x_url": "https://x.com/kuroshibaeila",
+      "portrait": "",
+      "portraits": [
+        "assets/313_KV01.webp",
+        "assets/313_KV02.webp"
+      ],
+      "icon": "assets/313_icon.webp",
+      "tags": [
+        "中低音ボイス",
+        "ゲーム",
+        "深夜組",
+        "黒柴"
+      ],
+      "specs": [
+        {
+          "label": "好きなもの",
+          "value": "世界観の濃いゲーム"
+        },
+        {
+          "label": "活動時間帯",
+          "value": "深夜 0:00〜4:00 中心"
+        }
+      ],
+      "youtube_id": "uTukaPEdV4E",
+      "links": [
+        {
+          "label": "BackStage FM",
+          "url": "https://www.youtube.com/watch?v=ffa0M6C0Dp8&list=PLvQucsBJwhV4CxRYQ174WzVUuWOt2Jq9t&index=24"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/313&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "11月",
+      "call_category": "ドリーマー",
+      "accent_color": "#63bfee"
+    },
+    {
       "cast_id": 388,
       "name": "夢野 てう",
       "name_reading": "Yumeno Teu",
@@ -444,35 +391,6 @@ window.SHOWCASE = {
       "accent_color": "#6398ee"
     },
     {
-      "cast_id": 403,
-      "name": "千里香(せんり-こう)",
-      "name_reading": "",
-      "rank": "BRONZE",
-      "catch": "穏やかな声に包まれて、今夜はゆっくり休みませんか。",
-      "intro": "穏やかにお話をするのが好きな千里香(せんり-こう)と申します💐\n性別は曖昧な身ゆえ、親しみやすく「香くん」と呼んで、あなたの今日を少しだけ預けてはくれませんか？\nあなたのお話を聞くのが好きな、少しお休みしたい方の為の微睡みの案内人です🌙\n日常の他愛ないお話をしたり、美味しい飲み物やご飯のお話をしたり、アニメのお話や、好きなお話の共有、悩みがある、落ち着きたい時、眠れない、寂しい夜に誰かと一緒にいたい時などのお話し相手に是非✨\nあなたと、ご縁がありますように🍀",
-      "x_url": "https://x.com/senri_kou_0316",
-      "portrait": "",
-      "portraits": [
-        "assets/403_KV01.webp",
-        "assets/403_KV02.webp",
-        "assets/403_KV03.webp"
-      ],
-      "icon": "assets/403_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/senri_kou_0316"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/403&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "3月",
-      "call_category": "フレンドリー",
-      "accent_color": ""
-    },
-    {
       "cast_id": 533,
       "name": "白猫にゃる",
       "name_reading": "shiraneko nyaru",
@@ -500,46 +418,205 @@ window.SHOWCASE = {
       "accent_color": ""
     },
     {
-      "cast_id": 313,
-      "name": "黒柴えいら",
-      "name_reading": "クロシバエイラ",
+      "cast_id": 232,
+      "name": "水戸わかな",
+      "name_reading": "ミトワカナ",
       "rank": "BRONZE",
-      "catch": "5オクターブの声を操るDIVA系Vアーティストなのに会話も◎",
-      "intro": "人の話を傾聴して記事にする仕事をしているので難しい話もOK！\nVは5オクターブが出せる音楽好きなのでアーティスト活動を中心に活動しています★",
-      "x_url": "https://x.com/kuroshibaeila",
+      "catch": "挨拶は元気よく！あなたの日常や楽しかったこと教えてください。",
+      "intro": "１対１で会話することに慣れるためにBackStageのキャストになりました！\n納豆系Vtuberの水戸わかなです。\n普段はYoutubeで配信をしています。\nゲームが好きです。あなたの趣味はなんですか？",
+      "x_url": "https://x.com/mitowakana",
       "portrait": "",
       "portraits": [
-        "assets/313_KV01.webp",
-        "assets/313_KV02.webp"
+        "assets/232_KV01.webp"
       ],
-      "icon": "assets/313_icon.webp",
+      "icon": "assets/232_icon.webp",
       "tags": [
-        "中低音ボイス",
-        "ゲーム",
-        "深夜組",
-        "黒柴"
+        "納豆",
+        "ガンダム",
+        "ほぼ毎日配信",
+        "雑談"
       ],
       "specs": [
         {
           "label": "好きなもの",
-          "value": "世界観の濃いゲーム"
+          "value": "納豆・ガンダム"
         },
         {
           "label": "活動時間帯",
-          "value": "深夜 0:00〜4:00 中心"
+          "value": "夜 22:00〜0:00 中心"
         }
       ],
-      "youtube_id": "uTukaPEdV4E",
+      "youtube_id": "",
       "links": [
         {
-          "label": "BackStage FM",
-          "url": "https://www.youtube.com/watch?v=ffa0M6C0Dp8&list=PLvQucsBJwhV4CxRYQ174WzVUuWOt2Jq9t&index=24"
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@mitowakana"
         }
       ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/313&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "11月",
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/232&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "",
+      "call_category": "フレンドリー",
+      "accent_color": "#6367ee"
+    },
+    {
+      "cast_id": 154,
+      "name": "あまち",
+      "name_reading": "アマチ",
+      "rank": "BRONZE",
+      "catch": "唯一無二の声で語りかける、雑談大好きドリーマー。",
+      "intro": "「唯一無二の声」がじまんの雑談大好きキャスト。ツイキャスでの長い配信歴に裏打ちされたトーク力で、初めてでも会話が途切れません。\n夢はLive2Dのお披露目。応援したくなる成長物語の真っ只中です。",
+      "x_url": "https://x.com/pochakk666",
+      "portrait": "",
+      "portraits": [
+        "assets/154_KV01.webp",
+        "assets/154_KV02.webp"
+      ],
+      "icon": "assets/154_icon.webp",
+      "tags": [
+        "雑談",
+        "声フェチ歓迎",
+        "ツイキャス出身",
+        "昼活動"
+      ],
+      "specs": [
+        {
+          "label": "好きなもの",
+          "value": "おしゃべり"
+        },
+        {
+          "label": "夢",
+          "value": "Live2Dお披露目"
+        },
+        {
+          "label": "活動時間帯",
+          "value": "昼 11:00〜19:00 中心"
+        }
+      ],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "ツイキャス",
+          "url": "https://twitcasting.tv/pochakk666"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/154&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "3月",
       "call_category": "ドリーマー",
-      "accent_color": "#63bfee"
+      "accent_color": "#9a63ee"
+    },
+    {
+      "cast_id": 392,
+      "name": "こぐま もる",
+      "name_reading": "コグマモル",
+      "rank": "BRONZE",
+      "catch": "ふわっとクセになる声で、ゆるっとお話ししよ？",
+      "intro": "魔界からやってきた悪魔\nこぐまもる🧸です！\n\n「何を話そう…」って考えなくても、初めてでも大丈夫！\n\nのんびりおしゃべりしながら\nあなたのことをもっと教えてほしいです✨\n\n「ふわっとクセになる声」で、\n気づけばもっと話したくなるような\n悪魔の魔法をかけますねっ！🖤\n初めましても大歓迎！気軽に会いにきてね〜！",
+      "x_url": "https://x.com/KUMANO_moru",
+      "portrait": "",
+      "portraits": [
+        "assets/392_KV01.webp",
+        "assets/392_KV02.webp"
+      ],
+      "icon": "assets/392_icon.webp",
+      "tags": [
+        "くま",
+        "ゲーム",
+        "ゆるふわ",
+        "夜型"
+      ],
+      "specs": [],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@KUMANOMORUchan"
+        },
+        {
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@kumadamono"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/morukogumamoru"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/392&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "",
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6397"
+    },
+    {
+      "cast_id": 407,
+      "name": "蔦ヰ田リウ",
+      "name_reading": "ツタイダリウ",
+      "rank": "BRONZE",
+      "catch": "幽体離脱から帰れなくなった魂、夢を探して旅の途中。",
+      "intro": "幽体離脱したまま戻れなくなった魂が、新しい身体と相棒のハムスターとともに「本当の夢」を探す旅をしている——そんな世界観のキャスト。\nASMRやゲーム配信もこなす、SILVERクラスの実力派です。",
+      "x_url": "https://x.com/riu_ttid",
+      "portrait": "",
+      "portraits": [
+        "assets/407_KV01.webp",
+        "assets/407_KV02.webp"
+      ],
+      "icon": "assets/407_icon.webp",
+      "tags": [
+        "世界観系",
+        "ASMR",
+        "ゲーム",
+        "深夜組"
+      ],
+      "specs": [
+        {
+          "label": "相棒",
+          "value": "ハムスター"
+        },
+        {
+          "label": "活動時間帯",
+          "value": "夜 22:00〜3:00 中心"
+        }
+      ],
+      "youtube_id": "",
+      "links": [
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/riu_ttid"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/407&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "1月",
+      "call_category": "ドリーマー",
+      "accent_color": "#ee6390"
+    },
+    {
+      "cast_id": 565,
+      "name": "旅乃とき",
+      "name_reading": "Tabino Toki",
+      "rank": "BRONZE",
+      "catch": "疲れたの？まあ一息ついていってよ",
+      "intro": "初めまして、人と人との縁を繋ぐ旅人系VTuberの旅乃ときです！\n\n趣味は刀剣鑑賞と博物館巡り、TRPG(CoCメイン)です。\nアニメを観たり、ゲームしたりも好きなので、貴方のオススメを教えてくださいね！\nまた、色々相談にも乗れたりするので困った事があったり顔見知りには言えない……！と言った悩みも、ここで出しても大丈夫です。\n話を聞く事も、一緒に考える事も出来ます、安心してくださいね。",
+      "x_url": "https://x.com/tabino060571",
+      "portrait": "",
+      "portraits": [
+        "assets/565_KV01.webp"
+      ],
+      "icon": "assets/565_icon.webp",
+      "tags": [],
+      "specs": [],
+      "youtube_id": "VbYJH9a7HqA",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@tabino_toki"
+        },
+        {
+          "label": "lit.link",
+          "url": "https://lit.link/tabinotoki06057"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/565&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "1月",
+      "call_category": "フレンドリー",
+      "accent_color": "#6379ee"
     },
     {
       "cast_id": 319,
@@ -620,83 +697,6 @@ window.SHOWCASE = {
       "accent_color": "#ee9963"
     },
     {
-      "cast_id": 154,
-      "name": "あまち",
-      "name_reading": "アマチ",
-      "rank": "BRONZE",
-      "catch": "唯一無二の声で語りかける、雑談大好きドリーマー。",
-      "intro": "「唯一無二の声」がじまんの雑談大好きキャスト。ツイキャスでの長い配信歴に裏打ちされたトーク力で、初めてでも会話が途切れません。\n夢はLive2Dのお披露目。応援したくなる成長物語の真っ只中です。",
-      "x_url": "https://x.com/pochakk666",
-      "portrait": "",
-      "portraits": [
-        "assets/154_KV01.webp",
-        "assets/154_KV02.webp"
-      ],
-      "icon": "assets/154_icon.webp",
-      "tags": [
-        "雑談",
-        "声フェチ歓迎",
-        "ツイキャス出身",
-        "昼活動"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "おしゃべり"
-        },
-        {
-          "label": "夢",
-          "value": "Live2Dお披露目"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "昼 11:00〜19:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "ツイキャス",
-          "url": "https://twitcasting.tv/pochakk666"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/154&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "3月",
-      "call_category": "ドリーマー",
-      "accent_color": "#9a63ee"
-    },
-    {
-      "cast_id": 541,
-      "name": "MUZU",
-      "name_reading": "",
-      "rank": "BRONZE",
-      "catch": "",
-      "intro": "",
-      "x_url": "https://x.com/muzuchannel",
-      "portrait": "",
-      "portraits": [
-        "assets/541_KV01.webp"
-      ],
-      "icon": "assets/541_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "_hvCVj_K6RY",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/channel/UCBY1b_TPZx3rA0F1KJnXkNQ"
-        },
-        {
-          "label": "公式HP",
-          "url": "https://muzu.v-star.jp"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/541&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "2月",
-      "call_category": "ドリーマー",
-      "accent_color": "#6394ee"
-    },
-    {
       "cast_id": 414,
       "name": "境内リカ",
       "name_reading": "Keidai Rika",
@@ -726,78 +726,6 @@ window.SHOWCASE = {
       "birth_month": "11月",
       "call_category": "フレンドリー",
       "accent_color": "#63bcee"
-    },
-    {
-      "cast_id": 565,
-      "name": "旅乃とき",
-      "name_reading": "Tabino Toki",
-      "rank": "BRONZE",
-      "catch": "疲れたの？まあ一息ついていってよ",
-      "intro": "初めまして、人と人との縁を繋ぐ旅人系VTuberの旅乃ときです！\n\n趣味は刀剣鑑賞と博物館巡り、TRPG(CoCメイン)です。\nアニメを観たり、ゲームしたりも好きなので、貴方のオススメを教えてくださいね！\nまた、色々相談にも乗れたりするので困った事があったり顔見知りには言えない……！と言った悩みも、ここで出しても大丈夫です。\n話を聞く事も、一緒に考える事も出来ます、安心してくださいね。",
-      "x_url": "https://x.com/tabino060571",
-      "portrait": "",
-      "portraits": [
-        "assets/565_KV01.webp"
-      ],
-      "icon": "assets/565_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "VbYJH9a7HqA",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@tabino_toki"
-        },
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/tabinotoki06057"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/565&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "1月",
-      "call_category": "フレンドリー",
-      "accent_color": "#6379ee"
-    },
-    {
-      "cast_id": 446,
-      "name": "7_ko（ナナコ）",
-      "name_reading": "ナナコ",
-      "rank": "BRONZE",
-      "catch": "癒し系音楽好き。酔った姿は…お楽しみに♡",
-      "intro": "毎日のように飲酒をしている、お酒大好き音楽系キャストの7_ko（ナナコ）です。\nアルコールでもノンアルコールでも、乾杯しながら楽しくお話できたらうれしいです♪\nシチュボを考えるのも好きなので、リクエストいただけたら即興で演じます！\n\nいっしょにまったり楽しい時間を過ごしましょう！",
-      "x_url": "https://x.com/7_ko_s",
-      "portrait": "",
-      "portraits": [
-        "assets/446_KV01.webp"
-      ],
-      "icon": "assets/446_icon.webp",
-      "tags": [
-        "音楽",
-        "作曲",
-        "ルキチャレ優勝",
-        "夜型"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "音楽制作"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "夜 20:00〜2:00 中心"
-        }
-      ],
-      "youtube_id": "3zXMT8G058w",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@7_ko_s"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/446&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "5月",
-      "call_category": "ドリーマー",
-      "accent_color": ""
     },
     {
       "cast_id": 391,
@@ -846,51 +774,6 @@ window.SHOWCASE = {
       "accent_color": "#ee63bb"
     },
     {
-      "cast_id": 501,
-      "name": "あまタクシー",
-      "name_reading": "AMATAXI",
-      "rank": "BRONZE",
-      "catch": "底抜けの笑顔と秘めた情熱！僕の助手席で一緒に笑いませんか？",
-      "intro": "はじめまして！あまタクシーです🚕✨\n「最近疲れたな」「誰かと楽しく話したいな」という時は、ぜひ僕のところへ！\n明るい空気であなたの心に元気と癒やしをお届けします☀️\n映画や舞台、ゲームといったエンタメのお話はもちろん、日常の何気ない出来事やちょっとした愚痴までどんなお話でも大歓迎です！\n一緒に笑って、リラックスできる最高の時間を過ごしませんか？いつでも気軽に通話かけてくださいね！",
-      "x_url": "https://x.com/amataxi4869",
-      "portrait": "",
-      "portraits": [
-        "assets/501_KV01.webp"
-      ],
-      "icon": "assets/501_icon.webp",
-      "tags": [
-        "男性キャスト",
-        "ゲーム実況",
-        "演劇好き",
-        "夜型"
-      ],
-      "specs": [
-        {
-          "label": "好きなもの",
-          "value": "ストーリー重視のゲーム・舞台観劇"
-        },
-        {
-          "label": "活動時間帯",
-          "value": "夜 18:00〜22:00 中心"
-        }
-      ],
-      "youtube_id": "s3harSwKrDE",
-      "links": [
-        {
-          "label": "YouTube",
-          "url": "https://www.youtube.com/@amataxi"
-        },
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/amataxi"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/501&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "2月",
-      "call_category": "フレンドリー",
-      "accent_color": "#eec863"
-    },
-    {
       "cast_id": 456,
       "name": "目黒れる",
       "name_reading": "Meguro Reru",
@@ -918,36 +801,45 @@ window.SHOWCASE = {
       "accent_color": ""
     },
     {
-      "cast_id": 500,
-      "name": "春原なずな",
-      "name_reading": "",
+      "cast_id": 446,
+      "name": "7_ko（ナナコ）",
+      "name_reading": "ナナコ",
       "rank": "BRONZE",
-      "catch": "元気×かわいい！ゲームが好きな魔法使い見習い🐰",
-      "intro": "ゲームが好きなVTuber🌟\n魔法使い見習いの春原なずなです🐰\n\n普段はYouTubeでRPG中心のゲーム配信をしています🎮\n柔軟なオタクのため、おすすめされたゲームに触れることが多いです！",
-      "x_url": "https://x.com/SunoharaNazuna",
+      "catch": "癒し系音楽好き。酔った姿は…お楽しみに♡",
+      "intro": "毎日のように飲酒をしている、お酒大好き音楽系キャストの7_ko（ナナコ）です。\nアルコールでもノンアルコールでも、乾杯しながら楽しくお話できたらうれしいです♪\nシチュボを考えるのも好きなので、リクエストいただけたら即興で演じます！\n\nいっしょにまったり楽しい時間を過ごしましょう！",
+      "x_url": "https://x.com/7_ko_s",
       "portrait": "",
       "portraits": [
-        "assets/500_KV01.webp",
-        "assets/500_KV02.webp"
+        "assets/446_KV01.webp"
       ],
-      "icon": "assets/500_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "3Aq71YccgiY",
+      "icon": "assets/446_icon.webp",
+      "tags": [
+        "音楽",
+        "作曲",
+        "ルキチャレ優勝",
+        "夜型"
+      ],
+      "specs": [
+        {
+          "label": "好きなもの",
+          "value": "音楽制作"
+        },
+        {
+          "label": "活動時間帯",
+          "value": "夜 20:00〜2:00 中心"
+        }
+      ],
+      "youtube_id": "3zXMT8G058w",
       "links": [
         {
           "label": "YouTube",
-          "url": "https://www.youtube.com/@NazunaSunohara"
-        },
-        {
-          "label": "公式HP",
-          "url": "https://nazuna-sunohara.v-star.jp"
+          "url": "https://www.youtube.com/@7_ko_s"
         }
       ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/500&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "2月",
-      "call_category": "",
-      "accent_color": "#6393ee"
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/446&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "5月",
+      "call_category": "ドリーマー",
+      "accent_color": ""
     },
     {
       "cast_id": 400,
@@ -986,114 +878,36 @@ window.SHOWCASE = {
       "accent_color": "#ee6376"
     },
     {
-      "cast_id": 506,
-      "name": "ミラ・エトワール",
-      "name_reading": "Mira Etoile",
-      "rank": "BRONZE",
-      "catch": "星のように、そっと寄り添うドリーマー。",
-      "intro": "🪄💫🐳をまとう、やさしい雰囲気のキャスト。夕方から深夜まで長く待機しており、じっくり話したい夜の相手にぴったりです。",
-      "x_url": "https://x.com/mira_etoile_2",
-      "portrait": "",
-      "portraits": [
-        "assets/506_KV01.webp"
-      ],
-      "icon": "assets/506_icon.webp",
-      "tags": [
-        "癒し系",
-        "夜型",
-        "じっくり通話"
-      ],
-      "specs": [
-        {
-          "label": "活動時間帯",
-          "value": "夜 18:00〜2:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/506&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "4月",
-      "call_category": "ドリーマー",
-      "accent_color": "#6398ee"
-    },
-    {
-      "cast_id": 514,
-      "name": "寝猫なな",
-      "name_reading": "Nenneco Nana",
-      "rank": "BRONZE",
-      "catch": "友達の距離感系VTuber。あなたの今日にちょっとだ私を。",
-      "intro": "ねぼっちゃ〜！！\n初めまして🌸\n寝猫なな(ねんねこ なな)です！\nお喋り、食べる事、ゲーム大好きな\n元介護福祉士のVTuberです🌸\n友達の距離感で友達の家に来た感覚でお話してくれたら嬉しいです✨️\nあなたの今日にちょっとだけ私を。\nいつでも待ってます🌸",
-      "x_url": "https://x.com/NenNeCo0430",
-      "portrait": "",
-      "portraits": [
-        "assets/514_KV01.webp"
-      ],
-      "icon": "assets/514_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "lit.link",
-          "url": "https://lit.link/NenNeConana"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/514&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "3月",
-      "call_category": "フレンドリー",
-      "accent_color": "#63e8ee"
-    },
-    {
-      "cast_id": 416,
-      "name": "にこ",
-      "name_reading": "ニコ",
-      "rank": "BRONZE",
-      "catch": "なまえはにこ。会えばわかる、にこにこの理由。",
-      "intro": "フレンドリータイプのキャスト。19時から21時ごろの、一日がひと段落する時間帯に待機しています。\nごはん後のひとときに気軽にどうぞ。",
-      "x_url": "",
-      "portrait": "",
-      "portraits": [
-        "assets/416_KV01.webp"
-      ],
-      "icon": "assets/416_icon.webp",
-      "tags": [
-        "雑談",
-        "はじめてさん歓迎"
-      ],
-      "specs": [
-        {
-          "label": "活動時間帯",
-          "value": "夜 19:00〜21:00 中心"
-        }
-      ],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/416&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "2月",
-      "call_category": "フレンドリー",
-      "accent_color": "#eedc63"
-    },
-    {
-      "cast_id": 630,
-      "name": "Youri",
+      "cast_id": 500,
+      "name": "春原なずな",
       "name_reading": "",
       "rank": "BRONZE",
-      "catch": "",
-      "intro": "",
-      "x_url": "",
+      "catch": "元気×かわいい！ゲームが好きな魔法使い見習い🐰",
+      "intro": "ゲームが好きなVTuber🌟\n魔法使い見習いの春原なずなです🐰\n\n普段はYouTubeでRPG中心のゲーム配信をしています🎮\n柔軟なオタクのため、おすすめされたゲームに触れることが多いです！",
+      "x_url": "https://x.com/SunoharaNazuna",
       "portrait": "",
       "portraits": [
-        "assets/630_KV01.webp"
+        "assets/500_KV01.webp",
+        "assets/500_KV02.webp"
       ],
-      "icon": "assets/630_icon.webp",
+      "icon": "assets/500_icon.webp",
       "tags": [],
       "specs": [],
-      "youtube_id": "",
-      "links": [],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/630&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "",
-      "call_category": "フレンドリー",
-      "accent_color": "#ee9a63"
+      "youtube_id": "3Aq71YccgiY",
+      "links": [
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@NazunaSunohara"
+        },
+        {
+          "label": "公式HP",
+          "url": "https://nazuna-sunohara.v-star.jp"
+        }
+      ],
+      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/500&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
+      "birth_month": "2月",
+      "call_category": "",
+      "accent_color": "#6393ee"
     }
   ]
 };
