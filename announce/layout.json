@@ -272,7 +272,12 @@
       ],
       "alpha": 0.6,
       "blur": 6
-    }
+    },
+    "rule": [
+      371,
+      1566
+    ],
+    "rule_margin": 8
   },
   "past_icons": [
     "154",

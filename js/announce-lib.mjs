@@ -14,8 +14,24 @@ export function monthLabel(ym) {
 }
 
 // 見出しの文字（2つの大きさ）。pt は layout.header.pt
+// 2026-11 に「2026年11月 - キャストランク発表-」から変更（右のハイフンが「表」にくっつき、左右がそろっていなかったため）
 export function headerRuns(ym, pt) {
-  return [{ text: `${monthLabel(ym)} - `, pt: pt[0] }, { text: 'キャストランク発表-', pt: pt[1] }];
+  return [{ text: `${monthLabel(ym)} `, pt: pt[0] }, { text: '- キャストランク発表 -', pt: pt[1] }];
+}
+
+// 1文字ごとの字間（px）。半角のスペースとハイフンには字間をかけない
+// （かけると「月 - キ」の間だけ大きく開き、記号の左右がそろわない）
+export function headerTracking(ch, px, tracking) {
+  return /^[ \-]$/.test(ch) ? 0 : px * tracking / 1000;
+}
+
+// 見出しを上下の金線の内側に収める。rule = [左端, 右端]（layout.header.rule）、margin = 線の端から空ける幅。
+// 返り値: { cx: 線の中心, scale: 文字を縮める倍率（収まるときは 1。拡大はしない） }
+// rule が無い古い layout.json では、これまでどおり PSD の中心（fallbackCx）で縮めない
+export function fitHeader(total, rule, margin, fallbackCx) {
+  if (!Array.isArray(rule) || rule.length !== 2 || !(rule[1] > rule[0]) || !(total > 0)) return { cx: fallbackCx, scale: 1 };
+  const room = rule[1] - rule[0] - 2 * (margin || 0);
+  return { cx: (rule[0] + rule[1]) / 2, scale: room > 0 ? Math.min(1, room / total) : 1 };
 }
 
 // 発表用の名前の初期値: 括弧書き（読み・肩書き）を除いて前後の空白を落とす。「7_ko（ナナコ）」→「7_ko」

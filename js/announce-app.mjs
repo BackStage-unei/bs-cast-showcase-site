@@ -2,7 +2,7 @@
 // 名簿 = data/casts.json（sync.yml が bs-data の承認ランクから作る）、調整値 = data/announce.json（この画面だけが書く）。
 // 接続方式は manage.html と同じ（閲覧者の GitHub トークンで contents API。トークンは localStorage の同じキー）。
 import {
-  RANKS, rankedCasts, resolveEntry, defaultFit, cropRect, dragFit, guessFit, clampFit,
+  RANKS, fitHeader, headerTracking, rankedCasts, resolveEntry, defaultFit, cropRect, dragFit, guessFit, clampFit,
   computeLayout, bgSlices, panelSlices, headerRuns, fitFontPx, parseAnnounce, serializeAnnounce,
   exportFileName, monthLabel, defaultName, displayName, mergeAnnounce,
 } from './announce-lib.mjs';
@@ -233,17 +233,20 @@ function drawHeader(ctx) {
   for (const run of headerRuns(state.month, h.pt)) {
     const px = run.pt * h.scale;
     ctx.font = `${px}px ${fontStack()}`;
-    for (const ch of run.text) chars.push({ ch, px, w: ctx.measureText(ch).width, sp: px * h.tracking / 1000 });
+    for (const ch of run.text) chars.push({ ch, px, w: ctx.measureText(ch).width, sp: headerTracking(ch, px, h.tracking) });
   }
-  const total = chars.reduce((s, c) => s + c.w + c.sp, 0) - chars[chars.length - 1].sp;
+  const raw = chars.reduce((s, c) => s + c.w + c.sp, 0) - chars[chars.length - 1].sp;
+  const fit = fitHeader(raw, h.rule, h.rule_margin, h.cx);   // 2桁の月などで金線からはみ出さないよう縮める
+  for (const c of chars) { c.px *= fit.scale; c.w *= fit.scale; c.sp *= fit.scale; }
+  const total = raw * fit.scale, cx = fit.cx;
   const put = (target, fill) => {
-    let x = h.cx - total / 2;
+    let x = cx - total / 2;
     target.fillStyle = fill;
     for (const c of chars) { target.font = `${c.px}px ${fontStack()}`; target.fillText(c.ch, x, h.baseline); x += c.w + c.sp; }
   };
   // 影（ぼかした文字）→ グラデーションの文字。ぼかしの半径は描くキャンバスの画素単位なので倍率を掛ける
   const sh = h.shadow, pad = sh.blur * 4;
-  const box = { x: h.cx - total / 2 - pad, y: h.box[1] - pad - 20, w: total + pad * 2, h: h.box[3] - h.box[1] + pad * 2 + 40 };
+  const box = { x: cx - total / 2 - pad, y: h.box[1] - pad - 20, w: total + pad * 2, h: h.box[3] - h.box[1] + pad * 2 + 40 };
   drawHiRes(ctx, box, (c, k) => {
     c.save(); c.filter = `blur(${sh.blur * k}px)`; put(c, `rgba(${sh.rgb.join(',')},${sh.alpha})`); c.restore();
     const g = c.createLinearGradient(0, h.box[1], 0, h.box[3]);
