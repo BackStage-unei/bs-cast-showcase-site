@@ -185,7 +185,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/232&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "フレンドリー",
-      "accent_color": "#6368ee"
+      "accent_color": "#6367ee"
     },
     {
       "cast_id": 529,
@@ -231,7 +231,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/529&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "ドリーマー",
-      "accent_color": "#ee6383"
+      "accent_color": "#ee6384"
     },
     {
       "cast_id": 616,
@@ -395,7 +395,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/236&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "",
-      "accent_color": "#ee6e63"
+      "accent_color": "#ee6f63"
     },
     {
       "cast_id": 388,
@@ -441,7 +441,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/388&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "8月",
       "call_category": "ドリーマー",
-      "accent_color": "#6397ee"
+      "accent_color": "#6398ee"
     },
     {
       "cast_id": 403,
@@ -689,7 +689,7 @@ window.SHOWCASE = {
       ],
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/590&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "1月",
-      "call_category": "ドリーマー",
+      "call_category": "",
       "accent_color": "#6389ee"
     },
     {
@@ -752,7 +752,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/414&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "11月",
       "call_category": "フレンドリー",
-      "accent_color": "#63bbee"
+      "accent_color": "#63bcee"
     },
     {
       "cast_id": 565,
@@ -783,7 +783,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/565&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "1月",
       "call_category": "フレンドリー",
-      "accent_color": "#6378ee"
+      "accent_color": "#6379ee"
     },
     {
       "cast_id": 446,
@@ -870,7 +870,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/391&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "2月",
       "call_category": "ドリーマー",
-      "accent_color": "#ee63ba"
+      "accent_color": "#ee63bb"
     },
     {
       "cast_id": 501,
@@ -1010,7 +1010,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/400&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "ドリーマー",
-      "accent_color": "#ee6377"
+      "accent_color": "#ee6376"
     },
     {
       "cast_id": 506,
@@ -1068,7 +1068,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/514&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "3月",
       "call_category": "フレンドリー",
-      "accent_color": "#63e0ee"
+      "accent_color": "#63e8ee"
     },
     {
       "cast_id": 416,
@@ -1098,7 +1098,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/416&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "2月",
       "call_category": "フレンドリー",
-      "accent_color": "#eedd63"
+      "accent_color": "#eedc63"
     },
     {
       "cast_id": 630,
@@ -1120,7 +1120,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/630&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "",
       "call_category": "フレンドリー",
-      "accent_color": "#ee9963"
+      "accent_color": "#ee9a63"
     }
   ]
 };
