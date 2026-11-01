@@ -666,33 +666,6 @@ window.SHOWCASE = {
       "accent_color": "#9a63ee"
     },
     {
-      "cast_id": 590,
-      "name": "ろん",
-      "name_reading": "Ron",
-      "rank": "BRONZE",
-      "catch": "",
-      "intro": "",
-      "x_url": "https://x.com/BScast_ron",
-      "portrait": "",
-      "portraits": [
-        "assets/590_KV02.webp"
-      ],
-      "icon": "assets/590_icon.webp",
-      "tags": [],
-      "specs": [],
-      "youtube_id": "",
-      "links": [
-        {
-          "label": "Tiktok",
-          "url": "https://www.tiktok.com/@ron_tt_12?_r=1&_t=ZS-99NLOGEmHzg"
-        }
-      ],
-      "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/590&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
-      "birth_month": "1月",
-      "call_category": "",
-      "accent_color": "#6389ee"
-    },
-    {
       "cast_id": 541,
       "name": "MUZU",
       "name_reading": "",
