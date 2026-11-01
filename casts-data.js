@@ -880,7 +880,7 @@ window.SHOWCASE = {
     {
       "cast_id": 500,
       "name": "春原なずな",
-      "name_reading": "",
+      "name_reading": "Sunohara Nazuna",
       "rank": "BRONZE",
       "catch": "元気×かわいい！ゲームが好きな魔法使い見習い🐰",
       "intro": "ゲームが好きなVTuber🌟\n魔法使い見習いの春原なずなです🐰\n\n普段はYouTubeでRPG中心のゲーム配信をしています🎮\n柔軟なオタクのため、おすすめされたゲームに触れることが多いです！",
