@@ -154,7 +154,7 @@ async function boot(){
  }catch{ $('.loading p').textContent='キャスト情報を読み込めませんでした';$('.retry').hidden=false;}finally{clearTimeout(timeout);loading=false;}
 }
 $('.retry').onclick=boot;
-if('IntersectionObserver'in window){const near=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){near.disconnect();boot()}},{rootMargin:'180px'});near.observe(root);const visible=new IntersectionObserver(entries=>{state.visible=entries[0].isIntersecting&&entries[0].intersectionRatio>=.15;if(!state.visible)audio?.pause();schedule();if(state.visible&&ready)neighbors()},{threshold:[0,.15]});visible.observe(root)}else{state.visible=true;boot()}
+if('IntersectionObserver'in window){const near=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){near.disconnect();boot()}},{rootMargin:'180px'});near.observe(root);const visible=new IntersectionObserver(entries=>{const last=entries[entries.length-1];state.visible=last.isIntersecting&&last.intersectionRatio>=.15;if(!state.visible)audio?.pause();schedule();if(state.visible&&ready)neighbors()},{threshold:[0,.15]});visible.observe(root)}else{state.visible=true;boot()}
 schedule();
 
 })();</script></body></html>

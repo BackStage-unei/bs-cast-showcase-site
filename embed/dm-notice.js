@@ -156,8 +156,47 @@
   // 切り替え間隔とフェードの長さ（ランク入りスライダーの INTERVAL・transition と同じ）
   var INTERVAL = 3000, FADE_MS = 1000;
 
+  // 一度読んだ画像を人ごとに持っておく入れ物（DOM を使わない。create = 画像を1枚作る関数で、本番は new Image()、now = 今の時刻(ms)）。
+  // 2周目からは同じ画像を使い回して github.io へ取りに行かない（2026-11-02・github.io が 429 を返した件の対策）。
+  // 以前は出すたびに new Image() を作り直していたので、手放した画像はブラウザのキャッシュ期間（GitHub Pages は 10 分）が
+  // 切れると「変わっていないか」の問い合わせが出うる作りだった。
+  // - 読めなかった人（404 など）は RETRY_MS のあいだ読み直さない → 一巡（23 人で約 70 秒）して次にその人の番が来たら読み直す
+  //   （先読みと表示で同じ番に2回読み直したりしない）。表示は前の顔のまま続く（以前と同じ）
+  // - onload も onerror も来ないまま RETRY_MS たった読み込みは、止まったものとみなして次の番で読み直す（それまでは並行して読まない）
+  // - 読み終わりを待つのは最新の1件だけ（同じ人を何度待っても積み上がらない。表示側は generation で古い番を捨てる）
+  // load(key, src, done): 読み終わったら done(画像) を呼ぶ（もう読み終わっていればその場で呼ぶ）。読めなければ呼ばない
+  var RETRY_MS = 60000;
+  function imageCache(create, now) {
+    var store = Object.create(null);   // 特別な名前（__proto__ など）を持たない入れ物（セキュリティ点検 2026-11-02。今は cast_id が数字だけなので起きないが念のため）
+    now = now || function () { return Date.now(); };
+    // __proto__ などの名前でも壊れないよう、自分で入れた分だけを見る
+    function get(key) { return Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null; }
+    function load(key, src, done) {
+      var e = get(key);
+      if (e && e.failedAt !== undefined && now() - e.failedAt >= RETRY_MS) e = null;                 // 読めなかった人: 時間がたったら読み直す
+      if (e && !e.ready && e.failedAt === undefined && now() - e.startedAt >= RETRY_MS) e = null;   // 届かないまま止まった読み込み
+      if (!e) {
+        var img = create(), entry = { img: img, ready: false, waiter: null, startedAt: now() };
+        e = store[key] = entry;
+        img.onload = function () {
+          if (store[key] !== entry) return;
+          entry.ready = true;
+          var w = entry.waiter; entry.waiter = null;
+          if (w) w(img);
+        };
+        img.onerror = function () { if (store[key] === entry) { entry.failedAt = now(); entry.waiter = null; } };
+        img.src = src;
+      }
+      if (e.failedAt !== undefined) return null;
+      if (done) { if (e.ready) done(e.img); else e.waiter = done; }
+      return e.img;
+    }
+    // has は「読めなかった人ではない」かを返す（テストで状態を確かめる用）
+    return { load: load, has: function (key) { var e = get(key); return !!e && e.failedAt === undefined; } };
+  }
+
   var lib = { INTERVAL: INTERVAL, FADE_MS: FADE_MS, RANKS: RANKS, DEFAULT_CROP: DEFAULT_CROP, LIMITS: LIMITS, normalizeCrops: normalizeCrops, cropStyle: cropStyle,
-    selectCasts: selectCasts, shuffle: shuffle, CSS: CSS,
+    selectCasts: selectCasts, shuffle: shuffle, CSS: CSS, imageCache: imageCache, RETRY_MS: RETRY_MS,
     entryProblem: entryProblem, clampCrop: clampCrop, isDefault: isDefault, dragCrop: dragCrop, zoomCrop: zoomCrop, sameLook: sameLook,
     AVATAR_HTML: AVATAR_HTML, markup: markup };
 
@@ -199,50 +238,57 @@
   var casts = [], crops = {}, index = 0, timer = null, visible = false, userPaused = false, generation = 0;
 
   function srcOf(cast) { return SITE + 'assets/' + encodeURIComponent(cast.cast_id) + '_dm.webp'; }
+  // 読んだ画像は持っておき、2周目からは使い回す（上の imageCache。github.io への再取得をやめる）
+  var images = imageCache(function () { var im = new Image(); im.alt = ''; return im; });
   // 次の人の画像を先に読んでおく（3秒ごとの切り替えでも、フェードの途中で画像が空にならないように）
-  function preload(i) { var c = casts[i]; if (c) { var im = new Image(); im.src = srcOf(c); } }
+  function preload(i) { var c = casts[i]; if (c) images.load(String(c.cast_id), srcOf(c)); }
 
   // 新しい顔の img を今の顔の上に重ね、透明から1秒でフェードインさせる。終わったら下の古い顔を外す。
   // 最初の1人目と、動きを減らす設定の人はフェードなしで差し替える
   function display(i) {
     var cast = casts[i]; if (!cast) return;
-    var token = ++generation, image = new Image();
-    image.onload = function () {
+    var token = ++generation;
+    images.load(String(cast.cast_id), srcOf(cast), function (image) {
       if (token !== generation) return;
       var s = cropStyle(crops[String(cast.cast_id)]);
       var first = !avatar.getAttribute('src');
-      if (first || reduced.matches) {
-        avatar.style.width = s.width; avatar.style.left = s.left; avatar.style.top = s.top;
-        avatar.src = image.src;
-        var olds = button.querySelectorAll('img');
-        for (var k = 0; k < olds.length; k++) if (olds[k] !== avatar) button.removeChild(olds[k]);
-      } else {
-        var next = document.createElement('img');
-        next.alt = '';
-        next.className = 'is-entering';
-        next.style.width = s.width; next.style.left = s.left; next.style.top = s.top;
-        next.src = image.src;
-        button.appendChild(next);
-        var prev = avatar;
-        avatar = next;
-        // 透明の状態を一度ブラウザに確定させてから（offsetWidth を読む）透明を外すと、そこからフェードする。
-        // 描画のタイミング（requestAnimationFrame）に頼ると、タブの状態によっては呼ばれず透明のまま残るので使わない
-        void next.offsetWidth;
-        next.classList.remove('is-entering');
-        // 下に残っている顔（直前の顔・連打で重なった顔）は同時に薄くしていく
-        var under = button.querySelectorAll('img');
-        for (var u = 0; u < under.length; u++) if (under[u] !== next) under[u].classList.add('is-leaving');
-        setTimeout(function () {
-          // フェードが終わったら、下に残った古い顔を外す（連打で何枚も重なっても最新の1枚だけ残す）
-          var all = button.querySelectorAll('img');
-          for (var k = 0; k < all.length; k++) if (all[k] !== avatar && all[k] !== next) button.removeChild(all[k]);
-          if (prev !== avatar && prev.parentNode) prev.parentNode.removeChild(prev);
-        }, FADE_MS + 100);
+      // 持っておいた画像（image）そのものを丸の中に置く。新しい <img> に同じ URL を入れ直さないので、ブラウザのキャッシュの状態に関係なく通信は起きない
+      // （img は src などを変えたときだけ読み込み直す。同じページの中で置き場所を移しても読み直さない＝HTML の仕様。コードレビュー2周目）
+      // もう出ている人（1人だけのとき等）は置き直さない。その場合も次の人の先読みは続ける（以前は return で先読みを飛ばしていた）
+      if (image !== avatar) {
+        if (image.parentNode) image.parentNode.removeChild(image);   // まだ薄くなっていく途中の古い顔として残っていた
+        image.style.width = s.width; image.style.left = s.left; image.style.top = s.top;
+        if (first || reduced.matches) {
+          image.className = '';
+          button.appendChild(image);
+          var olds = button.querySelectorAll('img');
+          for (var k = 0; k < olds.length; k++) if (olds[k] !== image) button.removeChild(olds[k]);
+          avatar = image;
+        } else {
+          var next = image;
+          next.className = 'is-entering';
+          button.appendChild(next);
+          var prev = avatar;
+          avatar = next;
+          // 透明の状態を一度ブラウザに確定させてから（offsetWidth を読む）透明を外すと、そこからフェードする。
+          // 描画のタイミング（requestAnimationFrame）に頼ると、タブの状態によっては呼ばれず透明のまま残るので使わない
+          void next.offsetWidth;
+          next.classList.remove('is-entering');
+          // 下に残っている顔（直前の顔・連打で重なった顔）は同時に薄くしていく
+          var under = button.querySelectorAll('img');
+          for (var u = 0; u < under.length; u++) if (under[u] !== next) under[u].classList.add('is-leaving');
+          setTimeout(function () {
+            // フェードが終わったら、下に残った古い顔を外す（連打で何枚も重なっても最新の1枚だけ残す）
+            var all = button.querySelectorAll('img');
+            for (var k = 0; k < all.length; k++) if (all[k] !== avatar && all[k] !== next) button.removeChild(all[k]);
+            if (prev !== avatar && prev.parentNode) prev.parentNode.removeChild(prev);
+          }, FADE_MS + 100);
+        }
       }
-      if (casts.length > 1) preload((i + 1) % casts.length);
-    };
-    image.onerror = function () {};
-    image.src = srcOf(cast);
+    });
+    // 次の人の先読みは、今の人が読めたかどうかに関係なく始める
+    // （以前は今の人の読み込みが終わってから先読みしていたので、今の人が読めない・止まった番では次の人の先読みが抜けていた。コードレビュー案3の後）
+    if (casts.length > 1) preload((i + 1) % casts.length);
   }
   function sync() {
     clearInterval(timer); timer = null;
@@ -259,12 +305,15 @@
   };
   document.addEventListener('visibilitychange', sync);
   if (reduced.addEventListener) reduced.addEventListener('change', sync);
+  // 1回の通知に出入りが重なったら、最後（今の状態）を使う（先頭を読むと、画面外なのに回り続けることがある）
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, { threshold: 0.1 }).observe(section);
+    new IntersectionObserver(function (entries) { visible = entries[entries.length - 1].isIntersecting; sync(); }, { threshold: 0.1 }).observe(section);
   } else visible = true;
 
-  // 顔の位置が読めなくても、既定（画像の上の部分）で表示は続ける
-  var cropsReady = fetch(SITE + 'embed/dm-faces.json', { cache: 'no-cache' })
+  // 顔の位置が読めなくても、既定（画像の上の部分）で表示は続ける。
+  // 以前は no-cache 指定（毎回サーバーに問い合わせ）だったが、ふつうのキャッシュに任せる（2026-11-02・429 対策）。
+  // 調整画面で保存した顔の位置は、デプロイ後この画面に出るまで最大 10 分ほど遅れることがある（GitHub Pages のキャッシュ期間）
+  var cropsReady = fetch(SITE + 'embed/dm-faces.json')
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) { crops = normalizeCrops(j); })
     .catch(function () {});

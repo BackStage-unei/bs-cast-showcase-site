@@ -143,6 +143,10 @@ html, body { margin: 0; padding: 0; background: transparent; }
   };
   const start = () => { if (urls.length > 1) timer ??= setInterval(next, INTERVAL); };
   const stop  = () => { clearInterval(timer); timer = null; };
+  // 画面に見えていて（visible）、タブが表にあるときだけ切り替える。
+  // 画面外で回し続けると、誰も見ていないのに次の人の画像を github.io から読み続ける（2026-11-02・429 対策で画面外も止める。DM 通知と同じ）
+  let visible = !('IntersectionObserver' in window);
+  const sync = () => (visible && !document.hidden) ? start() : stop();
 
   const boot = (list, names, accents, fallback) => {
     urls = list; alts = names || []; colors = accents || []; isFallback = !!fallback;
@@ -158,7 +162,7 @@ html, body { margin: 0; padding: 0; background: transparent; }
     }
     makeSlide(0);
     makeSlide(1);
-    start();
+    sync();
   };
 
   // 公開データ（window.SHOWCASE を定義するJS）を読み込む
@@ -174,7 +178,7 @@ html, body { margin: 0; padding: 0; background: transparent; }
       [casts[i], casts[j]] = [casts[j], casts[i]];
     }
     // {id}_slide.webp = 顔基準でバストアップ切り出し済みのスライダー専用画像
-    boot(casts.map((c) => SITE + 'assets/' + c.cast_id + '_slide.webp'),
+    boot(casts.map((c) => SITE + 'assets/' + encodeURIComponent(c.cast_id) + '_slide.webp'),   // DM 通知と同じく URL 用に変換（セキュリティ点検 2026-11-02）
          casts.map((c) => c.name || ''),
          casts.map((c) => /^#[0-9a-f]{6}$/.test(c.accent_color || '') ? c.accent_color : ''),
          false);
@@ -182,7 +186,9 @@ html, body { margin: 0; padding: 0; background: transparent; }
   s.onerror = () => boot(FALLBACK, [], [], true);
   document.head.appendChild(s);
 
-  // タブ/プレビューが非表示の間は止めて、見えないフェードを動かさない
-  document.addEventListener('visibilitychange',
-    () => document.hidden ? stop() : start());
+  // タブ/プレビューが非表示の間・スライダーが画面外にある間は止めて、見えないフェード（と画像の読み込み）を動かさない
+  document.addEventListener('visibilitychange', sync);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => { visible = entries[entries.length - 1].isIntersecting; sync(); }, { threshold: 0.1 }).observe(slider);
+  }
 })();
