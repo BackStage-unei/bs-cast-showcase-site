@@ -203,6 +203,7 @@ window.SHOWCASE = {
       "x_url": "https://x.com/bibikoooooooooo",
       "portrait": "",
       "portraits": [
+        "assets/616_KV02.webp",
         "assets/616_KV01.webp"
       ],
       "icon": "assets/616_icon.webp",
@@ -222,7 +223,7 @@ window.SHOWCASE = {
       "profile_url": "https://back-stage.onelink.me/7z4p?pid=backstage_cast&deep_link_value=https://back-stage.app/casts/616&af_dp=jp.vic-inc.app.back-stage://&af_force_deeplink=true",
       "birth_month": "5月",
       "call_category": "フレンドリー",
-      "accent_color": "#9663ee"
+      "accent_color": "#638eee"
     },
     {
       "cast_id": 236,
