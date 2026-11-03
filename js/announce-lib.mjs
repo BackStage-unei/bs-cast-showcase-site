@@ -54,11 +54,13 @@ export function mergeAnnounce(latest, mine, touchedIds) {
 }
 
 // casts.json → ランク入りキャストの一覧（公開前の人も含む）。並びはショーケースと同じ（ランク → display_order → ID）
+// 引退した人（auto.retired === true）は、ランク判定に残っていても発表画像に載せない（2026-11・590 の件）
 export function rankedCasts(castsJson) {
   const list = [];
   for (const c of (castsJson && castsJson.casts) || []) {
     const rank = c.auto && c.auto.rank;
     if (!RANKS.includes(rank)) continue;
+    if (c.auto.retired === true) continue;
     const m = c.manual || {};
     list.push({
       id: String(c.cast_id), rank, name: m.name || '', order: Number.isFinite(m.display_order) ? m.display_order : 9999,

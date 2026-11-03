@@ -502,7 +502,7 @@
       nameDiv.textContent = cast.manual.name || ("ID " + cast.cast_id);
       var idDiv = document.createElement("div");
       idDiv.className = "row-id";
-      idDiv.textContent = (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
+      idDiv.textContent = (cast.auto.retired === true ? "引退 ・ " : "") + (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
         (cast.manual.name_reading ? " ・ " + cast.manual.name_reading : "") + " ・ " + badgeText(cast);
       var selfMark = document.createElement("span");
       selfMark.className = "row-self";
@@ -517,7 +517,12 @@
       var tdPub = document.createElement("td");
       tdPub.className = "center";
       var pub = document.createElement("input"); pub.type = "checkbox"; pub.checked = cast.manual.published;
+      // 引退した人は公開 ON にできない（公開データからも外れる）。OFF にはできる（同期も引退時に OFF にする）
+      var lockPub = function () { pub.disabled = cast.auto.retired === true && !pub.checked; };
+      if (cast.auto.retired === true) pub.title = "引退したキャストは公開できません（bs-data の status が「引退」）";
+      lockPub();
       pub.addEventListener("change", function () {
+        if (cast.auto.retired === true && pub.checked) { pub.checked = false; lockPub(); return; }   // 引退した人は ON にできない
         var next = pub.checked;
         cast.manual.published = next;
         pub.disabled = true;
@@ -527,7 +532,7 @@
             pub.checked = !next;
             setStatus("エラー: " + err.message);
           })
-          .then(function () { pub.disabled = false; });
+          .then(function () { pub.disabled = false; lockPub(); });
       });
       cast._pubCheckbox = pub;
       tdPub.appendChild(pub);
@@ -564,6 +569,11 @@
   var dlgIntro = document.getElementById("dlgIntro");
   var dlgX = document.getElementById("dlgX");
   var dlgPublished = document.getElementById("dlgPublished");
+  // 引退した人は、編集画面でチェックを外したあと付け直しても公開 ON にできない（コードレビュー2周目）
+  dlgPublished.addEventListener("change", function () {
+    if (editing && editing.cast.auto.retired === true && dlgPublished.checked) dlgPublished.checked = false;
+    if (editing && editing.cast.auto.retired === true) dlgPublished.disabled = !dlgPublished.checked;
+  });
   var dlgAutoName = document.getElementById("dlgAutoName");
   var dlgAutoSpecs = document.getElementById("dlgAutoSpecs");
   var dlgPortraitPreview = document.getElementById("dlgPortraitPreview");
@@ -755,6 +765,7 @@
     dlgProfileUrl.value = m.profile_url || "";
     dlgPortraits.value = (m.portraits || []).join("\n");
     dlgPublished.checked = !!m.published;
+    dlgPublished.disabled = a.retired === true && !m.published;   // 引退した人は公開 ON にできない（OFF にはできる）
     dlgSpecsError.textContent = "";
     dlgError.textContent = "";
     document.getElementById("dlgUploadStatus").textContent = "";
@@ -802,7 +813,10 @@
     m.links = linksParsed.rows;
     m.portraits = portraits;
     m.published = dlgPublished.checked;
-    if (editing.cast._pubCheckbox) editing.cast._pubCheckbox.checked = m.published;
+    if (editing.cast._pubCheckbox) {
+      editing.cast._pubCheckbox.checked = m.published;
+      if (editing.cast.auto.retired === true) editing.cast._pubCheckbox.disabled = !m.published;   // 引退した人は ON に戻せない
+    }
     var applyBtn = document.getElementById("dlgApply");
     applyBtn.disabled = true;
     applyBtn.textContent = "保存中…";
