@@ -299,6 +299,33 @@
 
   function setStatus(text) { statusEl.textContent = text; }
 
+  // 画像を出す。公開サイトはランク外・引退の人の画像を置かない（build.sh が外す）ので、
+  // その人の画像と、公開サイトで読めなかった画像は GitHub から直接読む（ログイン中のトークンで）
+  function isAssetPublished(cast) { var a = cast.auto || {}; return !!a.rank && a.retired !== true; }  // showcase_lib.asset_ids_to_publish と同じ決まり
+  function loadFromRepo(img, pngPath) {
+    if (!/^assets\/[\w.-]+\.png$/.test(pngPath)) return;
+    api("/repos/" + OWNER + "/" + REPO + "/contents/site/" + pngPath + "?ref=" + BRANCH,
+        { headers: { "Accept": "application/vnd.github.raw+json" } })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
+      .then(function (blob) {
+        var url = URL.createObjectURL(blob);
+        img.addEventListener("load", function () { URL.revokeObjectURL(url); }, { once: true });
+        img.src = url;
+      })
+      .catch(function () { img.alt = "画像を読めません"; });
+  }
+  function showAsset(img, pngPath, published) {
+    if (!published) { loadFromRepo(img, pngPath); return; }
+    var tries = 0;
+    img.addEventListener("error", function onError() {
+      tries++;
+      if (tries === 1) { img.src = "./" + pngPath; return; }           // WebP が無い（まだビルド前）→ PNG
+      img.removeEventListener("error", onError);
+      loadFromRepo(img, pngPath);                                     // 公開サイトに無い（アップロード直後など）→ GitHub
+    });
+    img.src = "./" + pngPath.replace(/\.png$/, ".webp");
+  }
+
   // ---- 読み込み ----
   // 本人文まわりの通信にだけタイムアウトを掛ける（既存の casts.json 取得は従来どおり）。
   // ヘッダ受領で終わらせず、本文（JSON）の取得完了までを1つの期限で打ち切る（Codex 再レビュー指摘）。
@@ -495,10 +522,7 @@
       var tdIcon = document.createElement("td");
       var img = document.createElement("img");
       img.className = "avatar";
-      if (cast.manual.icon) {
-        img.src = "./" + cast.manual.icon.replace(/\.png$/, ".webp");
-        img.addEventListener("error", function () { img.src = "./" + cast.manual.icon; });
-      }
+      if (cast.manual.icon) showAsset(img, cast.manual.icon, isAssetPublished(cast));
       img.alt = "";
       tdIcon.appendChild(img);
       tr.appendChild(tdIcon);
@@ -723,8 +747,7 @@
       var fig = document.createElement("figure");
       fig.className = "dlg-thumb";
       var img = document.createElement("img");
-      img.src = "./" + p.replace(/\.png$/, ".webp");
-      img.addEventListener("error", function () { if (img.src.indexOf(".webp") >= 0) img.src = "./" + p; });
+      showAsset(img, p, isAssetPublished(cast));
       var cap = document.createElement("figcaption");
       cap.textContent = "立ち絵" + (i + 1);
       fig.appendChild(img); fig.appendChild(cap);
@@ -734,8 +757,7 @@
       var fig2 = document.createElement("figure");
       fig2.className = "dlg-thumb dlg-thumb--icon";
       var img2 = document.createElement("img");
-      img2.src = "./" + m.icon.replace(/\.png$/, ".webp");
-      img2.addEventListener("error", function () { if (img2.src.indexOf(".webp") >= 0) img2.src = "./" + m.icon; });
+      showAsset(img2, m.icon, isAssetPublished(cast));
       var cap2 = document.createElement("figcaption");
       cap2.textContent = "アイコン";
       fig2.appendChild(img2); fig2.appendChild(cap2);
