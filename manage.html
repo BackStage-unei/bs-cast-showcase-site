@@ -247,6 +247,9 @@
   var TOKEN_KEY = "bs_cast_admin_token";
 
   var data = null;      // casts.json の中身
+  // 一覧の行の部品（本人文の印・公開チェック）を cast_id ごとに持つ。cast に直接つけると保存のたびに
+  // casts.json へ空の {} が書かれ、同期がそれを消す無駄なコミットとデプロイが起きていた（2026-11）
+  var rowEls = {};
   var fileSha = null;   // 楽観ロック用（GitHub contents APIのsha）
   var selfProfiles = null; // self-profiles.json の profiles（cast_id文字列 → 本人文）。未同期なら null
   var selfLoadError = null; // 本人文の取得に失敗した理由（成功・未同期(404)なら null）。完了メッセージとパネルに残す
@@ -403,7 +406,8 @@
   function updateSelfMarks() {
     if (!data) return;
     data.casts.forEach(function (cast) {
-      if (cast._selfMark) cast._selfMark.hidden = !selfProfile(cast);
+      var els = rowEls[cast.cast_id];
+      if (els) els.selfMark.hidden = !selfProfile(cast);
     });
   }
 
@@ -443,11 +447,13 @@
 
   // ---- 保存（mainへコミット → Actionsが自動デプロイ） ----
   // 保存＝mainへ即コミット（Actionsが自動で本番反映）。呼び出し元ごとにメッセージを渡す
+  function dropScreenOnly(key, value) { return key.charAt(0) === "_" ? undefined : value; }
   function saveData(message) {
     setStatus("保存中…");
     var body = {
       message: message,
-      content: b64encodeUtf8(JSON.stringify(data, null, 2) + "\n"),
+      // 「_」で始まる項目は画面用の一時データなので書かない（同期が消す項目を書き戻さない）
+      content: b64encodeUtf8(JSON.stringify(data, dropScreenOnly, 2) + "\n"),
       sha: fileSha,
       branch: BRANCH,
     };
@@ -473,6 +479,7 @@
   function render() {
     var tbody = document.getElementById("rows");
     tbody.textContent = "";
+    rowEls = {};
     var casts = data.casts.slice().sort(function (a, b) {
       var ra = a.auto.rank in RANK_ORDER ? RANK_ORDER[a.auto.rank] : 9;
       var rb = b.auto.rank in RANK_ORDER ? RANK_ORDER[b.auto.rank] : 9;
@@ -509,7 +516,6 @@
       selfMark.textContent = " ・ 本人文あり";
       selfMark.hidden = !selfProfile(cast); // 本人文が後から到着したら updateSelfMarks() が表示に切り替える
       idDiv.appendChild(selfMark);
-      cast._selfMark = selfMark;
       tdWho.appendChild(nameDiv);
       tdWho.appendChild(idDiv);
       tr.appendChild(tdWho);
@@ -534,7 +540,7 @@
           })
           .then(function () { pub.disabled = false; lockPub(); });
       });
-      cast._pubCheckbox = pub;
+      rowEls[cast.cast_id] = { selfMark: selfMark, pub: pub };
       tdPub.appendChild(pub);
       tr.appendChild(tdPub);
 
@@ -813,9 +819,10 @@
     m.links = linksParsed.rows;
     m.portraits = portraits;
     m.published = dlgPublished.checked;
-    if (editing.cast._pubCheckbox) {
-      editing.cast._pubCheckbox.checked = m.published;
-      if (editing.cast.auto.retired === true) editing.cast._pubCheckbox.disabled = !m.published;   // 引退した人は ON に戻せない
+    var rowPub = (rowEls[editing.cast.cast_id] || {}).pub;
+    if (rowPub) {
+      rowPub.checked = m.published;
+      if (editing.cast.auto.retired === true) rowPub.disabled = !m.published;   // 引退した人は ON に戻せない
     }
     var applyBtn = document.getElementById("dlgApply");
     applyBtn.disabled = true;
