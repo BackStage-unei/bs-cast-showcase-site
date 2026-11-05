@@ -77,6 +77,11 @@
   .self-panel .self-actions { margin-top: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   .self-panel .self-actions .dlg-hint { display: inline; margin: 0; }
   .row-self { color: #2c7a2c; font-weight: 700; }
+  .row-self.row-self-diff { color: #c02950; }
+  .self-panel .self-diff { margin: 0 0 10px; padding: 6px 8px; border-radius: 6px; background: #fdecef; color: #c02950; font-size: 12px; }
+  .self-panel .self-check { display: flex; gap: 6px; align-items: flex-start; margin-top: 6px; color: var(--text, #222); font-weight: 700; }
+  .self-panel .self-check input { margin-top: 3px; }
+  .self-panel .self-check[hidden] { display: none; }   /* display:flex が hidden を打ち消すため */
   .dlg-adv { margin-top: 8px; }
   .dlg-adv > summary { font-size: 11.5px; color: var(--sub); cursor: pointer; }
   .dlg-adv textarea { margin-top: 6px; }
@@ -159,6 +164,10 @@
       <div class="self-panel" id="selfPanel">
         <p class="self-empty" id="selfEmpty">読み込み中…</p>
         <div id="selfBody" hidden>
+          <div class="self-diff" id="selfDiff" hidden>
+            <span id="selfDiffText"></span>
+            <label class="self-check"><input type="checkbox" id="selfCheck" /> 保存するとき、今の本人文を「確認済み」にする（一覧の印が消えます）</label>
+          </div>
           <p class="self-label">キャッチコピー</p>
           <p class="self-text" id="selfCatch"></p>
           <p class="self-label">紹介文</p>
@@ -235,6 +244,7 @@
   </form>
 </dialog>
 
+<script src="js/self-diff.js"></script>
 <script>
 "use strict";
 (function () {
@@ -301,7 +311,7 @@
 
   // 画像を出す。公開サイトはランク外・引退の人の画像を置かない（build.sh が外す）ので、
   // その人の画像と、公開サイトで読めなかった画像は GitHub から直接読む（ログイン中のトークンで）
-  function isAssetPublished(cast) { var a = cast.auto || {}; return !!a.rank && a.retired !== true; }  // showcase_lib.asset_ids_to_publish と同じ決まり
+  var isAssetPublished = window.SelfDiff.isAssetPublished;  // 決まりは js/self-diff.js に1つだけ（showcase_lib.asset_ids_to_publish と同じ）
   function loadFromRepo(img, pngPath) {
     if (!/^assets\/[\w.-]+\.png$/.test(pngPath)) return;
     api("/repos/" + OWNER + "/" + REPO + "/contents/site/" + pngPath + "?ref=" + BRANCH,
@@ -415,7 +425,16 @@
     if (selfLoadError) return " / 本人文: 読み込み失敗（" + selfLoadError + "・「再読込」で再試行）";
     if (selfProfiles === null) return " / 本人文: 未同期";
     var f = selfFreshnessText();
-    return " / 本人文: " + Object.keys(selfProfiles).length + "名" + (f ? "（" + f + "）" : "");
+    var diff = countSelfDiffers();
+    return " / 本人文: " + Object.keys(selfProfiles).length + "名" + (f ? "（" + f + "）" : "") +
+      (diff ? " / ⚠ ランク入りで本人文と違う: " + diff + "名" : "");
+  }
+  // 「本人文と違う（未確認）」のランク入りの人数。一覧の印と同じ判定
+  function countSelfDiffers() {
+    if (!data || !selfProfiles) return 0;
+    return data.casts.filter(function (cast) {
+      return window.SelfDiff.listSelfStatus(cast, selfProfile(cast)).status === "differs";
+    }).length;
   }
   function baseStatus() {
     return "読み込み完了（" + data.casts.length + "名 / ランク月: " + ((data.meta || {}).rank_month || "?");
@@ -434,8 +453,18 @@
     if (!data) return;
     data.casts.forEach(function (cast) {
       var els = rowEls[cast.cast_id];
-      if (els) els.selfMark.hidden = !selfProfile(cast);
+      if (els) applySelfMark(els.selfMark, cast);
     });
+  }
+  // 一覧の「本人文あり」の印。ランク入りの人で載っている文章と違えば目立つ印にする
+  // （本人がプロフィールを更新しても、ランク同期では何も起きないため。判定は js/self-diff.js）
+  function applySelfMark(el, cast) {
+    var r = window.SelfDiff.listSelfStatus(cast, selfProfile(cast));
+    el.hidden = r.status === "none";
+    el.className = r.status === "differs" ? "row-self row-self-diff" : "row-self";
+    el.textContent = r.status === "differs"
+      ? " ・ ⚠ 本人文と違う（" + r.fields.join("・") + "）"
+      : r.status === "checked" ? " ・ 本人文あり（違いは確認済み）" : " ・ 本人文あり";
   }
 
   function loadCasts() {
@@ -536,9 +565,7 @@
       idDiv.textContent = (cast.auto.retired === true ? "引退 ・ " : "") + (cast.auto.rank || "圏外") + " ・ ID " + cast.cast_id +
         (cast.manual.name_reading ? " ・ " + cast.manual.name_reading : "") + " ・ " + badgeText(cast);
       var selfMark = document.createElement("span");
-      selfMark.className = "row-self";
-      selfMark.textContent = " ・ 本人文あり";
-      selfMark.hidden = !selfProfile(cast); // 本人文が後から到着したら updateSelfMarks() が表示に切り替える
+      applySelfMark(selfMark, cast); // 本人文が後から到着したら updateSelfMarks() が表示に切り替える
       idDiv.appendChild(selfMark);
       tdWho.appendChild(nameDiv);
       tdWho.appendChild(idDiv);
@@ -649,6 +676,7 @@
     }
     selfEmpty.hidden = true;
     selfBody.hidden = false;
+    renderSelfDiff(cast, p);
     document.getElementById("selfCatch").textContent = p.catch || "";
     document.getElementById("selfIntro").textContent = p.intro || "";
     document.getElementById("selfAttrs").textContent = describeAttrs(p.attrs);
@@ -658,6 +686,31 @@
       (p.updated_at ? "　本人の最終更新: " + String(p.updated_at).slice(0, 10) : "") +
       (fresh ? "\n" + fresh : "");
   }
+  // 載っている文章との違い（保存済みの内容と比べる）と「確認済み」のチェック。
+  // editing.checkSelf … チェックを入れた時点の本人文の指紋（保存で manual.self_checked に記録）。
+  // 推測はしない: 記録するかどうかは、運営が目で見えるこのチェックだけで決める（貼り付けると自動で入り、外せる）
+  var selfDiffBox = document.getElementById("selfDiff");
+  var selfCheckBox = document.getElementById("selfCheck");
+  function renderSelfDiff(cast, p) {
+    var st = window.SelfDiff.selfStatus(cast.manual, p);
+    var pending = !!(editing && editing.cast === cast && editing.checkSelf);
+    selfDiffBox.hidden = st !== "differs" && st !== "checked";
+    if (selfDiffBox.hidden) return;
+    var fields = window.SelfDiff.selfDiffFields(cast.manual, p).join("・");
+    selfCheckBox.parentNode.hidden = st === "checked";
+    selfCheckBox.checked = pending;
+    document.getElementById("selfDiffText").textContent = st === "checked"
+      ? "載っている" + fields + "は本人文と違いますが、確認済みです（本人が書き換えたら、また一覧に印が出ます）"
+      : "⚠ 載っている" + fields + "が本人文と違います。本人文を使うなら「下書きとして貼り付け」（下のチェックが自動で入ります）、使わないならそのまま下にチェック";
+  }
+  function setSelfCheck(on) {
+    if (!editing) return;
+    var p = selfProfile(editing.cast);
+    // チェックした時点で画面に出ている本人文の指紋を取っておく（見た文章だけを確認済みにする）
+    editing.checkSelf = on && p ? window.SelfDiff.selfFingerprint(p) : null;
+    renderSelfDiff(editing.cast, p);
+  }
+  selfCheckBox.addEventListener("change", function () { setSelfCheck(selfCheckBox.checked); });
   document.getElementById("selfPaste").addEventListener("click", function () {
     if (!editing) return;
     var p = selfProfile(editing.cast);
@@ -669,6 +722,10 @@
     if (overwriting && !confirm("入力済みのキャッチコピー・紹介文を本人文で上書きします。よいですか？（保存するまで本番には反映されません）")) return;
     dlgCatch.value = nextCatch;
     dlgIntro.value = nextIntro;
+    // 貼り付けたら「確認済み」のチェックを自動で入れる（第三者視点に書き直すと文章が一致しないので、
+    // 一致だけでは印が消えないため）。使わないと決めたら運営がチェックを外す
+    // 保存済みの文章がすでに本人文と同じ（違いの欄が出ていない）ときは、見えないチェックを入れない
+    if (window.SelfDiff.selfStatus(editing.cast.manual, p) === "differs") setSelfCheck(true);
     dlgError.textContent = "";
     dlgIntro.focus();
   });
@@ -800,11 +857,50 @@
     updateYoutubeHint();
     dlg.showModal();
   }
-  document.getElementById("dlgCancel").addEventListener("click", function () { dlg.close(); });
+  // 保存中はダイアログを閉じさせない（閉じて一覧で同じ人を操作すると、保存に失敗したときの巻き戻しが
+  // その操作まで戻してしまうため。Esc は dialog の cancel イベントで止める）
+  var dlgSaving = false;
+  var dlgBusyRestore = null;
+  // 保存中はダイアログの入力欄・ボタンをすべて止める（保存中の入力・アップロード・確認済みが、
+  // 保存の成功で黙って消えたり、失敗の巻き戻しで消えたりしないように）
+  function setDialogBusy(on) {
+    if (on) {
+      dlgBusyRestore = [];
+      Array.prototype.forEach.call(dlg.querySelectorAll("input, textarea, button, select"), function (el) {
+        dlgBusyRestore.push([el, el.disabled]);
+        el.disabled = true;
+      });
+    } else if (dlgBusyRestore) {
+      dlgBusyRestore.forEach(function (pair) { pair[0].disabled = pair[1]; });
+      dlgBusyRestore = null;
+    }
+  }
+  dlg.addEventListener("cancel", function (e) {
+    if (dlgSaving) { e.preventDefault(); return; }
+    if (editing && editing.uploads > 0) {   // アップロード中の Esc は止めて、キャンセルボタンで確かめてもらう
+      e.preventDefault();
+      dlgError.textContent = "画像のアップロード中です。閉じるときは「キャンセル」を押してください";
+    }
+  });
+  // Esc を続けて押すと、ブラウザによっては cancel を止められずに閉じる。保存中に閉じたら開き直す。
+  // それ以外で閉じたら、このダイアログのアップロードの結果はどこにも書かない（別の人のダイアログに入らないように）
+  dlg.addEventListener("close", function () {
+    if (dlgSaving) { dlg.showModal(); return; }
+    if (editing) editing.closed = true;
+  });
+  document.getElementById("dlgCancel").addEventListener("click", function () {
+    if (dlgSaving) return;
+    if (editing && editing.uploads > 0 &&
+        !confirm("画像のアップロード中です。アップロード自体は止められません。閉じると、立ち絵はこの人の立ち絵の欄に入りません（あとでやり直してください）。アイコンの差し替えは、閉じても反映されます。閉じますか？")) return;
+    dlg.close();
+  });
   document.getElementById("dlgApply").addEventListener("click", function () {
     if (!editing) return;
     dlgSpecsError.textContent = "";
     dlgError.textContent = "";
+    // このダイアログで始めた画像アップロードが終わるまで保存しない（保存中に終わると、パスやアイコンが保存から漏れるため）。
+    // 通信が止まったら「キャンセル」で閉じれば、開き直したダイアログはすぐ保存できる（閉じた側の結果はどこにも書かない）
+    if (editing.uploads > 0) { dlgError.textContent = "画像のアップロード中です。終わってから「保存する」を押してください（止まったままなら「キャンセル」で閉じて開き直す）"; return; }
     var specs = parseSpecs(dlgSpecs.value);
     if (specs.error) {
       dlgSpecsError.textContent = specs.error + "行目が「ラベル: 値」の形式になっていません";
@@ -827,7 +923,9 @@
     if (xUrl && xUrl.indexOf("https://") !== 0) { dlgError.textContent = "X URLは https:// で始めてください"; return; }
     if (profileUrl && profileUrl.indexOf("https://") !== 0) { dlgError.textContent = "プロフィールURLは https:// で始めてください"; return; }
     if (linksParsed.rows.length > 10) { dlgError.textContent = "自由リンクは10個までです"; return; }
-    var m = editing.cast.manual;
+    var cast = editing.cast;   // 保存が終わるまでこの人に固定する（終わる前に editing が変わっても取り違えない）
+    var m = cast.manual;
+    var before = JSON.parse(JSON.stringify(m)); // 保存に失敗したら戻す（ダイアログの内容は残るので、そのままやり直せる）
     m.name = dlgName.value.trim();
     m.name_reading = dlgReading.value.trim();
     m.birth_month = dlgBirthMonth.value.trim();
@@ -841,26 +939,47 @@
     m.links = linksParsed.rows;
     m.portraits = portraits;
     m.published = dlgPublished.checked;
-    var rowPub = (rowEls[editing.cast.cast_id] || {}).pub;
-    if (rowPub) {
-      rowPub.checked = m.published;
-      if (editing.cast.auto.retired === true) rowPub.disabled = !m.published;   // 引退した人は ON に戻せない
+    if (editing.checkSelf) m.self_checked = editing.checkSelf;
+    function syncRowPub() {   // 一覧の公開チェックを m に合わせる（行は作り直されることがあるので毎回引き直す）
+      var rowPub = (rowEls[cast.cast_id] || {}).pub;
+      if (!rowPub) return;
+      rowPub.checked = !!m.published;
+      if (cast.auto.retired === true) rowPub.disabled = !m.published;   // 引退した人は ON に戻せない
     }
+    syncRowPub();
     var applyBtn = document.getElementById("dlgApply");
-    applyBtn.disabled = true;
+    setDialogBusy(true);
+    dlgSaving = true;
     applyBtn.textContent = "保存中…";
-    saveData("content: " + (m.name || editing.cast.cast_id) + " を更新（管理画面）")
+    saveData("content: " + (m.name || cast.cast_id) + " を更新（管理画面）")
       .then(function () {
-        render();
+        finishSaving();
         dlg.close();
+        render();
+        var left = countSelfDiffers();
+        if (left) setStatus(statusEl.textContent + "（⚠ ランク入りで本人文と違う: 残り " + left + "名）");
+      }, function (err) {
+        finishSaving();
+        // 保存できなかったら、手元のデータを保存前に戻す。戻さないと、次に別の操作で保存したときに
+        // 確かめていない内容（確認済みの記録を含む）が一緒に書かれてしまう
+        Object.keys(m).forEach(function (k) { delete m[k]; });
+        Object.assign(m, before);
+        dlgError.textContent = String(err && err.message || err);
+        syncRowPub();
       })
       .catch(function (err) {
-        dlgError.textContent = err.message;
-      })
-      .then(function () {
-        applyBtn.disabled = false;
-        applyBtn.textContent = "保存する";
+        // 保存の結果を画面に反映する途中で例外が出た（保存できたかどうかはここでは決めつけない）
+        finishSaving();
+        var msg = "保存の途中か、そのあとの画面の更新でエラーが起きました。保存できたかどうかは「再読込」で確かめてください（" + String(err && err.message || err) + "）";
+        setStatus(msg);
+        if (dlg.open) dlgError.textContent = msg;
       });
+    function finishSaving() {   // 何度呼んでもよい
+      if (!dlgSaving) return;
+      dlgSaving = false;
+      setDialogBusy(false);
+      applyBtn.textContent = "保存する";
+    }
   });
 
   // ---- 画像アップロード（GitHubへ直接コミット→パス欄へ自動追記） ----
@@ -910,6 +1029,13 @@
     var err = validatePng(file);
     if (err) { uploadStatus.textContent = "⚠ " + err; return; }
     var castId = editing.cast.cast_id;
+    var session = editing;   // このダイアログの分として数える。閉じたあとに終わった結果は書かない
+    function stillOpen() { return !session.closed && editing === session; }
+    session.uploads = (session.uploads || 0) + 1;
+    function uploadDone() {
+      session.uploads = Math.max(0, (session.uploads || 0) - 1);
+      if (!session.uploads && editing === session && /アップロード中です/.test(dlgError.textContent)) dlgError.textContent = "";
+    }
     uploadStatus.textContent = "アップロード中…（" + Math.round(file.size / 1024 / 1024 * 10) / 10 + "MB）";
 
     Promise.all([fileToBase64(file), listAssets()])
@@ -931,6 +1057,7 @@
           var name = castId + "_KV" + String(maxN + 1).padStart(2, "0") + ".png";
           return putAsset(name, b64, "content: 立ち絵アップロード " + name + "（管理画面から）", null)
             .then(function () {
+              if (!stillOpen()) return;   // 閉じたダイアログの分は、ほかの人の欄に入れない
               var lines = dlgPortraits.value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean);
               lines.push("assets/" + name);
               dlgPortraits.value = lines.join("\n");
@@ -941,13 +1068,17 @@
           var existing = entries.filter(function (e) { return e.name === iconName; })[0];
           return putAsset(iconName, b64, "content: アイコン差し替え " + iconName + "（管理画面から）", existing ? existing.sha : null)
             .then(function () {
+              if (!stillOpen()) return;   // 閉じたダイアログの分は、ほかの人のデータに入れない
               if (!editing.cast.manual.icon) editing.cast.manual.icon = "assets/" + iconName;
               render();
               uploadStatus.textContent = "✅ アイコンを差し替えました（一覧の画像は数分後に反映）";
             });
         }
       })
-      .catch(function (e2) { uploadStatus.textContent = "⚠ " + e2.message; });
+      .then(uploadDone, function (e2) {
+        uploadDone();
+        if (stillOpen()) uploadStatus.textContent = "⚠ " + String(e2 && e2.message || e2);
+      });
   }
 
   var filePortrait = document.getElementById("dlgFilePortrait");
