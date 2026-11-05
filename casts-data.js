@@ -56,8 +56,8 @@ window.SHOWCASE = {
       "name": "宇田わん",
       "name_reading": "ウタワン",
       "rank": "SILVER",
-      "catch": "こんわんわ〜！ ふわふわピンクの生涯VTuber。",
-      "intro": "ふわふわピンクのマルチーズ系バーチャル犬。「生涯VTuber・生涯いっしょ」を掲げて、みんなの日々のモチベーションになるべく活動中です。\nゲームも食べることも大好き。深夜のひとときに癒しをどうぞ。",
+      "catch": "どたばた元気なスーパーバーチャルわんこ🐾",
+      "intro": "ふんわりピンクのどたばたわんこVTuber、宇田わんです！！\n「生涯VTuber」を掲げ、YouTubeで配信しながらBackStageでも活動しています(Ｕ 'ᴗ' Ｕ)\nBackStageでは、日常のお話多めでみんなのことを教えてもらってます📞\nあなたもぜひお話しにきてねーーっ！！",
       "x_url": "https://x.com/uta_wanUo_oU",
       "portrait": "",
       "portraits": [
